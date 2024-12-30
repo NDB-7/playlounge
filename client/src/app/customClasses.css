@@ -1,0 +1,150 @@
+/* Nathan's Custom Classes */
+
+/* Animations */
+
+.blur-overlay {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+  animation: unblur 0.4s ease-out;
+  pointer-events: none;
+}
+
+.animate-pop-in {
+  transform-origin: top left;
+  animation: pop-in 0.1s ease-out;
+}
+
+@keyframes unblur {
+  0% {
+    backdrop-filter: blur(0.5rem);
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  100% {
+    backdrop-filter: blur(0);
+    background-color: none;
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    scale: 0.5;
+    opacity: 0.15;
+  }
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+/* Landing Page */
+
+/* --- Navbar --- */
+
+.hover-link {
+  position: relative;
+  transition: color 0.2s;
+}
+
+.hover-link::after {
+  position: absolute;
+  top: 90%;
+  left: 0%;
+  content: "";
+  width: 0%;
+  height: 0.125rem;
+  background-color: #06b6d4;
+  transition: width 0.2s;
+}
+
+.hover-link:hover {
+  color: #0891b2;
+}
+
+.hover-link:hover::after {
+  width: 100%;
+}
+
+/* --- Hero --- */
+
+.home-input {
+  width: 45rem;
+  max-width: 100%;
+  animation: input-anim 0.4s 0.6s ease-out backwards;
+}
+
+.bg-pattern {
+  background-image: url("/images/bg-pattern.svg");
+}
+
+.header-anim {
+  animation: header-anim 0.5s ease-out backwards;
+}
+
+.subheader-anim {
+  animation: subheader-anim 0.5s 0.3s ease-out backwards;
+}
+
+.fade-left {
+  animation: fade-left 0.6s 0.85s ease-out backwards;
+}
+
+.fade-right {
+  animation: fade-right 0.6s 0.85s ease-out backwards;
+}
+
+@keyframes header-anim {
+  0% {
+    transform: translateY(-1rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes subheader-anim {
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes input-anim {
+  0% {
+    scale: 0.9;
+    opacity: 0;
+  }
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-left {
+  0% {
+    transform: translateX(-2rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-right {
+  0% {
+    transform: translateX(4rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
