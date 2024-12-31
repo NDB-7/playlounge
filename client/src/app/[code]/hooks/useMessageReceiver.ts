@@ -17,7 +17,7 @@ export default function useMessageReceiver(
   }, []);
 
   useEffect(() => {
-    socket.on("receiveMessage", (message: ServerMessageType) => {
+    socket.on("chat:receiveMessage", (message: ServerMessageType) => {
       let newMessage: ClientMessageType;
       const { sender, content, serverNotification, sentAt, cache } = message;
       if (sender === currentUser) {
@@ -48,7 +48,7 @@ export default function useMessageReceiver(
     });
 
     return () => {
-      socket.off("receiveMessage");
+      socket.off("chat:receiveMessage");
     };
   }, [currentUser, mainRef]);
 

@@ -1,14 +1,20 @@
+import { Socket } from "socket.io";
 import { z } from "zod";
 import activeRoomsMap from "../../config/activeRoomsMap.js";
 import updateUserListForClients from "../../rooms/updateUserListForClients.js";
+import { ServerMessageType } from "../../types.js";
 import { io } from "../../index.js";
+
 const nameSchema = z.string().min(1).max(20);
-export default function nameEvent(socket) {
+
+export default function nameEvent(socket: Socket) {
   const id = socket.id;
-  socket.on("room:setName", (name, room, callback) => {
+
+  socket.on("room:setName", (name: string, room: string, callback) => {
     const { success, data } = nameSchema.safeParse(name.trim());
     const { sessionToUsersMap, activeSessionsMap, allUsersSet, messagesCache } =
       activeRoomsMap.get(room);
+
     if (success) {
       if (allUsersSet.has(data) || data === "You") {
         console.log(`User ${id} attempted to set their name to ${data}`);
@@ -24,15 +30,14 @@ export default function nameEvent(socket) {
         activeSessionsMap.set(id, sessionId);
         allUsersSet.add(data);
         socket.join(room);
-        messagesCache.forEach(msg => socket.emit("receiveMessage", msg));
+        messagesCache.forEach(msg => socket.emit("chat:receiveMessage", msg));
         updateUserListForClients(room);
-        const message = {
-          content: `${data} joined the chatroom.`,
+        const message: ServerMessageType = {
+          content: `${data} joined the game.`,
           serverNotification: true,
         };
-        io.to(room).emit("receiveMessage", message);
+        io.to(room).emit("chat:receiveMessage", message);
       }
     }
   });
 }
-//# sourceMappingURL=nameEvent.js.map

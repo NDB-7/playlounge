@@ -30,7 +30,7 @@ export default function disconnectEvent(socket: Socket) {
         content: `${name} left the game.`,
         serverNotification: true,
       };
-      io.to(code).emit("receiveMessage", message);
+      io.to(code).emit("chat:receiveMessage", message);
     } else console.log(`User ${id} disconnected.`);
   });
 }

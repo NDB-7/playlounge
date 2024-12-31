@@ -28,20 +28,25 @@ export default function SetNameDialog({
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (nameInput !== "") {
-      socket.emit("setName", nameInput, room, (response: SetNameResponse) => {
-        if (response.success === false) {
-          setNameError(response.message);
-        } else {
-          const { room, id } = response.session;
-          const sessionString = JSON.stringify({
-            room,
-            id,
-          });
-          localStorage.setItem("session", sessionString);
-          setSession({ room, id });
-          setCurrentUser(nameInput.trim());
+      socket.emit(
+        "room:setName",
+        nameInput,
+        room,
+        (response: SetNameResponse) => {
+          if (response.success === false) {
+            setNameError(response.message);
+          } else {
+            const { room, id } = response.session;
+            const sessionString = JSON.stringify({
+              room,
+              id,
+            });
+            localStorage.setItem("session", sessionString);
+            setSession({ room, id });
+            setCurrentUser(nameInput.trim());
+          }
         }
-      });
+      );
     }
   }
 

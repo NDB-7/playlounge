@@ -10,7 +10,7 @@ export default function InputBox({ session }: { session: SessionType }) {
   function handleMessageInput() {
     if (messageInput !== "")
       socket.emit(
-        "sendMessage",
+        "chat:sendMessage",
         messageInput,
         session,
         (rateLimited: boolean) => setRateLimited(rateLimited)

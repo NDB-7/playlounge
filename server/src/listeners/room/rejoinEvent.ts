@@ -7,7 +7,7 @@ import { ServerMessageType } from "../../types.js";
 export default function rejoinEvent(socket: Socket) {
   const id = socket.id;
 
-  socket.on("rejoin", (session, callback) => {
+  socket.on("room:rejoin", (session, callback) => {
     if (activeRoomsMap.has(session.room)) {
       const { sessionToUsersMap, activeSessionsMap, messagesCache } =
         activeRoomsMap.get(session.room);
@@ -27,12 +27,12 @@ export default function rejoinEvent(socket: Socket) {
             success: true,
             name: sessionToUsersMap.get(session.id),
           });
-          messagesCache.forEach(msg => socket.emit("receiveMessage", msg));
+          messagesCache.forEach(msg => socket.emit("chat:receiveMessage", msg));
           const message: ServerMessageType = {
             content: `${sessionToUsersMap.get(session.id)} rejoined the game.`,
             serverNotification: true,
           };
-          io.to(session.room).emit("receiveMessage", message);
+          io.to(session.room).emit("chat:receiveMessage", message);
         }
       } else {
         callback({ success: false });

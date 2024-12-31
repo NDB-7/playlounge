@@ -5,12 +5,12 @@ export default function useOnlineUsers() {
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
 
   useEffect(() => {
-    socket.on("updateUserList", onlineUserList => {
+    socket.on("room:updateUserList", onlineUserList => {
       setOnlineUsers(onlineUserList);
     });
 
     return () => {
-      socket.off("updateUserList");
+      socket.off("room:updateUserList");
     };
   }, []);
 

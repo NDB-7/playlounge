@@ -15,7 +15,7 @@ export default function useSession(
       sessionString && JSON.parse(sessionString);
 
     if (parsedSession && parsedSession.room === code) {
-      socket.emit("rejoin", parsedSession, (response: RejoinResponse) => {
+      socket.emit("room:rejoin", parsedSession, (response: RejoinResponse) => {
         if (response.success) {
           setCurrentUser(response.name);
           setSession(parsedSession);
