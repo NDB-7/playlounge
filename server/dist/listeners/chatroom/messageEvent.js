@@ -1,7 +1,7 @@
 import activeRoomsMap from "../../config/activeRoomsMap.js";
 import { z } from "zod";
 import { io } from "../../index.js";
-const messageSchema = z.string().min(1).max(1000);
+const messageSchema = z.string().min(1).max(150);
 export default function messageEvent(socket) {
     const id = socket.id;
     socket.on("sendMessage", (messageText, session, callback) => {

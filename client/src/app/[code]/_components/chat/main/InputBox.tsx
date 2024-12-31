@@ -22,7 +22,7 @@ export default function InputBox({ session }: { session: SessionType }) {
             className="ml-4 bg-transparent w-full outline-none pr-2"
             placeholder="Type to chat..."
             aria-label="Message input box"
-            maxLength={1000}
+            maxLength={150}
             value={messageInput}
             onChange={e => setMessageInput(e.target.value)}
           />

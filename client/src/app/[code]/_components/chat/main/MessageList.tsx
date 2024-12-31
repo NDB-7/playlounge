@@ -15,7 +15,7 @@ export default function MessageList({
 
   return (
     <ul
-      className="pt-8 min-h-[90vh] pb-9"
+      className="pt-8 min-h-[90vh] pb-6"
       aria-label="Chatroom conversation"
       aria-live="polite"
       tabIndex={0}

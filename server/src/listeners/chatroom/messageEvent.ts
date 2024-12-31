@@ -4,7 +4,7 @@ import { z } from "zod";
 import { ServerMessageType } from "../../types.js";
 import { io } from "../../index.js";
 
-const messageSchema = z.string().min(1).max(1000);
+const messageSchema = z.string().min(1).max(150);
 
 export default function messageEvent(socket: Socket) {
   const id = socket.id;
