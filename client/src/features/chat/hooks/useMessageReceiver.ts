@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useRef, useState } from "react";
-import socket from "../socket";
+import socket from "../../../lib/socket";
 import { ClientMessageType, ServerMessageType } from "../types";
 import { playAudio } from "@/utils/playAudio";
 
@@ -12,8 +12,8 @@ export default function useMessageReceiver(
   const receiveAudioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    sendAudioRef.current = new Audio("/sounds/send.mp3");
-    receiveAudioRef.current = new Audio("/sounds/receive.mp3");
+    sendAudioRef.current = new Audio("/sounds/chat/send.mp3");
+    receiveAudioRef.current = new Audio("/sounds/chat/receive.mp3");
   }, []);
 
   useEffect(() => {

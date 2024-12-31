@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { GameInfoType } from "../types";
+import { RoomInfoType } from "../types";
 
-export default function useGameInfo(code: string) {
-  const [gameInfo, setGameInfo] = useState<GameInfoType>();
+export default function useRoomInfo(code: string) {
+  const [roomInfo, setRoomInfo] = useState<RoomInfoType>();
 
   useEffect(() => {
     const abortController = new AbortController();
 
-    const getGameInfo = async () => {
+    const getRoomInfo = async () => {
       try {
         const resString = await fetch(
           process.env.NEXT_PUBLIC_SERVER_URL + `/rooms/${code}`,
@@ -15,19 +15,19 @@ export default function useGameInfo(code: string) {
             signal: abortController.signal,
           }
         );
-        const resData: GameInfoType = await resString.json();
-        setGameInfo(resData);
+        const resData: RoomInfoType = await resString.json();
+        setRoomInfo(resData);
       } catch {
-        setGameInfo({ success: false });
+        setRoomInfo({ success: false });
       }
     };
 
-    getGameInfo();
+    getRoomInfo();
 
     return () => {
       abortController.abort();
     };
   }, [code]);
 
-  return gameInfo;
+  return roomInfo;
 }

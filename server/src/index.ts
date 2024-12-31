@@ -1,6 +1,6 @@
-import rejoinEvent from "./listeners/connections/rejoinEvent.js";
+import rejoinEvent from "./listeners/room/rejoinEvent.js";
 import disconnectEvent from "./listeners/connections/disconnectEvent.js";
-import nameEvent from "./listeners/chat/nameEvent.js";
+import nameEvent from "./listeners/room/nameEvent.js";
 import messageEvent from "./listeners/chat/messageEvent.js";
 import { Server } from "socket.io";
 import express from "express";

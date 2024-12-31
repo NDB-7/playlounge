@@ -1,6 +1,7 @@
 import React, { SetStateAction, useEffect, useState } from "react";
-import { RejoinResponse, SessionType } from "../types";
-import socket from "../socket";
+import { SessionType } from "@/types";
+import socket from "../../../lib/socket";
+import { RejoinResponse } from "../types";
 
 export default function useSession(
   setCurrentUser: React.Dispatch<SetStateAction<string>>,

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SessionType } from "../../../types";
-import socket from "../../../socket";
+import socket from "../../../lib/socket";
 import { SendHorizontal } from "lucide-react";
 
 export default function InputBox({ session }: { session: SessionType }) {
@@ -23,7 +23,7 @@ export default function InputBox({ session }: { session: SessionType }) {
       <div className="sticky bottom-0 w-full p-2">
         <div className="flex items-center h-10 rounded-md bg-gray-50 justify-between border-2 border-gray-200">
           <div className="ml-4 bg-transparent w-full outline-none pr-2 text-gray-700">
-            Don't spam!
+            Don&apos;t spam!
           </div>
           <button
             className="bg-cyan-500 h-5/6 aspect-square rounded-md px-2 text-white mr-1 flex items-center justify-center hover:scale-105 transition-transform"

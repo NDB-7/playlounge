@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import { Message } from "./Message";
-import useMessageReceiver from "../../../hooks/useMessageReceiver";
+import useMessageReceiver from "../hooks/useMessageReceiver";
 
 export default function MessageList({
   currentUser,

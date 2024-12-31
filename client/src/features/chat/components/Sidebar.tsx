@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import MessageList from "../main/MessageList";
+import MessageList from "./MessageList";
 
 export function Sidebar({
   onlineUsers,

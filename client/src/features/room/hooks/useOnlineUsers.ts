@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import socket from "../socket";
+import socket from "../../../lib/socket";
 
 export default function useOnlineUsers() {
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);

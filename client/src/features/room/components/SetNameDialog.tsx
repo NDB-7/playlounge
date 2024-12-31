@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { SessionType, SetNameResponse } from "../../types";
+import { SessionType } from "../../../types";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import socket from "../../socket";
+import socket from "../../../lib/socket";
+import { SetNameResponse } from "../types";
 
 export default function SetNameDialog({
   setCurrentUser,

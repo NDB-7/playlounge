@@ -36,38 +36,3 @@ export type ServerMessageType =
       sentAt: number;
       cache?: boolean;
     };
-
-export type GameInfoType =
-  | {
-      success: true;
-      name: string;
-    }
-  | {
-      success: false;
-    };
-
-export type RejoinResponse =
-  | {
-      success: true;
-      name: string;
-    }
-  | {
-      success: false;
-      expired: boolean;
-      message?: string;
-    };
-
-export type SetNameResponse =
-  | {
-      success: true;
-      session: { room: string; id: string };
-    }
-  | {
-      success: false;
-      message: string;
-    };
-
-export type SessionType = {
-  room: string;
-  id: string;
-};

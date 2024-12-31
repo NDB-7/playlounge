@@ -2,15 +2,15 @@
 
 import { useState, use } from "react";
 import { notFound } from "next/navigation";
-import GameLoading from "./_components/info/GameLoading";
-import { SessionInUse } from "./_components/info/SessionInUse";
-import SetNameDialog from "./_components/dialogs/SetNameDialog";
-import InputBox from "./_components/chat/main/InputBox";
-import { Sidebar } from "./_components/chat/info/Sidebar";
-import GameInfo from "./_components/chat/info/GameInfo";
-import useGameInfo from "./hooks/useGameInfo";
-import useSession from "./hooks/useSession";
-import useOnlineUsers from "./hooks/useOnlineUsers";
+import GameLoading from "@/features/info/components/GameLoading";
+import { SessionInUse } from "@/features/info/components/SessionInUse";
+import SetNameDialog from "@/features/room/components/SetNameDialog";
+import InputBox from "@/features/chat/components/InputBox";
+import { Sidebar } from "@/features/chat/components/Sidebar";
+import RoomInfo from "@/features/room/components/RoomInfo";
+import useRoomInfo from "@/features/room/hooks/useRoomInfo";
+import useSession from "@/features/room/hooks/useSession";
+import useOnlineUsers from "@/features/room/hooks/useOnlineUsers";
 
 export default function RoomPage({
   params,
@@ -21,16 +21,16 @@ export default function RoomPage({
 
   const [currentUser, setCurrentUser] = useState("");
 
-  const gameInfo = useGameInfo(code);
+  const roomInfo = useRoomInfo(code);
   const onlineUsers = useOnlineUsers();
   const { sessionInUse, session, setSession } = useSession(
     setCurrentUser,
     code
   );
 
-  if (!gameInfo) return <GameLoading />;
+  if (!roomInfo) return <GameLoading />;
   if (sessionInUse) return <SessionInUse>{sessionInUse}</SessionInUse>;
-  if (!gameInfo.success) return notFound();
+  if (!roomInfo.success) return notFound();
   if (currentUser === "")
     return (
       <SetNameDialog
@@ -42,9 +42,9 @@ export default function RoomPage({
 
   return (
     <div className="fixed flex w-full h-full">
-      <title>{`${gameInfo.name} | QuickRoom`}</title>
+      <title>{`${roomInfo.name} | QuickRoom`}</title>
       <div className="blur-overlay" />
-      <GameInfo gameInfo={gameInfo} code={code} />
+      <RoomInfo roomInfo={roomInfo} code={code} />
       <main className="relative h-full flex-grow overflow-y-scroll overflow-x-hidden"></main>
       <Sidebar onlineUsers={onlineUsers} currentUser={currentUser}>
         {session && <InputBox session={session} />}

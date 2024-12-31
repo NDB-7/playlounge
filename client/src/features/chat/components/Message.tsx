@@ -1,5 +1,5 @@
-import formatTime from "@/utils/formatTime";
-import { ClientMessageType } from "../../../types";
+import formatTime from "@/features/chat/utils/formatTime";
+import { ClientMessageType } from "../types";
 
 export function Message({
   sentByMe,
