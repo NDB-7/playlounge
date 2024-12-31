@@ -11,7 +11,7 @@ export default function rejoinEvent(socket) {
                     callback({
                         success: false,
                         expired: false,
-                        message: "You already have an active session in this browser, please close it before attempting to open the chatroom again.",
+                        message: "You already have an active session in this browser, please close it before attempting to open the game again.",
                     });
                 else {
                     activeSessionsMap.set(id, session.id);
@@ -23,7 +23,7 @@ export default function rejoinEvent(socket) {
                     });
                     messagesCache.forEach(msg => socket.emit("receiveMessage", msg));
                     const message = {
-                        content: `${sessionToUsersMap.get(session.id)} rejoined the chatroom.`,
+                        content: `${sessionToUsersMap.get(session.id)} rejoined the game.`,
                         serverNotification: true,
                     };
                     io.to(session.room).emit("receiveMessage", message);
@@ -37,7 +37,7 @@ export default function rejoinEvent(socket) {
             callback({
                 success: false,
                 expired: true,
-                message: "This chatroom has expired.",
+                message: "This game has expired.",
             });
         }
     });

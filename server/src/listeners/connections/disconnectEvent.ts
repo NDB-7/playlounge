@@ -27,7 +27,7 @@ export default function disconnectEvent(socket: Socket) {
       activeSessionsMap.delete(id);
       updateUserListForClients(code);
       const message: ServerMessageType = {
-        content: `${name} left the chatroom.`,
+        content: `${name} left the game.`,
         serverNotification: true,
       };
       io.to(code).emit("receiveMessage", message);

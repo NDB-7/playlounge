@@ -1,7 +1,7 @@
 import rejoinEvent from "./listeners/connections/rejoinEvent.js";
 import disconnectEvent from "./listeners/connections/disconnectEvent.js";
-import nameEvent from "./listeners/chatroom/nameEvent.js";
-import messageEvent from "./listeners/chatroom/messageEvent.js";
+import nameEvent from "./listeners/chat/nameEvent.js";
+import messageEvent from "./listeners/chat/messageEvent.js";
 import { Server } from "socket.io";
 import express from "express";
 import http from "http";
