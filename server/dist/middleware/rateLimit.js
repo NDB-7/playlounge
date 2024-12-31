@@ -1,5 +1,5 @@
 const MESSAGE_LIMIT = 5;
-const TIME_WINDOW = 2500; // milliseconds
+const TIME_WINDOW = 2000; // milliseconds
 export const rateLimitMap = new Map();
 export default function rateLimit(id, callback, emit) {
     const now = Date.now();
