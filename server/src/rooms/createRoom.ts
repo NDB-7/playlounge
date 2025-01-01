@@ -10,6 +10,5 @@ export default function createRoom(code: string, name: string) {
     sessionToUsersMap: new Map<string, string>(),
     activeSessionsMap: new Map<string, string>(),
     allUsersSet: new Set<string>(),
-    messagesCache: [],
   });
 }

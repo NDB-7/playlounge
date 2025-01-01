@@ -19,10 +19,10 @@ export default function useMessageReceiver(
   useEffect(() => {
     socket.on("chat:receiveMessage", (message: ServerMessageType) => {
       let newMessage: ClientMessageType;
-      const { sender, content, serverNotification, sentAt, cache } = message;
+      const { sender, content, serverNotification, sentAt } = message;
       if (sender === currentUser) {
         newMessage = { sentByMe: true, sender, content, sentAt };
-        if (!cache) playAudio(sendAudioRef.current);
+        playAudio(sendAudioRef.current);
       } else {
         if (!serverNotification)
           newMessage = {
@@ -37,14 +37,13 @@ export default function useMessageReceiver(
             content,
             serverNotification,
           };
-        if (!cache) playAudio(receiveAudioRef.current);
+        playAudio(receiveAudioRef.current);
       }
       setMessages(prevState => [...prevState, newMessage]);
-      if (!cache)
-        mainRef.current?.scrollTo({
-          top: mainRef.current.scrollHeight,
-          behavior: "smooth",
-        });
+      mainRef.current?.scrollTo({
+        top: mainRef.current.scrollHeight,
+        behavior: "smooth",
+      });
     });
 
     return () => {

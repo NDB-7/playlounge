@@ -7,7 +7,6 @@ export type ActiveRoomType = {
   sessionToUsersMap: Map<string, string>;
   activeSessionsMap: Map<string, string>;
   allUsersSet: Set<string>;
-  messagesCache: ServerMessageType[];
 };
 
 export type ServerMessageType = {
@@ -15,5 +14,4 @@ export type ServerMessageType = {
   content: string;
   serverNotification: boolean;
   sentAt?: number;
-  cache?: boolean;
 };

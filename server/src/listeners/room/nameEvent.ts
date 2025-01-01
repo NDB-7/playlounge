@@ -12,7 +12,7 @@ export default function nameEvent(socket: Socket) {
 
   socket.on("room:setName", (name: string, room: string, callback) => {
     const { success, data } = nameSchema.safeParse(name.trim());
-    const { sessionToUsersMap, activeSessionsMap, allUsersSet, messagesCache } =
+    const { sessionToUsersMap, activeSessionsMap, allUsersSet } =
       activeRoomsMap.get(room);
 
     if (success) {
@@ -30,7 +30,6 @@ export default function nameEvent(socket: Socket) {
         activeSessionsMap.set(id, sessionId);
         allUsersSet.add(data);
         socket.join(room);
-        messagesCache.forEach(msg => socket.emit("chat:receiveMessage", msg));
         updateUserListForClients(room);
         const message: ServerMessageType = {
           content: `${data} joined the game.`,

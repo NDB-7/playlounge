@@ -7,7 +7,7 @@ export default function nameEvent(socket) {
     const id = socket.id;
     socket.on("room:setName", (name, room, callback) => {
         const { success, data } = nameSchema.safeParse(name.trim());
-        const { sessionToUsersMap, activeSessionsMap, allUsersSet, messagesCache } = activeRoomsMap.get(room);
+        const { sessionToUsersMap, activeSessionsMap, allUsersSet } = activeRoomsMap.get(room);
         if (success) {
             if (allUsersSet.has(data) || data === "You") {
                 console.log(`User ${id} attempted to set their name to ${data}`);
@@ -24,7 +24,6 @@ export default function nameEvent(socket) {
                 activeSessionsMap.set(id, sessionId);
                 allUsersSet.add(data);
                 socket.join(room);
-                messagesCache.forEach(msg => socket.emit("chat:receiveMessage", msg));
                 updateUserListForClients(room);
                 const message = {
                     content: `${data} joined the game.`,

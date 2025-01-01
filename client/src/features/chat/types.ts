@@ -27,12 +27,10 @@ export type ServerMessageType =
       content: string;
       serverNotification: true;
       sentAt?: undefined;
-      cache?: boolean;
     }
   | {
       sender: string;
       content: string;
       serverNotification: false;
       sentAt: number;
-      cache?: boolean;
     };

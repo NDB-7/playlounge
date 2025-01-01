@@ -9,7 +9,6 @@ export default function createRoom(code, name) {
         sessionToUsersMap: new Map(),
         activeSessionsMap: new Map(),
         allUsersSet: new Set(),
-        messagesCache: [],
     });
 }
 //# sourceMappingURL=createRoom.js.map

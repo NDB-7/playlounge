@@ -9,8 +9,9 @@ export default function rejoinEvent(socket: Socket) {
 
   socket.on("room:rejoin", (session, callback) => {
     if (activeRoomsMap.has(session.room)) {
-      const { sessionToUsersMap, activeSessionsMap, messagesCache } =
-        activeRoomsMap.get(session.room);
+      const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(
+        session.room
+      );
       if (sessionToUsersMap.has(session.id)) {
         if (new Set(activeSessionsMap.values()).has(session.id))
           callback({
@@ -27,7 +28,6 @@ export default function rejoinEvent(socket: Socket) {
             success: true,
             name: sessionToUsersMap.get(session.id),
           });
-          messagesCache.forEach(msg => socket.emit("chat:receiveMessage", msg));
           const message: ServerMessageType = {
             content: `${sessionToUsersMap.get(session.id)} rejoined the game.`,
             serverNotification: true,

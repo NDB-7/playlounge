@@ -8,7 +8,7 @@ export default function messageEvent(socket) {
     socket.on("chat:sendMessage", (messageText, session, callback) => {
         rateLimit(id, callback, () => {
             if (session) {
-                const { sessionToUsersMap, messagesCache } = activeRoomsMap.get(session.room);
+                const { sessionToUsersMap } = activeRoomsMap.get(session.room);
                 if (sessionToUsersMap.has(session.id)) {
                     const { success, data } = messageSchema.safeParse(messageText.trim());
                     if (success) {
@@ -21,10 +21,6 @@ export default function messageEvent(socket) {
                             sentAt: Date.now(),
                         };
                         io.to(session.room).emit("chat:receiveMessage", message);
-                        message.cache = true;
-                        messagesCache.push(message);
-                        if (messagesCache.length > 10)
-                            messagesCache.shift();
                     }
                 }
             }
