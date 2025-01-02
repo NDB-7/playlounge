@@ -15,4 +15,4 @@ function roomCleanup() {
   });
 }
 
-setInterval(roomCleanup, 5000);
+setInterval(roomCleanup, 30000);

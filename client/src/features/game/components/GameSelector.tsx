@@ -2,9 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Rocket } from "lucide-react";
 import { useState } from "react";
 import GameOption from "./GameOption";
+import useGameOptions from "../hooks/useGameOptions";
 
 export default function GameSelector() {
   const [selectedGame, setSelectedGame] = useState("");
+  const gameOptions = useGameOptions();
 
   return (
     <div className="px-8 pt-8 space-y-6">
@@ -15,15 +17,23 @@ export default function GameSelector() {
         </div>
         <p className="text-gray-700">Select a game to begin playing!</p>
       </div>
-      <ul className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
-        <GameOption
-          name="UNO"
-          description="A classic card game. Whoever clears their hand first wins, but don't
-        forget to declare UNO!"
-          selectedGame={selectedGame}
-          setSelectedGame={setSelectedGame}
-        />
-      </ul>
+      {gameOptions?.success ? (
+        <ul className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
+          {gameOptions.games.map(({ name, description }) => (
+            <GameOption
+              name={name}
+              description={description}
+              selected={name === selectedGame}
+              setSelectedGame={setSelectedGame}
+              key={name}
+            />
+          ))}
+        </ul>
+      ) : (
+        <p className="text-destructive">
+          Games could not be fetched from the server, try again later.
+        </p>
+      )}
       {selectedGame && (
         <Button>
           Start Game <Rocket />

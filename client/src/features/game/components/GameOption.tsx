@@ -3,20 +3,18 @@ import { SetStateAction } from "react";
 export default function GameOption({
   name,
   description,
-  selectedGame,
+  selected,
   setSelectedGame,
 }: {
   name: string;
   description: string;
-  selectedGame: string;
+  selected: boolean;
   setSelectedGame: React.Dispatch<SetStateAction<string>>;
 }) {
   return (
     <li
       className={`rounded-md border-2 p-4 hover:bg-gray-100 cursor-pointer ${
-        selectedGame === name
-          ? "bg-gray-100 border-gray-400 shadow-md"
-          : "bg-gray-50"
+        selected ? "bg-gray-100 border-gray-400 shadow-md" : "bg-gray-50"
       }`}
       role="button"
       aria-label={`Select game ${name}`}
