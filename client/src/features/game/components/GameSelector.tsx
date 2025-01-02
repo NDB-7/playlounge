@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Rocket } from "lucide-react";
+import { Rocket, RotateCw } from "lucide-react";
 import { useState } from "react";
 import GameOption from "./GameOption";
 import useGameOptions from "../hooks/useGameOptions";
 
 export default function GameSelector() {
   const [selectedGame, setSelectedGame] = useState("");
-  const gameOptions = useGameOptions();
+  const { gameOptions, fetchGames } = useGameOptions();
 
   return (
     <div className="px-8 pt-8 space-y-6">
@@ -30,9 +30,14 @@ export default function GameSelector() {
           ))}
         </ul>
       ) : (
-        <p className="text-destructive">
-          Games could not be fetched from the server, try again later.
-        </p>
+        <>
+          <p className="text-destructive">
+            Games could not be fetched from the server, try again later.
+          </p>
+          <Button>
+            Try again <RotateCw />
+          </Button>
+        </>
       )}
       {selectedGame && (
         <Button>

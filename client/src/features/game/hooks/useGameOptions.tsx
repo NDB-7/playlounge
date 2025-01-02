@@ -4,7 +4,7 @@ import { GameOptionsResponse } from "../types";
 export default function useGameOptions() {
   const [gameOptions, setGameOptions] = useState<GameOptionsResponse>();
 
-  useEffect(() => {
+  function fetchGames() {
     const abortController = new AbortController();
 
     const getGameOptions = async () => {
@@ -27,7 +27,9 @@ export default function useGameOptions() {
     return () => {
       abortController.abort();
     };
-  }, []);
+  }
 
-  return gameOptions;
+  useEffect(fetchGames, []);
+
+  return { gameOptions, fetchGames };
 }
