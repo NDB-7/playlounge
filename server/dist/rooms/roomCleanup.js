@@ -1,19 +1,12 @@
-import { io } from "../index.js";
 import activeRoomsMap from "../config/activeRoomsMap.js";
 function roomCleanup() {
     activeRoomsMap.forEach((room, code) => {
-        const { allUsersSet, data: { createdAt, expiresAt }, } = room;
+        const { activeSessionsMap, data: { createdAt }, } = room;
         const now = Date.now();
-        // Clear unused rooms after 10 minutes
-        if (now - createdAt > 600000 && allUsersSet.size === 0) {
+        // Clear unused rooms after 5 minutes
+        if (now - createdAt > 300000 && activeSessionsMap.size === 0) {
             activeRoomsMap.delete(code);
             console.log(`Deleted unused room (${code})`);
-        }
-        // Clear expired rooms
-        else if (expiresAt - now <= 0) {
-            io.to(code).emit("roomExpired");
-            activeRoomsMap.delete(code);
-            console.log(`Deleted expired room (${code})`);
         }
     });
 }

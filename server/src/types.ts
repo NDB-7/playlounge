@@ -2,7 +2,6 @@ export type ActiveRoomType = {
   data: {
     name: string;
     createdAt: number;
-    expiresAt: number;
   };
   sessionToUsersMap: Map<string, string>;
   activeSessionsMap: Map<string, string>;

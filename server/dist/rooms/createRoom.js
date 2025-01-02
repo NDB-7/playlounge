@@ -4,7 +4,6 @@ export default function createRoom(code, name) {
         data: {
             name,
             createdAt: Date.now(),
-            expiresAt: Date.now() + 3600000,
         },
         sessionToUsersMap: new Map(),
         activeSessionsMap: new Map(),
