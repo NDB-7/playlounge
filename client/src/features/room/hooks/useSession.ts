@@ -24,7 +24,7 @@ export default function useSession(
           if (response.message) {
             setSessionInUse(response.message);
           }
-          if (response.expired) {
+          if (response.inactive) {
             localStorage.removeItem("session");
           }
         }

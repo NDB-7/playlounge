@@ -6,7 +6,7 @@ import { z } from "zod";
 const roomNameSchema = z.string().min(1).max(30);
 
 export default function postRoom(req, res) {
-  const { success, data, error } = roomNameSchema.safeParse(req.body.name);
+  const { success, data } = roomNameSchema.safeParse(req.body.name);
 
   if (success) {
     const code = generateUniqueCode(activeRoomsMap);

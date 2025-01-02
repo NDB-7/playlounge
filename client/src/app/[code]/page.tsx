@@ -11,6 +11,7 @@ import RoomInfo from "@/features/room/components/RoomInfo";
 import useRoomInfo from "@/features/room/hooks/useRoomInfo";
 import useSession from "@/features/room/hooks/useSession";
 import useOnlineUsers from "@/features/room/hooks/useOnlineUsers";
+import GameSelector from "@/features/game/components/GameSelector";
 
 export default function RoomPage({
   params,
@@ -45,7 +46,9 @@ export default function RoomPage({
       <title>{`${roomInfo.name} | QuickRoom`}</title>
       <div className="blur-overlay" />
       <RoomInfo roomInfo={roomInfo} code={code} />
-      <main className="relative h-full flex-grow overflow-y-scroll overflow-x-hidden"></main>
+      <main className="relative h-full flex-grow overflow-hidden pt-12">
+        <GameSelector />
+      </main>
       <Sidebar onlineUsers={onlineUsers} currentUser={currentUser}>
         {session && <InputBox session={session} />}
       </Sidebar>

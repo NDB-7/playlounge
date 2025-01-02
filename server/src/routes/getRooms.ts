@@ -7,6 +7,7 @@ export default function getRooms(req, res) {
     res.send({
       success: true,
       name: room.data.name,
+      gamemode: room.data.gamemode,
     });
   } else {
     res.status(404).send({ success: false });

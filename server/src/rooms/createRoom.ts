@@ -5,9 +5,9 @@ export default function createRoom(code: string, name: string) {
     data: {
       name,
       createdAt: Date.now(),
+      gamemode: null,
     },
     sessionToUsersMap: new Map<string, string>(),
     activeSessionsMap: new Map<string, string>(),
-    allUsersSet: new Set<string>(),
   });
 }

@@ -15,7 +15,7 @@ export default function rejoinEvent(socket: Socket) {
       if (activeSessionsMap.size >= 4) {
         callback({
           success: false,
-          expired: false,
+          inactive: false,
           message: "This game is full.",
         });
         sessionToUsersMap.delete(session.id);
@@ -23,7 +23,7 @@ export default function rejoinEvent(socket: Socket) {
         if (new Set(activeSessionsMap.values()).has(session.id))
           callback({
             success: false,
-            expired: false,
+            inactive: false,
             message:
               "You already have an active session in this browser, please close it before attempting to open the game again.",
           });
@@ -47,8 +47,8 @@ export default function rejoinEvent(socket: Socket) {
     } else {
       callback({
         success: false,
-        expired: true,
-        message: "This game has expired.",
+        inactive: true,
+        message: "This game is no longer active.",
       });
     }
   });

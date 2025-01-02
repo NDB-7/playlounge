@@ -12,8 +12,7 @@ export default function nameEvent(socket: Socket) {
 
   socket.on("room:setName", (name: string, room: string, callback) => {
     const { success, data } = nameSchema.safeParse(name.trim());
-    const { sessionToUsersMap, activeSessionsMap, allUsersSet } =
-      activeRoomsMap.get(room);
+    const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(room);
 
     if (success) {
       if (activeSessionsMap.size >= 4) {
@@ -22,7 +21,10 @@ export default function nameEvent(socket: Socket) {
           success: false,
           message: "This game is full.",
         });
-      } else if (allUsersSet.has(data) || data === "You") {
+      } else if (
+        new Set(sessionToUsersMap.values()).has(data) ||
+        data === "You"
+      ) {
         console.log(
           `User ${id} attempted to set their name to ${data} in room ${room}`
         );
@@ -36,7 +38,6 @@ export default function nameEvent(socket: Socket) {
         callback({ success: true, session: { room, id: sessionId } });
         sessionToUsersMap.set(sessionId, data);
         activeSessionsMap.set(id, sessionId);
-        allUsersSet.add(data);
         socket.join(room);
         updateUserListForClients(room);
         const message: ServerMessageType = {
