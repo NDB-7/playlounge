@@ -12,7 +12,14 @@ export default function rejoinEvent(socket: Socket) {
       const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(
         session.room
       );
-      if (sessionToUsersMap.has(session.id)) {
+      if (activeSessionsMap.size >= 4) {
+        callback({
+          success: false,
+          expired: false,
+          message: "This game is full.",
+        });
+        sessionToUsersMap.delete(session.id);
+      } else if (sessionToUsersMap.has(session.id)) {
         if (new Set(activeSessionsMap.values()).has(session.id))
           callback({
             success: false,

@@ -9,15 +9,22 @@ export default function nameEvent(socket) {
         const { success, data } = nameSchema.safeParse(name.trim());
         const { sessionToUsersMap, activeSessionsMap, allUsersSet } = activeRoomsMap.get(room);
         if (success) {
-            if (allUsersSet.has(data) || data === "You") {
-                console.log(`User ${id} attempted to set their name to ${data}`);
+            if (activeSessionsMap.size >= 4) {
+                console.log(`User ${id} attempted to join full room ${room}`);
+                callback({
+                    success: false,
+                    message: "This game is full.",
+                });
+            }
+            else if (allUsersSet.has(data) || data === "You") {
+                console.log(`User ${id} attempted to set their name to ${data} in room ${room}`);
                 callback({
                     success: false,
                     message: "This name has already been used, try another one.",
                 });
             }
             else {
-                console.log(`User ${id} set their name to ${data}`);
+                console.log(`User ${id} set their name to ${data} in room ${room}`);
                 const sessionId = crypto.randomUUID();
                 callback({ success: true, session: { room, id: sessionId } });
                 sessionToUsersMap.set(sessionId, data);
