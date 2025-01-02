@@ -1,0 +1,1 @@
+{"version":3,"file":"getGames.js","sourceRoot":"","sources":["../../src/routes/getGames.ts"],"names":[],"mappings":"AAAA,OAAO,WAAW,MAAM,0BAA0B,CAAC;AAEnD,MAAM,CAAC,OAAO,UAAU,QAAQ,CAAC,CAAC,EAAE,GAAG;IACrC,GAAG,CAAC,IAAI,CAAC,EAAE,OAAO,EAAE,IAAI,EAAE,KAAK,EAAE,WAAW,EAAE,CAAC,CAAC;AAClD,CAAC"}
