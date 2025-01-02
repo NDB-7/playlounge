@@ -1,13 +1,13 @@
 import activeRoomsMap from "../config/activeRoomsMap.js";
+import { User } from "../types.js";
 
 export default function createRoom(code: string, name: string) {
   activeRoomsMap.set(code, {
     data: {
       name,
       createdAt: Date.now(),
-      gamemode: null,
     },
-    sessionToUsersMap: new Map<string, string>(),
+    sessionToUsersMap: new Map<string, User>(),
     activeSessionsMap: new Map<string, string>(),
   });
 }

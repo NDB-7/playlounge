@@ -4,6 +4,7 @@ import activeRoomsMap from "../../config/activeRoomsMap.js";
 import updateUserListForClients from "../../rooms/updateUserListForClients.js";
 import { ServerMessageType } from "../../types.js";
 import { io } from "../../index.js";
+import mapHasValue from "../../utils/mapHasValue.js";
 
 const nameSchema = z.string().min(1).max(20);
 
@@ -22,7 +23,8 @@ export default function nameEvent(socket: Socket) {
           message: "This game is full.",
         });
       } else if (
-        new Set(sessionToUsersMap.values()).has(data) ||
+        mapHasValue(sessionToUsersMap, { name: data, role: "owner" }) ||
+        mapHasValue(sessionToUsersMap, { name: data, role: "player" }) ||
         data === "You"
       ) {
         console.log(
@@ -36,7 +38,9 @@ export default function nameEvent(socket: Socket) {
         console.log(`User ${id} set their name to ${data} in room ${room}`);
         const sessionId = crypto.randomUUID();
         callback({ success: true, session: { room, id: sessionId } });
-        sessionToUsersMap.set(sessionId, data);
+        const role = activeSessionsMap.size === 0 ? "owner" : "player";
+        console.log(`${data} is ${role} in room ${room}`);
+        sessionToUsersMap.set(sessionId, { name: data, role });
         activeSessionsMap.set(id, sessionId);
         socket.join(room);
         updateUserListForClients(room);

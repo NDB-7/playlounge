@@ -1,6 +1,7 @@
 import activeRoomsMap from "../../config/activeRoomsMap.js";
 import updateUserListForClients from "../../rooms/updateUserListForClients.js";
 import { io } from "../../index.js";
+import mapHasValue from "../../utils/mapHasValue.js";
 export default function rejoinEvent(socket) {
     const id = socket.id;
     socket.on("room:rejoin", (session, callback) => {
@@ -15,7 +16,7 @@ export default function rejoinEvent(socket) {
                 sessionToUsersMap.delete(session.id);
             }
             else if (sessionToUsersMap.has(session.id)) {
-                if (new Set(activeSessionsMap.values()).has(session.id))
+                if (mapHasValue(activeSessionsMap, session.id))
                     callback({
                         success: false,
                         inactive: false,
@@ -27,10 +28,10 @@ export default function rejoinEvent(socket) {
                     updateUserListForClients(session.room);
                     callback({
                         success: true,
-                        name: sessionToUsersMap.get(session.id),
+                        name: sessionToUsersMap.get(session.id).name,
                     });
                     const message = {
-                        content: `${sessionToUsersMap.get(session.id)} rejoined the game.`,
+                        content: `${sessionToUsersMap.get(session.id).name} rejoined the game.`,
                         serverNotification: true,
                     };
                     io.to(session.room).emit("chat:receiveMessage", message);

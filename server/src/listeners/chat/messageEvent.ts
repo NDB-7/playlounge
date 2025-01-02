@@ -17,7 +17,7 @@ export default function messageEvent(socket: Socket) {
         if (sessionToUsersMap.has(session.id)) {
           const { success, data } = messageSchema.safeParse(messageText.trim());
           if (success) {
-            const name = sessionToUsersMap.get(session.id);
+            const { name } = sessionToUsersMap.get(session.id);
             console.log(`User ${id} (${name}) said ${data}`);
             const message: ServerMessageType = {
               sender: name,

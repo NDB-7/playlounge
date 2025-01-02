@@ -4,7 +4,6 @@ export default function createRoom(code, name) {
         data: {
             name,
             createdAt: Date.now(),
-            gamemode: null,
         },
         sessionToUsersMap: new Map(),
         activeSessionsMap: new Map(),

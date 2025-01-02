@@ -22,9 +22,19 @@ export default function disconnectEvent(socket: Socket) {
       const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(code);
 
       const sessionId = activeSessionsMap.get(id);
-      const name = sessionToUsersMap.get(sessionId);
+      const { name, role } = sessionToUsersMap.get(sessionId);
       console.log(`User ${id} (${name}) disconnected.`);
       activeSessionsMap.delete(id);
+      // Promote first user in the room when the owner leaves
+      if (role === "owner" && activeSessionsMap.size > 0) {
+        const firstUserSessionId = activeSessionsMap.values().next().value;
+        const newOwnerName = sessionToUsersMap.get(firstUserSessionId).name;
+        sessionToUsersMap.set(firstUserSessionId, {
+          name: newOwnerName,
+          role: "owner",
+        });
+        console.log(`${newOwnerName} is now owner in room ${code}`);
+      }
       updateUserListForClients(code);
       const message: ServerMessageType = {
         content: `${name} left the game.`,
