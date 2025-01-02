@@ -34,7 +34,7 @@ export default function GameSelector() {
           <p className="text-destructive">
             Games could not be fetched from the server, try again later.
           </p>
-          <Button>
+          <Button onClick={fetchGames}>
             Try again <RotateCw />
           </Button>
         </>

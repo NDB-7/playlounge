@@ -1,7 +1,6 @@
 export type ActiveRoomType = {
   data: {
     name: string;
-    gamemode: null | "uno";
     createdAt: number;
   };
   sessionToUsersMap: Map<string, string>;
