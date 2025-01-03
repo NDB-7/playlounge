@@ -3,8 +3,9 @@ import { Rocket, RotateCw } from "lucide-react";
 import { useState } from "react";
 import GameOption from "./GameOption";
 import useGameOptions from "../hooks/useGameOptions";
+import GameOptionStatic from "./GameOptionStatic";
 
-export default function GameSelector() {
+export default function GameSelector({ isOwner }: { isOwner: boolean }) {
   const [selectedGame, setSelectedGame] = useState("");
   const { gameOptions, fetchGames } = useGameOptions();
 
@@ -15,19 +16,31 @@ export default function GameSelector() {
           <h2 className="font-bold">What would you like to play?</h2>
           <span>🎮</span>
         </div>
-        <p className="text-gray-700">Select a game to begin playing!</p>
+        <p className="text-gray-700">
+          {isOwner
+            ? "Select a game to begin playing!"
+            : "Only the owner can choose a game, but feel free to view the options!"}
+        </p>
       </div>
       {gameOptions?.success ? (
         <ul className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2">
-          {gameOptions.games.map(({ name, description }) => (
-            <GameOption
-              name={name}
-              description={description}
-              selected={name === selectedGame}
-              setSelectedGame={setSelectedGame}
-              key={name}
-            />
-          ))}
+          {gameOptions.games.map(({ name, description }) =>
+            isOwner ? (
+              <GameOption
+                name={name}
+                description={description}
+                selected={name === selectedGame}
+                setSelectedGame={setSelectedGame}
+                key={name}
+              />
+            ) : (
+              <GameOptionStatic
+                name={name}
+                description={description}
+                key={name}
+              />
+            )
+          )}
         </ul>
       ) : (
         <>
@@ -39,7 +52,7 @@ export default function GameSelector() {
           </Button>
         </>
       )}
-      {selectedGame && (
+      {selectedGame && isOwner && (
         <Button>
           Start Game <Rocket />
         </Button>

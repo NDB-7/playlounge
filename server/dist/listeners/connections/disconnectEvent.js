@@ -27,6 +27,7 @@ export default function disconnectEvent(socket) {
                     role: "owner",
                 });
                 console.log(`${newOwnerName} is now owner in room ${code}`);
+                io.to(code).emit("room:ownerChange", newOwnerName);
             }
             updateUserListForClients(code);
             const message = {

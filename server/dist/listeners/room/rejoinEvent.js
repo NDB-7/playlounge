@@ -5,8 +5,9 @@ import mapHasValue from "../../utils/mapHasValue.js";
 export default function rejoinEvent(socket) {
     const id = socket.id;
     socket.on("room:rejoin", (session, callback) => {
-        if (activeRoomsMap.has(session.room)) {
-            const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(session.room);
+        const { room } = session;
+        if (activeRoomsMap.has(room)) {
+            const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(room);
             if (activeSessionsMap.size >= 4) {
                 callback({
                     success: false,
@@ -23,18 +24,24 @@ export default function rejoinEvent(socket) {
                         message: "You already have an active session in this browser, please close it before attempting to open the game again.",
                     });
                 else {
+                    const { name } = sessionToUsersMap.get(session.id);
                     activeSessionsMap.set(id, session.id);
-                    socket.join(session.room);
-                    updateUserListForClients(session.room);
+                    socket.join(room);
+                    if (activeSessionsMap.size === 1) {
+                        sessionToUsersMap.set(session.id, { name, role: "owner" });
+                        io.to(room).emit("room:ownerChange", name);
+                        console.log(`${name} rejoined and is owner in room ${room}`);
+                    }
+                    updateUserListForClients(room);
                     callback({
                         success: true,
-                        name: sessionToUsersMap.get(session.id).name,
+                        name,
                     });
                     const message = {
                         content: `${sessionToUsersMap.get(session.id).name} rejoined the game.`,
                         serverNotification: true,
                     };
-                    io.to(session.room).emit("chat:receiveMessage", message);
+                    io.to(room).emit("chat:receiveMessage", message);
                 }
             }
             else {

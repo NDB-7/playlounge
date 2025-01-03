@@ -12,6 +12,7 @@ import useRoomInfo from "@/features/room/hooks/useRoomInfo";
 import useSession from "@/features/room/hooks/useSession";
 import useOnlineUsers from "@/features/room/hooks/useOnlineUsers";
 import GameSelector from "@/features/game/components/GameSelector";
+import useOwner from "@/features/room/hooks/useOwner";
 
 export default function RoomPage({
   params,
@@ -28,6 +29,7 @@ export default function RoomPage({
     setCurrentUser,
     code
   );
+  const owner = useOwner();
 
   if (!roomInfo) return <GameLoading />;
   if (sessionInUse) return <SessionInUse>{sessionInUse}</SessionInUse>;
@@ -47,7 +49,7 @@ export default function RoomPage({
       <div className="blur-overlay" />
       <RoomInfo roomInfo={roomInfo} code={code} />
       <main className="relative h-full flex-grow overflow-hidden pt-12">
-        <GameSelector />
+        <GameSelector isOwner={owner === currentUser} />
       </main>
       <Sidebar onlineUsers={onlineUsers} currentUser={currentUser}>
         {session && <InputBox session={session} />}

@@ -43,6 +43,7 @@ export default function nameEvent(socket: Socket) {
         sessionToUsersMap.set(sessionId, { name: data, role });
         activeSessionsMap.set(id, sessionId);
         socket.join(room);
+        if (role === "owner") io.to(room).emit("room:ownerChange", data);
         updateUserListForClients(room);
         const message: ServerMessageType = {
           content: `${data} joined the game.`,
