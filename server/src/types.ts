@@ -5,7 +5,7 @@ export type ActiveRoomType = {
   };
   sessionToUsersMap: Map<string, User>;
   activeSessionsMap: Map<string, string>;
-  game?: Game;
+  game: Game;
 };
 
 type Game =
@@ -17,8 +17,10 @@ type Game =
 
 export type User = {
   name: string;
-  role: "player" | "owner" | "spectator";
+  role: UserRole;
 };
+
+export type UserRole = "player" | "owner" | "spectator";
 
 export type ServerMessageType = {
   sender?: string;

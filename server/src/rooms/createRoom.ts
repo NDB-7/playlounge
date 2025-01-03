@@ -9,5 +9,9 @@ export default function createRoom(code: string, name: string) {
     },
     sessionToUsersMap: new Map<string, User>(),
     activeSessionsMap: new Map<string, string>(),
+    game: {
+      mode: null,
+      state: "waiting",
+    },
   });
 }
