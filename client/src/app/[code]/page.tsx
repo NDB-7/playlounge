@@ -49,7 +49,9 @@ export default function RoomPage({
       <div className="blur-overlay" />
       <RoomInfo roomInfo={roomInfo} code={code} />
       <main className="relative h-full flex-grow overflow-hidden pt-12">
-        <GameSelector isOwner={owner === currentUser} />
+        {session && (
+          <GameSelector isOwner={owner === currentUser} session={session} />
+        )}
       </main>
       <Sidebar onlineUsers={onlineUsers} currentUser={currentUser}>
         {session && <InputBox session={session} />}

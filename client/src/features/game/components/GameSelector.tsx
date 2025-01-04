@@ -4,8 +4,16 @@ import { useState } from "react";
 import GameOption from "./GameOption";
 import useGameOptions from "../hooks/useGameOptions";
 import GameOptionStatic from "./GameOptionStatic";
+import socket from "@/lib/socket";
+import { SessionType } from "@/types";
 
-export default function GameSelector({ isOwner }: { isOwner: boolean }) {
+export default function GameSelector({
+  isOwner,
+  session,
+}: {
+  isOwner: boolean;
+  session: SessionType;
+}) {
   const [selectedGame, setSelectedGame] = useState("");
   const { gameOptions, fetchGames } = useGameOptions();
 
@@ -53,7 +61,9 @@ export default function GameSelector({ isOwner }: { isOwner: boolean }) {
         </>
       )}
       {selectedGame && isOwner && (
-        <Button>
+        <Button
+          onClick={() => socket.emit("game:startGame", session, selectedGame)}
+        >
           Start Game <Rocket />
         </Button>
       )}

@@ -9,13 +9,13 @@ const nameSchema = z.string().min(1).max(20);
 export default function nameEvent(socket: Socket) {
   const id = socket.id;
 
-  socket.on("room:setName", (baseName: string, room: string, callback) => {
+  socket.on("room:setName", (baseName: string, code: string, callback) => {
     const { success, data: name } = nameSchema.safeParse(baseName.trim());
-    const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(room);
+    const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(code);
 
     if (success) {
       if (activeSessionsMap.size >= 4) {
-        console.log(`User ${id} attempted to join full room ${room}`);
+        console.log(`User ${id} attempted to join full room ${code}`);
         callback({
           success: false,
           message: "This game is full.",
@@ -26,7 +26,7 @@ export default function nameEvent(socket: Socket) {
         name === "You"
       ) {
         console.log(
-          `User ${id} attempted to set their name to ${name} in room ${room}`
+          `User ${id} attempted to set their name to ${name} in room ${code}`
         );
         callback({
           success: false,
@@ -34,8 +34,8 @@ export default function nameEvent(socket: Socket) {
         });
       } else {
         const sessionId = crypto.randomUUID();
-        callback({ success: true, session: { room, id: sessionId } });
-        joinRoom(name, room, socket, sessionId);
+        callback({ success: true, session: { room: code, id: sessionId } });
+        joinRoom(name, code, socket, sessionId);
       }
     }
   });

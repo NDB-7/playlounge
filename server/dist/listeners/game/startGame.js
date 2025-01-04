@@ -11,6 +11,7 @@ export default function startGame(socket) {
                 gameOptions.some(item => item.name === gamemode)) {
                 console.log(`User ${id} (${user.name}) started game ${gamemode}`);
                 io.to(session.room).emit("game:gameStarted");
+                room.game.state = "active";
             }
         }
     });

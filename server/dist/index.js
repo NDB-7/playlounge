@@ -7,6 +7,7 @@ import express from "express";
 import http from "http";
 import cors from "cors";
 import router from "./routes/router.js";
+import startGameEvent from "./listeners/game/startGameEvent.js";
 const PORT = process.env.PORT || 4444;
 export const app = express();
 const server = http.createServer(app);
@@ -26,6 +27,7 @@ io.on("connection", socket => {
     disconnectEvent(socket);
     nameEvent(socket);
     messageEvent(socket);
+    startGameEvent(socket);
 });
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 //# sourceMappingURL=index.js.map

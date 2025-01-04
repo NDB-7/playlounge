@@ -8,12 +8,10 @@ export type ActiveRoomType = {
   game: Game;
 };
 
-type Game =
-  | {
-      mode: string;
-      state: "active" | "finished";
-    }
-  | { mode: null; state: "waiting" };
+type Game = {
+  mode: string | null;
+  state: "active" | "finished" | "waiting";
+};
 
 export type User = {
   name: string;

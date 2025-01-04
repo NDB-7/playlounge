@@ -3,9 +3,9 @@ import mapHasValue from "../../utils/mapHasValue.js";
 import joinRoom from "../../rooms/joinRoom.js";
 export default function rejoinEvent(socket) {
     socket.on("room:rejoin", (session, callback) => {
-        const { room } = session;
-        if (activeRoomsMap.has(room)) {
-            const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(room);
+        const { room: code } = session;
+        if (activeRoomsMap.has(code)) {
+            const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(code);
             if (activeSessionsMap.size >= 4) {
                 callback({
                     success: false,
@@ -23,11 +23,11 @@ export default function rejoinEvent(socket) {
                     });
                 else {
                     const { name } = sessionToUsersMap.get(session.id);
-                    joinRoom(name, room, socket, session.id);
                     callback({
                         success: true,
                         name,
                     });
+                    joinRoom(name, code, socket, session.id);
                 }
             }
             else {

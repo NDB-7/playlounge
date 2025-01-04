@@ -5,10 +5,10 @@ import joinRoom from "../../rooms/joinRoom.js";
 
 export default function rejoinEvent(socket: Socket) {
   socket.on("room:rejoin", (session, callback) => {
-    const { room } = session;
+    const { room: code } = session;
 
-    if (activeRoomsMap.has(room)) {
-      const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(room);
+    if (activeRoomsMap.has(code)) {
+      const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(code);
       if (activeSessionsMap.size >= 4) {
         callback({
           success: false,
@@ -26,11 +26,11 @@ export default function rejoinEvent(socket: Socket) {
           });
         else {
           const { name } = sessionToUsersMap.get(session.id);
-          joinRoom(name, room, socket, session.id);
           callback({
             success: true,
             name,
           });
+          joinRoom(name, code, socket, session.id);
         }
       } else {
         callback({ success: false });
