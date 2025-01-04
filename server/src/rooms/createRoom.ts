@@ -12,6 +12,7 @@ export default function createRoom(code: string, name: string) {
     game: {
       mode: null,
       state: "waiting",
+      gameData: null,
     },
   });
 }

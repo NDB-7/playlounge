@@ -1,3 +1,5 @@
+import { GameData } from "./config/gameDataTypes.js";
+
 export type ActiveRoomType = {
   data: {
     name: string;
@@ -11,6 +13,7 @@ export type ActiveRoomType = {
 type Game = {
   mode: string | null;
   state: "active" | "finished" | "waiting";
+  gameData: GameData;
 };
 
 export type User = {

@@ -6,8 +6,10 @@ export default function startGame(code, gamemode) {
         return;
     game.mode = gamemode;
     game.state = "active";
-    const { state, mode } = game;
-    io.to(code).emit("game:gameStateChanged", { state, mode });
+    io.to(code).emit("game:gameStateChanged", {
+        state: "active",
+        mode: gamemode,
+    });
     io.to(code).emit("chat:receiveMessage", {
         content: `A game of ${gamemode} has begun!`,
         serverNotification: true,
