@@ -18,7 +18,7 @@ export default function GameSelector({
   const { gameOptions, fetchGames } = useGameOptions();
 
   return (
-    <div className="px-8 pt-8 space-y-6">
+    <div className="px-8 pt-8 space-y-6 absolute">
       <div className="space-y-2">
         <div className="flex gap-3 items-center text-2xl">
           <h2 className="font-bold">What would you like to play?</h2>

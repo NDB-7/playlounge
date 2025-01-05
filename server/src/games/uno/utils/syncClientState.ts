@@ -1,0 +1,41 @@
+import { Socket } from "socket.io";
+import activeRoomsMap from "../../../config/activeRoomsMap.js";
+import { io } from "../../../index.js";
+import { UnoClientState } from "../types.js";
+
+export default function syncClientState(code: string) {
+  const {
+    game: { gameData },
+    activeSessionsMap,
+  } = activeRoomsMap.get(code);
+  const { players, lastCard, turn } = gameData;
+
+  const whoseTurn = players[turn].name;
+
+  players.forEach((player, index) => {
+    let socket: Socket;
+
+    activeSessionsMap.forEach((sessionId, socketId) => {
+      if (sessionId === player.id) socket = io.sockets.sockets.get(socketId);
+    });
+
+    if (socket) {
+      const otherPlayers = players.map(otherPlayer => {
+        if (otherPlayer.id !== player.id)
+          return {
+            name: otherPlayer.name,
+            cardCount: otherPlayer.cards.length,
+          };
+      });
+
+      const clientState: UnoClientState = {
+        otherPlayers,
+        lastCard,
+        cards: player.cards,
+        whoseTurn,
+      };
+
+      socket.emit("uno:updateState", clientState);
+    }
+  });
+}

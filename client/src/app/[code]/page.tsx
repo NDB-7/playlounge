@@ -13,6 +13,8 @@ import useSession from "@/features/room/hooks/useSession";
 import useOnlineUsers from "@/features/room/hooks/useOnlineUsers";
 import GameSelector from "@/features/game/components/GameSelector";
 import useOwner from "@/features/room/hooks/useOwner";
+import useGameState from "@/features/game/hooks/useGameState";
+import UnoGame from "@/features/games/uno/components/UnoGame";
 
 export default function RoomPage({
   params,
@@ -24,12 +26,16 @@ export default function RoomPage({
   const [currentUser, setCurrentUser] = useState("");
 
   const roomInfo = useRoomInfo(code);
-  const onlineUsers = useOnlineUsers();
   const { sessionInUse, session, setSession } = useSession(
     setCurrentUser,
     code
   );
+  const onlineUsers = useOnlineUsers();
   const owner = useOwner();
+  const gameState = useGameState();
+  const gameComponents: { [key: string]: React.ReactNode | null } = {
+    UNO: <UnoGame />,
+  };
 
   if (!roomInfo) return <GameLoading />;
   if (sessionInUse) return <SessionInUse>{sessionInUse}</SessionInUse>;
@@ -49,8 +55,10 @@ export default function RoomPage({
       <div className="blur-overlay" />
       <RoomInfo roomInfo={roomInfo} code={code} />
       <main className="relative h-full flex-grow overflow-hidden pt-12">
-        {session && (
+        {session && gameState?.state === "waiting" ? (
           <GameSelector isOwner={owner === currentUser} session={session} />
+        ) : (
+          gameState?.mode && gameComponents[gameState.mode]
         )}
       </main>
       <Sidebar onlineUsers={onlineUsers} currentUser={currentUser}>

@@ -1,4 +1,4 @@
-import { GameData } from "./config/gameDataTypes.js";
+import { UnoGameData } from "./games/uno/types.js";
 
 export type ActiveRoomType = {
   data: {
@@ -13,7 +13,7 @@ export type ActiveRoomType = {
 type Game = {
   mode: string | null;
   state: "active" | "finished" | "waiting";
-  gameData: GameData;
+  gameData: null | UnoGameData;
 };
 
 export type User = {

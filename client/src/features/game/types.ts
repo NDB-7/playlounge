@@ -6,3 +6,8 @@ export type GameOptionsResponse =
   | {
       success: false;
     };
+
+export type GameState = {
+  mode: string | null;
+  state: "active" | "finished" | "waiting";
+};

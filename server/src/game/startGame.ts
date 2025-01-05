@@ -1,8 +1,10 @@
 import activeRoomsMap from "../config/activeRoomsMap.js";
+import initUno from "../games/uno/initUno.js";
 import { io } from "../index.js";
 
 export default function startGame(code: string, gamemode: string) {
-  const { game } = activeRoomsMap.get(code);
+  const room = activeRoomsMap.get(code);
+  const game = room.game;
 
   if (game.state !== "waiting") return;
 
@@ -17,4 +19,6 @@ export default function startGame(code: string, gamemode: string) {
     content: `A game of ${gamemode} has begun!`,
     serverNotification: true,
   });
+
+  if (game.mode === "UNO") initUno(code);
 }

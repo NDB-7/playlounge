@@ -23,3 +23,13 @@ type WildCard = {
   color: Colors & "none";
   face: WildCardFace;
 };
+
+export type UnoClientState = {
+  otherPlayers: {
+    name: string;
+    cardCount: number;
+  }[];
+  lastCard: Card | WildCard;
+  cards: (Card | WildCard)[];
+  whoseTurn: string;
+};
