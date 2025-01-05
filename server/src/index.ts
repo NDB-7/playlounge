@@ -8,6 +8,8 @@ import http from "http";
 import cors from "cors";
 import router from "./routes/router.js";
 import startGameEvent from "./listeners/game/startGameEvent.js";
+import unoCardEvent from "./listeners/uno/unoCardEvent.js";
+import unoDrawCardEvent from "./listeners/uno/unoDrawCardEvent.js";
 
 const PORT = process.env.PORT || 4444;
 
@@ -33,6 +35,12 @@ io.on("connection", socket => {
   nameEvent(socket);
   messageEvent(socket);
   startGameEvent(socket);
+
+  // -- Games -- \\
+
+  // UNO
+  unoCardEvent(socket);
+  unoDrawCardEvent(socket);
 });
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));

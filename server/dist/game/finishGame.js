@@ -5,8 +5,8 @@ export default function finishGame(code, winner) {
     if (game.state !== "active")
         return;
     game.state = "finished";
-    const { mode, gameData } = game;
-    // Check game data for player scores later!
+    game.gameData = null;
+    const { mode } = game;
     io.to(code).emit("game:gameStateChanged", { state: "finished", mode });
     // Emit game rankings later!
     io.to(code).emit("chat:receiveMessage", {

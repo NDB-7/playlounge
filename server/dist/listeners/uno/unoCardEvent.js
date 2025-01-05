@@ -3,7 +3,6 @@ import syncClientState from "../../games/uno/utils/syncClientState.js";
 import findNextTurn from "../../games/uno/utils/findNextTurn.js";
 import finishGame from "../../game/finishGame.js";
 export default function unoCardEvent(socket) {
-    const id = socket.id;
     socket.on("uno:placeCard", (session, card, newColor) => {
         if (session) {
             const code = session.room;

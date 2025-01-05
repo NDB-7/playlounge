@@ -6,8 +6,6 @@ import findNextTurn from "../../games/uno/utils/findNextTurn.js";
 import finishGame from "../../game/finishGame.js";
 
 export default function unoCardEvent(socket: Socket) {
-  const id = socket.id;
-
   socket.on(
     "uno:placeCard",
     (session, card: Card | WildCard, newColor?: Colors) => {
