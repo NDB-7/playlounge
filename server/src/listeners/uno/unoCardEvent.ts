@@ -4,6 +4,7 @@ import { Card, Colors, UnoPlayer, WildCard } from "../../games/uno/types.js";
 import syncClientState from "../../games/uno/utils/syncClientState.js";
 import findNextTurn from "../../games/uno/utils/findNextTurn.js";
 import finishGame from "../../game/finishGame.js";
+import randomCard from "../../games/uno/utils/randomCard.js";
 
 export default function unoCardEvent(socket: Socket) {
   socket.on(
@@ -14,11 +15,12 @@ export default function unoCardEvent(socket: Socket) {
         const {
           game: { mode, state, gameData },
         } = activeRoomsMap.get(code);
+        const { players } = gameData;
 
         if (state === "active" && mode === "UNO") {
           let player: UnoPlayer;
 
-          gameData.players.forEach(plr => {
+          players.forEach(plr => {
             if (plr.id === session.id) player = plr;
           });
 
@@ -26,7 +28,7 @@ export default function unoCardEvent(socket: Socket) {
             const cardIndex = findPlayerCard(player, card);
 
             if (
-              gameData.players[gameData.turn] === player &&
+              players[gameData.turn] === player &&
               cardIndex >= 0 &&
               checkLegalMove(card, gameData.lastCard)
             ) {
@@ -38,6 +40,14 @@ export default function unoCardEvent(socket: Socket) {
                   card.color = newColor;
                 gameData.lastCard = card;
                 gameData.turn = findNextTurn(gameData, card);
+                if (card.face === "+2" || card.face === "+4") {
+                  const victim = players[gameData.turn];
+                  victim.cards.fill(
+                    randomCard(true),
+                    victim.cards.length,
+                    card.face === "+2" ? -2 : -4
+                  );
+                }
                 syncClientState(code);
               }
             }

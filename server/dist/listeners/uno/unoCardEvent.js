@@ -2,20 +2,22 @@ import activeRoomsMap from "../../config/activeRoomsMap.js";
 import syncClientState from "../../games/uno/utils/syncClientState.js";
 import findNextTurn from "../../games/uno/utils/findNextTurn.js";
 import finishGame from "../../game/finishGame.js";
+import randomCard from "../../games/uno/utils/randomCard.js";
 export default function unoCardEvent(socket) {
     socket.on("uno:placeCard", (session, card, newColor) => {
         if (session) {
             const code = session.room;
             const { game: { mode, state, gameData }, } = activeRoomsMap.get(code);
+            const { players } = gameData;
             if (state === "active" && mode === "UNO") {
                 let player;
-                gameData.players.forEach(plr => {
+                players.forEach(plr => {
                     if (plr.id === session.id)
                         player = plr;
                 });
                 if (player) {
                     const cardIndex = findPlayerCard(player, card);
-                    if (gameData.players[gameData.turn] === player &&
+                    if (players[gameData.turn] === player &&
                         cardIndex >= 0 &&
                         checkLegalMove(card, gameData.lastCard)) {
                         player.cards.splice(cardIndex, 1);
@@ -27,6 +29,10 @@ export default function unoCardEvent(socket) {
                                 card.color = newColor;
                             gameData.lastCard = card;
                             gameData.turn = findNextTurn(gameData, card);
+                            if (card.face === "+2" || card.face === "+4") {
+                                const victim = players[gameData.turn];
+                                victim.cards.fill(randomCard(true), victim.cards.length, card.face === "+2" ? -2 : -4);
+                            }
                             syncClientState(code);
                         }
                     }
