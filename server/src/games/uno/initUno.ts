@@ -18,6 +18,7 @@ export default function initUno(code: string) {
     players,
     lastCard: randomCard(false),
     turn: 0,
+    reversed: false,
   };
 
   game.gameData = gameData;

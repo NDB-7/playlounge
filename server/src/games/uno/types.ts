@@ -26,13 +26,16 @@ export type WildCard = {
 };
 
 export type UnoGameData = {
-  players: {
-    name: string;
-    id: string;
-    cards: (Card | WildCard)[];
-  }[];
+  players: UnoPlayer[];
   lastCard: Card | WildCard;
   turn: number;
+  reversed: boolean;
+};
+
+export type UnoPlayer = {
+  name: string;
+  id: string;
+  cards: (Card | WildCard)[];
 };
 
 export type UnoClientState = {

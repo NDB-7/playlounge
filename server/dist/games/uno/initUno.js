@@ -13,6 +13,7 @@ export default function initUno(code) {
         players,
         lastCard: randomCard(false),
         turn: 0,
+        reversed: false,
     };
     game.gameData = gameData;
     syncClientState(code);

@@ -1,7 +1,8 @@
 import activeRoomsMap from "../config/activeRoomsMap.js";
+import { UnoPlayer } from "../games/uno/types.js";
 import { io } from "../index.js";
 
-export default function finishGame(code: string) {
+export default function finishGame(code: string, winner: string | null) {
   const { game } = activeRoomsMap.get(code);
 
   if (game.state !== "active") return;
@@ -15,7 +16,9 @@ export default function finishGame(code: string) {
   io.to(code).emit("game:gameStateChanged", { state: "finished", mode });
   // Emit game rankings later!
   io.to(code).emit("chat:receiveMessage", {
-    content: `A game of ${mode} has ended!`, // Maybe replace with "{user} won the {mode} game!"
+    content: winner
+      ? `${winner} won the ${mode} game!`
+      : `A game of ${mode} has ended!`,
     serverNotification: true,
   });
 }
