@@ -36,7 +36,7 @@ export default function UnoGame({
             color={unoState.lastCard.color}
             face={unoState.lastCard.face}
           />
-          <UnoDummyCard deck />
+          <UnoDummyCard session={session} />
           <div className="absolute -z-10 rotate-6 translate-y-1">
             <UnoDummyCard />
           </div>

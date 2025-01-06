@@ -8,8 +8,8 @@ export default function unoCardEvent(socket) {
         if (session) {
             const code = session.room;
             const { game: { mode, state, gameData }, } = activeRoomsMap.get(code);
-            const { players } = gameData;
             if (state === "active" && mode === "UNO") {
+                const { players } = gameData;
                 let player;
                 players.forEach(plr => {
                     if (plr.id === session.id)
@@ -25,8 +25,12 @@ export default function unoCardEvent(socket) {
                             finishGame(code, player.name);
                         }
                         else {
-                            if (card.color === "none" && newColor && isColor(newColor))
-                                card.color = newColor;
+                            if (card.color === "none") {
+                                if (newColor && isColor(newColor))
+                                    card.color = newColor;
+                                else
+                                    card.color = "red";
+                            }
                             gameData.lastCard = card;
                             gameData.turn = findNextTurn(gameData, card);
                             if (card.face === "+2" || card.face === "+4") {

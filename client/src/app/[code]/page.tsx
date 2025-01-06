@@ -57,9 +57,9 @@ export default function RoomPage({
       <main className="relative h-full flex-grow overflow-hidden pt-12">
         {session && gameState?.state === "waiting" ? (
           <GameSelector isOwner={owner === currentUser} session={session} />
-        ) : (
+        ) : gameState?.state === "active" ? (
           gameState?.mode && gameComponents[gameState.mode]
-        )}
+        ) : null}
       </main>
       <Sidebar onlineUsers={onlineUsers} currentUser={currentUser}>
         {session && <InputBox session={session} />}
