@@ -34,7 +34,7 @@ export default function RoomPage({
   const owner = useOwner();
   const gameState = useGameState();
   const gameComponents: { [key: string]: React.ReactNode | null } = {
-    UNO: <UnoGame />,
+    UNO: <UnoGame currentUser={currentUser} session={session} />,
   };
 
   if (!roomInfo) return <GameLoading />;

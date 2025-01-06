@@ -42,11 +42,13 @@ export default function unoCardEvent(socket) {
     });
 }
 function findPlayerCard(player, card) {
+    let cardIndex = -1;
     player.cards.forEach((currentCard, index) => {
-        if (currentCard.color === card.color && currentCard.face === card.face)
-            return index;
+        if (JSON.stringify(currentCard) === JSON.stringify(card)) {
+            cardIndex = index;
+        }
     });
-    return -1;
+    return cardIndex;
 }
 function checkLegalMove(card, lastCard) {
     if (card.color === "none" ||

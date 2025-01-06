@@ -26,7 +26,6 @@ export default function unoCardEvent(socket: Socket) {
 
           if (player) {
             const cardIndex = findPlayerCard(player, card);
-
             if (
               players[gameData.turn] === player &&
               cardIndex >= 0 &&
@@ -59,11 +58,13 @@ export default function unoCardEvent(socket: Socket) {
 }
 
 function findPlayerCard(player: UnoPlayer, card: Card | WildCard) {
+  let cardIndex = -1;
   player.cards.forEach((currentCard, index) => {
-    if (currentCard.color === card.color && currentCard.face === card.face)
-      return index;
+    if (JSON.stringify(currentCard) === JSON.stringify(card)) {
+      cardIndex = index;
+    }
   });
-  return -1;
+  return cardIndex;
 }
 
 function checkLegalMove(card: Card | WildCard, lastCard: Card | WildCard) {

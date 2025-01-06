@@ -70,3 +70,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .uno-card {
+    @apply h-20 w-14 lg:h-24 lg:w-16 xl:h-32 xl:w-20 rounded-xl xl:rounded-2xl border-white border-4 flex items-center justify-center;
+  }
+}
