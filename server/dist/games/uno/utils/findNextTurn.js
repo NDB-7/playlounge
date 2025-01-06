@@ -4,8 +4,13 @@ export default function findNextTurn(gameData, card) {
     let newTurn;
     switch (card?.face) {
         case "reverse":
-            gameData.reversed = !gameData.reversed;
-            newTurn = gameData.reversed ? turn - 1 : turn + 1;
+            if (playerCount === 2) {
+                newTurn = turn;
+            }
+            else {
+                gameData.reversed = !gameData.reversed;
+                newTurn = gameData.reversed ? turn - 1 : turn + 1;
+            }
             break;
         case "skip":
             newTurn = gameData.reversed ? turn - 2 : turn + 2;
