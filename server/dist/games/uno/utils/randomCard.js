@@ -15,14 +15,14 @@ export default function randomCard(allowWildCards) {
         let cardFace;
         if (randomInt > 9 && randomInt < 19)
             cardFace = randomInt - 9;
-        else if (randomInt > 19) {
+        else if (randomInt >= 19) {
             switch (randomInt) {
+                case 19:
                 case 20:
-                case 21:
                     cardFace = "skip";
                     break;
+                case 21:
                 case 22:
-                case 23:
                     cardFace = "reverse";
                     break;
                 default:
@@ -30,6 +30,8 @@ export default function randomCard(allowWildCards) {
                     break;
             }
         }
+        else
+            cardFace = randomInt;
         const cardToReturn = {
             color: cardColor,
             face: cardFace,

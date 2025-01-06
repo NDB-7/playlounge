@@ -1,5 +1,4 @@
 import activeRoomsMap from "../config/activeRoomsMap.js";
-import { UnoPlayer } from "../games/uno/types.js";
 import { io } from "../index.js";
 
 export default function finishGame(code: string, winner: string | null) {

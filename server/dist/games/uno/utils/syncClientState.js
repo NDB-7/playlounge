@@ -4,7 +4,7 @@ export default function syncClientState(code) {
     const { game: { gameData }, activeSessionsMap, } = activeRoomsMap.get(code);
     const { players, lastCard, turn } = gameData;
     const whoseTurn = players[turn].name;
-    players.forEach((player, index) => {
+    players.forEach(player => {
         let socket;
         activeSessionsMap.forEach((sessionId, socketId) => {
             if (sessionId === player.id)

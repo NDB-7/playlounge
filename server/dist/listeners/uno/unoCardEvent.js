@@ -31,7 +31,7 @@ export default function unoCardEvent(socket) {
                             gameData.turn = findNextTurn(gameData, card);
                             if (card.face === "+2" || card.face === "+4") {
                                 const victim = players[gameData.turn];
-                                victim.cards.fill(randomCard(true), victim.cards.length, card.face === "+2" ? -2 : -4);
+                                victim.cards.push(...Array.from({ length: card.face === "+2" ? 2 : 4 }, () => randomCard(true)));
                             }
                             syncClientState(code);
                         }

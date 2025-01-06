@@ -12,7 +12,7 @@ export default function syncClientState(code: string) {
 
   const whoseTurn = players[turn].name;
 
-  players.forEach((player, index) => {
+  players.forEach(player => {
     let socket: Socket;
 
     activeSessionsMap.forEach((sessionId, socketId) => {

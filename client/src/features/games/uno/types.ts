@@ -1,5 +1,5 @@
 type Colors = "red" | "blue" | "green" | "yellow";
-type CardFace =
+export type CardFace =
   | 0
   | 1
   | 2
@@ -13,9 +13,10 @@ type CardFace =
   | "skip"
   | "reverse"
   | "+2";
-type WildCardFace = "+4" | "none";
+export type WildCardFace = "+4" | "none";
 
 type Card = {
+  color: Colors;
   face: CardFace;
 };
 

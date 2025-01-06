@@ -15,7 +15,7 @@ export default function startGameEvent(socket: Socket) {
       if (
         user?.role === "owner" &&
         gameOptions.some(item => item.name === gamemode) &&
-        activeSessionsMap.size >= 2
+        activeSessionsMap.size >= 1
       ) {
         console.log(
           `User ${id} (${user.name}) started game ${gamemode} in room ${code}`

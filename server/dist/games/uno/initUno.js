@@ -2,12 +2,12 @@ import activeRoomsMap from "../../config/activeRoomsMap.js";
 import randomCard from "./utils/randomCard.js";
 import syncClientState from "./utils/syncClientState.js";
 export default function initUno(code) {
-    const { game, activeSessionsMap } = activeRoomsMap.get(code);
+    const { game, activeSessionsMap, sessionToUsersMap } = activeRoomsMap.get(code);
     const players = [];
-    activeSessionsMap.forEach((name, id) => {
-        const cards = [];
-        cards.fill(randomCard(true), 0, 6);
-        players.push({ name, id, cards });
+    activeSessionsMap.forEach((id) => {
+        const { name } = sessionToUsersMap.get(id);
+        const cards = new Array(7).fill(null).map(_ => randomCard(true));
+        players.push({ id, name, cards });
     });
     const gameData = {
         players,

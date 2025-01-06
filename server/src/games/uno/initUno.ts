@@ -1,17 +1,17 @@
 import activeRoomsMap from "../../config/activeRoomsMap.js";
-import { io } from "../../index.js";
-import { UnoGameData } from "./types.js";
+import { UnoGameData, UnoPlayer } from "./types.js";
 import randomCard from "./utils/randomCard.js";
 import syncClientState from "./utils/syncClientState.js";
 
 export default function initUno(code: string) {
-  const { game, activeSessionsMap } = activeRoomsMap.get(code);
-  const players = [];
+  const { game, activeSessionsMap, sessionToUsersMap } =
+    activeRoomsMap.get(code);
+  const players: UnoPlayer[] = [];
 
-  activeSessionsMap.forEach((name: string, id: string) => {
-    const cards = [];
-    cards.fill(randomCard(true), 0, 6);
-    players.push({ name, id, cards });
+  activeSessionsMap.forEach((id: string) => {
+    const { name } = sessionToUsersMap.get(id);
+    const cards = new Array(7).fill(null).map(_ => randomCard(true));
+    players.push({ id, name, cards });
   });
 
   const gameData: UnoGameData = {
