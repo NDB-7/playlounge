@@ -15,6 +15,7 @@ import GameSelector from "@/features/game/components/GameSelector";
 import useOwner from "@/features/room/hooks/useOwner";
 import useGameState from "@/features/game/hooks/useGameState";
 import UnoGame from "@/features/games/uno/components/UnoGame";
+import GameRankings from "@/features/game/components/GameRankings";
 
 export default function RoomPage({
   params,
@@ -59,7 +60,9 @@ export default function RoomPage({
           <GameSelector isOwner={owner === currentUser} session={session} />
         ) : gameState?.state === "active" ? (
           gameState?.mode && gameComponents[gameState.mode]
-        ) : null}
+        ) : (
+          <GameRankings isOwner={owner === currentUser} session={session} />
+        )}
       </main>
       <Sidebar onlineUsers={onlineUsers} currentUser={currentUser}>
         {session && <InputBox session={session} />}
