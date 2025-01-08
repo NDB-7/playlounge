@@ -16,6 +16,13 @@ export default function GameSelector({
 }) {
   const [selectedGame, setSelectedGame] = useState("");
   const { gameOptions, fetchGames } = useGameOptions();
+  const [errorMessage, setErrorMessage] = useState("");
+
+  function startGame() {
+    socket.emit("game:startGame", session, selectedGame, (errMsg: string) => {
+      if (errMsg) setErrorMessage(errMsg);
+    });
+  }
 
   return (
     <div className="px-8 pt-8 space-y-6 absolute">
@@ -61,11 +68,14 @@ export default function GameSelector({
         </>
       )}
       {selectedGame && isOwner && (
-        <Button
-          onClick={() => socket.emit("game:startGame", session, selectedGame)}
-        >
-          Start Game <Rocket />
-        </Button>
+        <div className="space-y-3">
+          <Button onClick={startGame}>
+            Start Game <Rocket />
+          </Button>
+          {errorMessage && (
+            <div className="text-destructive">{errorMessage}</div>
+          )}
+        </div>
       )}
     </div>
   );

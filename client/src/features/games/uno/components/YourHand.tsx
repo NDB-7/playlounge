@@ -12,9 +12,9 @@ export default function YourHand({
   session?: SessionType;
 }) {
   return (
-    <div className="absolute bottom-16 left-1/2 -translate-x-1/2">
+    <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-3/4">
       <p className={`text-center mb-2 text-xl ${isTurn && "font-bold"}`}>You</p>
-      <div className="flex gap-2">
+      <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-16">
         {unoState.cards.map((card, index) => (
           <UnoCard
             color={card.color}

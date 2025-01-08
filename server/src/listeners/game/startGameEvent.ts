@@ -6,7 +6,7 @@ import startGame from "../../game/startGame.js";
 export default function startGameEvent(socket: Socket) {
   const id = socket.id;
 
-  socket.on("game:startGame", (session, gamemode: string) => {
+  socket.on("game:startGame", (session, gamemode: string, callback) => {
     if (session) {
       const code = session.room;
       const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(code);
@@ -21,6 +21,8 @@ export default function startGameEvent(socket: Socket) {
           `User ${id} (${user.name}) started game ${gamemode} in room ${code}`
         );
         startGame(code, gamemode);
+      } else {
+        callback("You need at least two people in a room to start a game.");
       }
     }
   });

@@ -27,11 +27,11 @@ export default function UnoGame({
             {...player}
             whoseTurn={unoState.whoseTurn}
             index={index}
-            playerCount={unoState.otherPlayers.length + 1}
+            playerCount={unoState.otherPlayers.length}
             key={index}
           />
         ))}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-4">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-4 pb-32">
           <UnoCard
             color={unoState.lastCard.color}
             face={unoState.lastCard.face}
