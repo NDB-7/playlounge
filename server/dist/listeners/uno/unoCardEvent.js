@@ -16,7 +16,9 @@ export default function unoCardEvent(socket) {
                         player = plr;
                 });
                 if (player) {
-                    const cardIndex = findPlayerCard(player, card);
+                    const cardIndex = findPlayerCard(player, !newColor
+                        ? card
+                        : { face: card.face, color: "none" });
                     if (players[gameData.turn] === player &&
                         cardIndex >= 0 &&
                         checkLegalMove(card, gameData.lastCard)) {
@@ -48,7 +50,7 @@ export default function unoCardEvent(socket) {
 function findPlayerCard(player, card) {
     let cardIndex = -1;
     player.cards.forEach((currentCard, index) => {
-        if (JSON.stringify(currentCard) === JSON.stringify(card)) {
+        if (currentCard.face === card.face && currentCard.color === card.color) {
             cardIndex = index;
         }
     });
@@ -62,6 +64,6 @@ function checkLegalMove(card, lastCard) {
     return false;
 }
 function isColor(newColor) {
-    return ["red", "blue", "green"].includes(newColor);
+    return ["red", "blue", "green", "yellow"].includes(newColor);
 }
 //# sourceMappingURL=unoCardEvent.js.map

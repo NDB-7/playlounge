@@ -16,12 +16,7 @@ export default function YourHand({
       <p className={`text-center mb-2 text-xl ${isTurn && "font-bold"}`}>You</p>
       <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-16">
         {unoState.cards.map((card, index) => (
-          <UnoCard
-            color={card.color}
-            face={card.face}
-            key={index}
-            session={session}
-          />
+          <UnoCard {...card} key={index} session={session} />
         ))}
       </div>
     </div>

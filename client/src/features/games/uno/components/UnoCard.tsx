@@ -1,19 +1,37 @@
 import socket from "@/lib/socket";
 import { CardFace, WildCardFace } from "../types";
 import { SessionType } from "@/types";
+import { useContext } from "react";
+import ColorSelectorContext from "../context/ColorSelectorContext";
 
 export default function UnoCard({
   color,
   face,
   session,
+  colorSelect,
 }: {
   color: string;
   face: CardFace | WildCardFace;
   session?: SessionType;
+  colorSelect?: boolean;
 }) {
+  const setColorSelector = useContext(ColorSelectorContext)[1];
+
   function clickHandler() {
     if (session) {
-      socket.emit("uno:placeCard", session, { color, face });
+      if (color === "none") setColorSelector(face);
+      else if (colorSelect) {
+        socket.emit(
+          "uno:placeCard",
+          session,
+          {
+            color: "none",
+            face,
+          },
+          color
+        );
+        setColorSelector(null);
+      } else socket.emit("uno:placeCard", session, { color, face });
     }
   }
 
