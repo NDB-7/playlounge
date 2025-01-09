@@ -1,6 +1,7 @@
 import { SessionType } from "@/types";
-import { UnoClientState } from "../types";
+import { Card, UnoClientState, WildCard } from "../types";
 import UnoCard from "./UnoCard";
+import checkLegalMove from "../utils/checkLegalMove";
 
 export default function YourHand({
   unoState,
@@ -16,7 +17,12 @@ export default function YourHand({
       <p className={`text-center mb-2 text-xl ${isTurn && "font-bold"}`}>You</p>
       <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-16">
         {unoState.cards.map((card, index) => (
-          <UnoCard {...card} key={index} session={session} />
+          <UnoCard
+            {...card}
+            key={index}
+            session={session}
+            illegal={!isTurn || !checkLegalMove(card, unoState.lastCard)}
+          />
         ))}
       </div>
     </div>

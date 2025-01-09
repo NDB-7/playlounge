@@ -9,16 +9,18 @@ export default function UnoCard({
   face,
   session,
   colorSelect,
+  illegal,
 }: {
   color: string;
   face: CardFace | WildCardFace;
   session?: SessionType;
   colorSelect?: boolean;
+  illegal?: boolean;
 }) {
   const setColorSelector = useContext(ColorSelectorContext)[1];
 
   function clickHandler() {
-    if (session) {
+    if (session && !illegal) {
       if (color === "none") setColorSelector(face);
       else if (colorSelect) {
         socket.emit(
@@ -47,9 +49,9 @@ export default function UnoCard({
           : color === "yellow"
           ? "bg-yellow-400"
           : "bg-black"
-      } uno-card ${
-        session && "cursor-pointer hover:-translate-y-2 transition-transform"
-      }`}
+      } uno-card transition-all ${
+        session && !illegal && "cursor-pointer hover:-translate-y-2"
+      } ${illegal && "brightness-75"}`}
       onClick={clickHandler}
     >
       <div className="rounded-full w-2/3 h-2/3 bg-white flex items-center justify-center">

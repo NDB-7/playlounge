@@ -15,13 +15,13 @@ export type CardFace =
   | "+2";
 export type WildCardFace = "+4" | "none";
 
-type Card = {
+export type Card = {
   color: Colors;
   face: CardFace;
 };
 
-type WildCard = {
-  color: Colors & "none";
+export type WildCard = {
+  color: Colors | "none";
   face: WildCardFace;
 };
 
