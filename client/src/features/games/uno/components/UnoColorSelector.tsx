@@ -3,13 +3,13 @@ import UnoCard from "./UnoCard";
 import ColorSelectorContext from "../context/ColorSelectorContext";
 import { SessionType } from "@/types";
 
-const [colorSelector, setColorSelector] = useContext(ColorSelectorContext);
-
 export default function UnoColorSelector({
   session,
 }: {
   session?: SessionType;
 }) {
+  const [colorSelector, setColorSelector] = useContext(ColorSelectorContext);
+
   return (
     <div
       className="absolute bg-black w-full h-full z-20 bg-opacity-50"
