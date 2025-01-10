@@ -61,7 +61,11 @@ export default function RoomPage({
         ) : gameState?.state === "active" ? (
           gameState?.mode && gameComponents[gameState.mode]
         ) : (
-          <GameRankings isOwner={owner === currentUser} session={session} />
+          <GameRankings
+            isOwner={owner === currentUser}
+            session={session}
+            currentUser={currentUser}
+          />
         )}
       </main>
       <Sidebar onlineUsers={onlineUsers} currentUser={currentUser}>

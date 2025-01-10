@@ -12,11 +12,11 @@ export default function finishGame(code: string, winner: string | null) {
   const { mode } = game;
 
   io.to(code).emit("game:gameStateChanged", { state: "finished", mode });
-  // Emit game rankings later!
   io.to(code).emit("chat:receiveMessage", {
     content: winner
       ? `${winner} won the ${mode} game!`
       : `A game of ${mode} has ended!`,
     serverNotification: true,
   });
+  io.to(code).emit("game:rankings", winner, mode);
 }
