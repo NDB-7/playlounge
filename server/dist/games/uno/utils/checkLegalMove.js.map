@@ -1,0 +1,1 @@
+{"version":3,"file":"checkLegalMove.js","sourceRoot":"","sources":["../../../../src/games/uno/utils/checkLegalMove.ts"],"names":[],"mappings":"AAEA,MAAM,CAAC,OAAO,UAAU,cAAc,CACpC,IAAqB,EACrB,QAAyB;IAEzB,IACE,IAAI,CAAC,KAAK,KAAK,MAAM;QACrB,IAAI,CAAC,KAAK,KAAK,QAAQ,CAAC,KAAK;QAC7B,IAAI,CAAC,IAAI,KAAK,QAAQ,CAAC,IAAI;QAE3B,OAAO,IAAI,CAAC;IACd,OAAO,KAAK,CAAC;AACf,CAAC"}

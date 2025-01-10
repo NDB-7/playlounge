@@ -5,6 +5,7 @@ import syncClientState from "../../games/uno/utils/syncClientState.js";
 import findNextTurn from "../../games/uno/utils/findNextTurn.js";
 import finishGame from "../../game/finishGame.js";
 import randomCard from "../../games/uno/utils/randomCard.js";
+import checkLegalMove from "../../games/uno/utils/checkLegalMove.js";
 
 export default function unoCardEvent(socket: Socket) {
   socket.on(
@@ -45,6 +46,7 @@ export default function unoCardEvent(socket: Socket) {
                   else card.color = "red";
                 }
                 gameData.lastCard = card;
+                player.justDrewCard = false;
                 gameData.turn = findNextTurn(gameData, card);
                 if (card.face === "+2" || card.face === "+4") {
                   const victim = players[gameData.turn];
@@ -72,16 +74,6 @@ function findPlayerCard(player: UnoPlayer, card: Card | WildCard) {
     }
   });
   return cardIndex;
-}
-
-function checkLegalMove(card: Card | WildCard, lastCard: Card | WildCard) {
-  if (
-    card.color === "none" ||
-    card.color === lastCard.color ||
-    card.face === lastCard.face
-  )
-    return true;
-  return false;
 }
 
 function isColor(newColor: any): newColor is Colors {

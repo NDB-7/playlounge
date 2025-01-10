@@ -36,6 +36,7 @@ export type UnoPlayer = {
   name: string;
   id: string;
   cards: (Card | WildCard)[];
+  justDrewCard: boolean;
 };
 
 export type UnoClientState = {

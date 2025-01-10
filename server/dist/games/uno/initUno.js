@@ -7,7 +7,7 @@ export default function initUno(code) {
     activeSessionsMap.forEach((id) => {
         const { name } = sessionToUsersMap.get(id);
         const cards = new Array(7).fill(null).map(_ => randomCard(true));
-        players.push({ id, name, cards });
+        players.push({ id, name, cards, justDrewCard: false });
     });
     const gameData = {
         players,
