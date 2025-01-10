@@ -94,6 +94,10 @@
   animation: fade-right 0.6s 0.85s ease-out backwards;
 }
 
+.game-bg {
+  background: radial-gradient(#41efd5, #00ac95);
+}
+
 @keyframes header-anim {
   0% {
     transform: translateY(-1rem);

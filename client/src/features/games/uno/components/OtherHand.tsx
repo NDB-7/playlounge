@@ -35,7 +35,7 @@ export default function OtherHand({
       </p>
       <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-16">
         {Array.from({ length: cardCount }).map((_, cardIndex) => (
-          <UnoDummyCard key={cardIndex} />
+          <UnoDummyCard key={cardIndex} isTurn={whoseTurn === name} />
         ))}
       </div>
     </div>

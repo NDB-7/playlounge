@@ -24,4 +24,7 @@ export default function initUno(code: string) {
   game.gameData = gameData;
 
   syncClientState(code);
+
+  // Just in case any clients missed the syncing
+  setTimeout(() => syncClientState(code), 1000);
 }

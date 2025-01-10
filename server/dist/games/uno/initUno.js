@@ -17,5 +17,7 @@ export default function initUno(code) {
     };
     game.gameData = gameData;
     syncClientState(code);
+    // Just in case any clients missed the syncing
+    setTimeout(() => syncClientState(code), 1000);
 }
 //# sourceMappingURL=initUno.js.map

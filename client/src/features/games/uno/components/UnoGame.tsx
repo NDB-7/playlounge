@@ -26,7 +26,7 @@ export default function UnoGame({
           <UnoColorSelector session={session} />
         )}
         <div
-          className={`absolute bg-teal-400 w-full h-full pb-12 transition-[filter] 
+          className={`absolute game-bg w-full h-full pb-12 transition-[filter] 
             ${colorSelector && "blur-md"}
           `}
         >
@@ -46,7 +46,10 @@ export default function UnoGame({
           ))}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-4 pb-32">
             <UnoCard {...unoState.lastCard} />
-            <UnoDummyCard session={session} />
+            <UnoDummyCard
+              session={session}
+              isTurn={currentUser === unoState.whoseTurn}
+            />
             <div className="absolute -z-10 rotate-6 translate-y-1">
               <UnoDummyCard />
             </div>

@@ -49,7 +49,7 @@ export default function UnoCard({
           : color === "yellow"
           ? "bg-yellow-400"
           : "bg-black"
-      } uno-card transition-all ${
+      } uno-card transition-all shadow ${
         session && !illegal && "cursor-pointer hover:-translate-y-2"
       } ${illegal && "brightness-75"}`}
       onClick={clickHandler}
