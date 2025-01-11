@@ -1,5 +1,5 @@
 import { SessionType } from "@/types";
-import { Card, UnoClientState, WildCard } from "../types";
+import { UnoClientState } from "../types";
 import UnoCard from "./UnoCard";
 import checkLegalMove from "../utils/checkLegalMove";
 

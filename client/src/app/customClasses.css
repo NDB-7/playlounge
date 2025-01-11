@@ -94,6 +94,10 @@
   animation: fade-right 0.6s 0.85s ease-out backwards;
 }
 
+.card-place {
+  animation: card-place 0.25s ease-out backwards;
+}
+
 .game-bg {
   background: radial-gradient(#41efd5, #00ac95);
 }
@@ -150,5 +154,11 @@
   100% {
     transform: translateX(0);
     opacity: 1;
+  }
+}
+
+@keyframes card-place {
+  0% {
+    transform: translate(0.5rem, -0.25rem) rotate(20deg) scale(1.02);
   }
 }

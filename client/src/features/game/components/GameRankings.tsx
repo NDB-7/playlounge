@@ -24,7 +24,7 @@ export default function GameRankings({
 
   useEffect(() => {
     if (won) reward();
-  }, [won]);
+  }, [won, reward]);
 
   return (
     <>

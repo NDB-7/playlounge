@@ -1,8 +1,9 @@
 import socket from "@/lib/socket";
 import { CardFace, WildCardFace } from "../types";
 import { SessionType } from "@/types";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import ColorSelectorContext from "../context/ColorSelectorContext";
+import useCardAnimation from "../hooks/useCardAnimation";
 
 export default function UnoCard({
   color,
@@ -17,7 +18,8 @@ export default function UnoCard({
   colorSelect?: boolean;
   illegal?: boolean;
 }) {
-  const setColorSelector = useContext(ColorSelectorContext)[1];
+  const { setColorSelector } = useContext(ColorSelectorContext);
+  const lastCardRef = useRef<HTMLDivElement>(null);
 
   function clickHandler() {
     if (session && !illegal) {
@@ -32,10 +34,12 @@ export default function UnoCard({
           },
           color
         );
-        setColorSelector(null);
+        setColorSelector("");
       } else socket.emit("uno:placeCard", session, { color, face });
     }
   }
+
+  useCardAnimation(lastCardRef, [color, face]);
 
   return (
     <div
@@ -53,6 +57,7 @@ export default function UnoCard({
         session && !illegal && "cursor-pointer hover:-translate-y-2"
       } ${illegal && "brightness-75"}`}
       onClick={clickHandler}
+      ref={!session ? lastCardRef : null}
     >
       <div className="rounded-full w-2/3 h-2/3 bg-white flex items-center justify-center">
         <span className="text-xl lg:text-2xl xl:text-3xl font-bold select-none">

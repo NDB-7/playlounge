@@ -5,9 +5,9 @@ import UnoCard from "./UnoCard";
 import UnoDummyCard from "./UnoDummyCard";
 import YourHand from "./YourHand";
 import { useState } from "react";
-import { WildCardFace } from "../types";
 import ColorSelectorContext from "../context/ColorSelectorContext";
 import UnoColorSelector from "./UnoColorSelector";
+import { CardFace, WildCardFace } from "../types";
 
 export default function UnoGame({
   currentUser,
@@ -17,11 +17,15 @@ export default function UnoGame({
   session?: SessionType;
 }) {
   const unoState = useUnoState();
-  const [colorSelector, setColorSelector] = useState<WildCardFace | null>(null);
+  const [colorSelector, setColorSelector] = useState<
+    CardFace | WildCardFace | ""
+  >("");
 
   if (unoState)
     return (
-      <ColorSelectorContext.Provider value={[colorSelector, setColorSelector]}>
+      <ColorSelectorContext.Provider
+        value={{ colorSelector, setColorSelector }}
+      >
         {colorSelector && unoState.whoseTurn === currentUser && (
           <UnoColorSelector session={session} />
         )}
