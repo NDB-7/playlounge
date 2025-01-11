@@ -1,5 +1,7 @@
 import socket from "@/lib/socket";
 import { SessionType } from "@/types";
+import { playAudio } from "@/utils/playAudio";
+import { useEffect, useRef } from "react";
 
 export default function UnoDummyCard({
   session,
@@ -8,11 +10,29 @@ export default function UnoDummyCard({
   session?: SessionType;
   isTurn?: boolean;
 }) {
+  const drawCardRef = useRef<HTMLAudioElement>(null);
+
   function clickHandler() {
     if (session && isTurn) {
       socket.emit("uno:drawCard", session);
+      playAudio(drawCardRef.current);
     }
   }
+
+  useEffect(() => {
+    let drawCardAudio: HTMLAudioElement;
+    if (session) {
+      drawCardAudio = new Audio("/sounds/uno/draw-card.mp3");
+      drawCardRef.current = drawCardAudio;
+    }
+
+    return () => {
+      if (drawCardAudio) {
+        drawCardAudio.pause();
+        drawCardAudio.src = "";
+      }
+    };
+  }, [session]);
 
   return (
     <div
@@ -26,9 +46,6 @@ export default function UnoDummyCard({
         src="/textures/uno/card-back.svg"
         draggable={false}
       />
-      {/* <div className="rounded-full w-2/3 h-2/3 bg-white flex items-center justify-center">
-        <span className="font-bold text-2xl -rotate-45 select-none">UNO</span>
-      </div> */}
     </div>
   );
 }

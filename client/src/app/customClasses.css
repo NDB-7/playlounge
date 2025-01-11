@@ -102,6 +102,18 @@
   background: radial-gradient(#41efd5, #00ac95);
 }
 
+.animate-hand {
+  animation: animate-hand 0.75s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.75s ease-out;
+}
+
+.scale-in {
+  animation: scale-in 0.75s ease-out;
+}
+
 @keyframes header-anim {
   0% {
     transform: translateY(-1rem);
@@ -160,5 +172,24 @@
 @keyframes card-place {
   0% {
     transform: translate(0.5rem, -0.25rem) rotate(20deg) scale(1.02);
+  }
+}
+
+@keyframes animate-hand {
+  0% {
+    transform: translateY(7rem);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    scale: 0.75;
+    opacity: 0;
   }
 }

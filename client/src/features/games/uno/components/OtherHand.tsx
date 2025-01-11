@@ -27,13 +27,13 @@ export default function OtherHand({
       }`}
     >
       <p
-        className={`text-center mb-4 text-xl text-gray-700 transition-all ${
+        className={`text-center mb-4 text-xl text-gray-700 transition-all animate-fade-in ${
           whoseTurn === name && "font-bold text-black"
         }`}
       >
         {name}
       </p>
-      <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-12 lg:mb-16 xl:mb-24">
+      <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-12 lg:mb-16 xl:mb-24 animate-hand">
         {Array.from({ length: cardCount }).map((_, cardIndex) => (
           <UnoDummyCard key={cardIndex} isTurn={whoseTurn === name} />
         ))}
