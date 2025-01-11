@@ -73,6 +73,6 @@ body {
 
 @layer components {
   .uno-card {
-    @apply h-20 w-14 lg:h-24 lg:w-16 xl:h-32 xl:w-20 rounded-xl xl:rounded-2xl border-white border-4 flex items-center justify-center -mb-16 lg:-mb-20 xl:-mb-28;
+    @apply h-20 w-14 lg:h-24 lg:w-16 xl:h-32 xl:w-20 rounded-xl xl:rounded-2xl border-white border-4 flex items-center justify-center -mb-16 lg:-mb-20 xl:-mb-28 sm:[&:nth-child(n+11)]:z-10 sm:[&:nth-child(n+21)]:z-20 sm:[&:nth-child(n+31)]:z-30 [&:nth-child(n+6)]:z-10 [&:nth-child(n+11)]:z-20 [&:nth-child(n+16)]:z-30 transition-all shadow relative;
   }
 }

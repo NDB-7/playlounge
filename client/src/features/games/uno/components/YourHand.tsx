@@ -14,8 +14,14 @@ export default function YourHand({
 }) {
   return (
     <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-3/4">
-      <p className={`text-center mb-2 text-xl ${isTurn && "font-bold"}`}>You</p>
-      <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-16">
+      <p
+        className={`text-center mb-2 text-xl text-gray-700 ${
+          isTurn && "font-bold text-black"
+        }`}
+      >
+        You
+      </p>
+      <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-12 lg:mb-16 xl:mb-24">
         {unoState.cards.map((card, index) => (
           <UnoCard
             {...card}
