@@ -1,7 +1,7 @@
 import socket from "@/lib/socket";
 import { CardFace, WildCardFace } from "../types";
 import { SessionType } from "@/types";
-import { RefObject, useContext, useRef } from "react";
+import { RefObject, useContext } from "react";
 import ColorSelectorContext from "../context/ColorSelectorContext";
 
 export default function UnoCard({
@@ -96,6 +96,7 @@ export default function UnoCard({
             src={`/textures/uno/${iconFile}`}
             className="w-3/4 select-none"
             draggable={false}
+            alt={String(face)}
           />
         ) : (
           <span className="text-xl lg:text-2xl xl:text-3xl font-bold select-none">

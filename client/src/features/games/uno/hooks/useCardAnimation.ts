@@ -87,5 +87,5 @@ export default function useCardAnimation<T>(
       }
     }
     previousDependencies.current = dependencies;
-  }, [dependencies, ref]);
+  }, [dependencies, ref, face]);
 }
