@@ -4,10 +4,11 @@ import OtherHand from "./OtherHand";
 import UnoCard from "./UnoCard";
 import UnoDummyCard from "./UnoDummyCard";
 import YourHand from "./YourHand";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ColorSelectorContext from "../context/ColorSelectorContext";
 import UnoColorSelector from "./UnoColorSelector";
 import { CardFace, WildCardFace } from "../types";
+import useCardAnimation from "../hooks/useCardAnimation";
 
 export default function UnoGame({
   currentUser,
@@ -20,6 +21,13 @@ export default function UnoGame({
   const [colorSelector, setColorSelector] = useState<
     CardFace | WildCardFace | ""
   >("");
+  const lastCardRef = useRef<HTMLDivElement>(null);
+
+  useCardAnimation(
+    lastCardRef,
+    [unoState && unoState.lastCard.color, unoState && unoState.lastCard.face],
+    unoState && unoState.lastCard.face
+  );
 
   if (unoState)
     return (
@@ -48,8 +56,8 @@ export default function UnoGame({
               key={index}
             />
           ))}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-4 pb-32 scale-in">
-            <UnoCard {...unoState.lastCard} />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-4 pb-[9rem] scale-in">
+            <UnoCard {...unoState.lastCard} ref={lastCardRef} />
             <UnoDummyCard
               session={session}
               isTurn={currentUser === unoState.whoseTurn}
@@ -58,6 +66,12 @@ export default function UnoGame({
               <UnoDummyCard />
             </div>
           </div>
+          <img
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 opacity-0 pointer-events-none"
+            src="/textures/uno/reverse.svg"
+            alt=""
+            id="uno-center-effect"
+          />
         </div>
       </ColorSelectorContext.Provider>
     );

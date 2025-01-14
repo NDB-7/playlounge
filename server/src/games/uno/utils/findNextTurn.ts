@@ -20,9 +20,6 @@ export default function findNextTurn(
     case "skip":
       newTurn = gameData.reversed ? turn - 2 : turn + 2;
       break;
-    case "+2":
-    case "+4":
-      newTurn = gameData.reversed ? turn - 2 : turn + 2;
     default:
       newTurn = gameData.reversed ? turn - 1 : turn + 1;
   }

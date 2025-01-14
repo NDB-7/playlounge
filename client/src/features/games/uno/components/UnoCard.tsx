@@ -1,9 +1,8 @@
 import socket from "@/lib/socket";
 import { CardFace, WildCardFace } from "../types";
 import { SessionType } from "@/types";
-import { useContext, useRef } from "react";
+import { RefObject, useContext, useRef } from "react";
 import ColorSelectorContext from "../context/ColorSelectorContext";
-import useCardAnimation from "../hooks/useCardAnimation";
 
 export default function UnoCard({
   color,
@@ -11,15 +10,17 @@ export default function UnoCard({
   session,
   colorSelect,
   illegal,
+  ref,
 }: {
   color: string;
   face: CardFace | WildCardFace;
   session?: SessionType;
   colorSelect?: boolean;
   illegal?: boolean;
+  ref?: RefObject<HTMLDivElement | null>;
 }) {
   const { setColorSelector } = useContext(ColorSelectorContext);
-  const lastCardRef = useRef<HTMLDivElement>(null);
+
   const faceIcon =
     face === "none"
       ? "*"
@@ -68,8 +69,6 @@ export default function UnoCard({
     }
   }
 
-  useCardAnimation(lastCardRef, [color, face]);
-
   return (
     <div
       className={`${
@@ -86,14 +85,18 @@ export default function UnoCard({
         session && !illegal && "cursor-pointer hover:-translate-y-2"
       } ${illegal && "brightness-75"}`}
       onClick={clickHandler}
-      ref={!session ? lastCardRef : null}
+      ref={!session ? ref : null}
     >
       <div className="absolute top-0 left-1 text-white drop-shadow-[0_0_1px_rgba(0,0,0,1)] font-bold text-xs lg:text-sm xl:text-md select-none">
         {faceIcon}
       </div>
       <div className="rounded-full w-2/3 h-2/3 bg-white flex items-center justify-center">
         {iconFile ? (
-          <img src={`/textures/uno/${iconFile}`} className="w-3/4" />
+          <img
+            src={`/textures/uno/${iconFile}`}
+            className="w-3/4 select-none"
+            draggable={false}
+          />
         ) : (
           <span className="text-xl lg:text-2xl xl:text-3xl font-bold select-none">
             {faceIcon}

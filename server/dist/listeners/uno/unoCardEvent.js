@@ -40,6 +40,7 @@ export default function unoCardEvent(socket) {
                             if (card.face === "+2" || card.face === "+4") {
                                 const victim = players[gameData.turn];
                                 victim.cards.push(...Array.from({ length: card.face === "+2" ? 2 : 4 }, () => randomCard(true)));
+                                gameData.turn = findNextTurn(gameData, card);
                             }
                             syncClientState(code);
                         }

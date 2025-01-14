@@ -55,6 +55,7 @@ export default function unoCardEvent(socket: Socket) {
                       randomCard(true)
                     )
                   );
+                  gameData.turn = findNextTurn(gameData, card);
                 }
                 syncClientState(code);
               }
