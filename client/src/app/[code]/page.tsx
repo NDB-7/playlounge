@@ -18,6 +18,7 @@ import UnoGame from "@/features/games/uno/components/UnoGame";
 import GameRankings from "@/features/game/components/GameRankings";
 import { Button } from "@/components/ui/button";
 import socket from "@/lib/socket";
+import { MessageSquareMore } from "lucide-react";
 
 export default function RoomPage({
   params,
@@ -27,6 +28,7 @@ export default function RoomPage({
   const { code } = use(params);
 
   const [currentUser, setCurrentUser] = useState("");
+  const [mobileChat, setMobileChat] = useState(false);
 
   const roomInfo = useRoomInfo(code);
   const { sessionInUse, session, setSession } = useSession(
@@ -67,6 +69,13 @@ export default function RoomPage({
             Stop Game
           </Button>
         )}
+        <button
+          onClick={() => setMobileChat(!mobileChat)}
+          aria-label="Toggle Chat"
+          className="hover:scale-105 transition-transform md:hidden"
+        >
+          <MessageSquareMore />
+        </button>
       </RoomInfo>
       <main className="relative h-full flex-grow overflow-hidden pt-12">
         {session && gameState?.state === "waiting" ? (
@@ -81,7 +90,11 @@ export default function RoomPage({
           />
         )}
       </main>
-      <Sidebar onlineUsers={onlineUsers} currentUser={currentUser}>
+      <Sidebar
+        onlineUsers={onlineUsers}
+        currentUser={currentUser}
+        mobileChat={mobileChat}
+      >
         {session && <InputBox session={session} />}
       </Sidebar>
     </div>
