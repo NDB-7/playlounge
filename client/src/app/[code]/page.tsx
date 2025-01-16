@@ -16,6 +16,8 @@ import useOwner from "@/features/room/hooks/useOwner";
 import useGameState from "@/features/game/hooks/useGameState";
 import UnoGame from "@/features/games/uno/components/UnoGame";
 import GameRankings from "@/features/game/components/GameRankings";
+import { Button } from "@/components/ui/button";
+import socket from "@/lib/socket";
 
 export default function RoomPage({
   params,
@@ -54,7 +56,18 @@ export default function RoomPage({
     <div className="fixed flex w-full h-full">
       <title>{`${roomInfo.name} | QuickRoom`}</title>
       <div className="blur-overlay" />
-      <RoomInfo roomInfo={roomInfo} code={code} />
+      <RoomInfo roomInfo={roomInfo} code={code}>
+        {gameState?.state === "active" && owner === currentUser && (
+          <Button
+            variant="destructive"
+            onClick={() => {
+              socket.emit("game:stopGame", session);
+            }}
+          >
+            Stop Game
+          </Button>
+        )}
+      </RoomInfo>
       <main className="relative h-full flex-grow overflow-hidden pt-12">
         {session && gameState?.state === "waiting" ? (
           <GameSelector isOwner={owner === currentUser} session={session} />

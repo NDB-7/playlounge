@@ -4,9 +4,11 @@ import LeaveRoom from "./LeaveRoom";
 export default function RoomInfo({
   roomInfo,
   code,
+  children,
 }: {
   roomInfo: RoomInfoType;
   code: string;
+  children?: React.ReactNode;
 }) {
   return (
     <header className="fixed bg-white w-full border-b-2 py-2 px-4 flex items-center justify-between z-10">
@@ -18,7 +20,10 @@ export default function RoomInfo({
           </span>
         </h1>
       </div>
-      <LeaveRoom />
+      <div className="flex items-center gap-4">
+        {children}
+        <LeaveRoom />
+      </div>
     </header>
   );
 }
