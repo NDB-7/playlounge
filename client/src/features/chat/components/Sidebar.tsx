@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import MessageList from "./MessageList";
 
 export function Sidebar({
