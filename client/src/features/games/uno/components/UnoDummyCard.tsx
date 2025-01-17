@@ -6,9 +6,11 @@ import { useEffect, useRef } from "react";
 export default function UnoDummyCard({
   session,
   isTurn,
+  online,
 }: {
   session?: SessionType;
   isTurn?: boolean;
+  online?: boolean;
 }) {
   const drawCardRef = useRef<HTMLAudioElement>(null);
 
@@ -38,7 +40,7 @@ export default function UnoDummyCard({
     <div
       className={`bg-gray-300 uno-card border-white border-4 flex items-center justify-center  transition-all shadow overflow-hidden ${
         session && "cursor-pointer hover:scale-105"
-      } ${!isTurn && "brightness-75"}`}
+      } ${!isTurn && (online === false ? "brightness-50" : "brightness-75")}`}
       onClick={clickHandler}
     >
       <img

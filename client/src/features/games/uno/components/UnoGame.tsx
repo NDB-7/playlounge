@@ -13,9 +13,11 @@ import useCardAnimation from "../hooks/useCardAnimation";
 export default function UnoGame({
   currentUser,
   session,
+  onlineUsers,
 }: {
   currentUser: string;
   session?: SessionType;
+  onlineUsers: string[];
 }) {
   const unoState = useUnoState();
   const [colorSelector, setColorSelector] = useState<
@@ -54,6 +56,7 @@ export default function UnoGame({
               index={index}
               playerCount={unoState.otherPlayers.length}
               key={index}
+              online={onlineUsers.includes(player?.name)}
             />
           ))}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-4 pb-[9rem] scale-in">

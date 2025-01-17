@@ -6,12 +6,14 @@ export default function OtherHand({
   whoseTurn,
   index,
   playerCount,
+  online,
 }: {
   name: string;
   cardCount: number;
   whoseTurn: string;
   index: number;
   playerCount: number;
+  online: boolean;
 }) {
   return (
     <div
@@ -27,15 +29,21 @@ export default function OtherHand({
       }`}
     >
       <p
-        className={`text-center mb-4 text-xl text-gray-700 transition-all animate-fade-in ${
-          whoseTurn === name && "font-bold text-black"
+        className={`text-center mb-4 text-xl ${
+          online ? "text-gray-700" : "text-gray-500 italic"
+        } transition-all animate-fade-in ${
+          whoseTurn === name && (online ? "font-bold text-black" : "font-bold")
         }`}
       >
         {name}
       </p>
       <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-12 lg:mb-16 xl:mb-24 animate-hand">
         {Array.from({ length: cardCount }).map((_, cardIndex) => (
-          <UnoDummyCard key={cardIndex} isTurn={whoseTurn === name} />
+          <UnoDummyCard
+            key={cardIndex}
+            isTurn={whoseTurn === name}
+            online={online}
+          />
         ))}
       </div>
     </div>

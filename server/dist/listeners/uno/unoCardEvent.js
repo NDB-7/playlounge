@@ -8,7 +8,8 @@ export default function unoCardEvent(socket) {
     socket.on("uno:placeCard", (session, card, newColor) => {
         if (session) {
             const code = session.room;
-            const { game: { mode, state, gameData }, } = activeRoomsMap.get(code);
+            const room = activeRoomsMap.get(code);
+            const { activeSessionsMap, game: { mode, state, gameData }, } = room;
             if (state === "active" && mode === "UNO") {
                 const { players } = gameData;
                 let player;
@@ -36,11 +37,11 @@ export default function unoCardEvent(socket) {
                             }
                             gameData.lastCard = card;
                             player.justDrewCard = false;
-                            gameData.turn = findNextTurn(gameData, card);
+                            gameData.turn = findNextTurn(gameData, activeSessionsMap, card);
                             if (card.face === "+2" || card.face === "+4") {
                                 const victim = players[gameData.turn];
                                 victim.cards.push(...Array.from({ length: card.face === "+2" ? 2 : 4 }, () => randomCard(true)));
-                                gameData.turn = findNextTurn(gameData, card);
+                                gameData.turn = findNextTurn(gameData, activeSessionsMap, card);
                             }
                             syncClientState(code);
                         }

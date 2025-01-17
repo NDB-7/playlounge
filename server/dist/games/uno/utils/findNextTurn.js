@@ -1,22 +1,23 @@
-export default function findNextTurn(gameData, card) {
+import mapHasValue from "../../../utils/mapHasValue.js";
+export default function findNextTurn(gameData, activeSessionsMap, card, turn) {
     const playerCount = gameData.players.length;
-    const turn = gameData.turn;
+    const oldTurn = turn || gameData.turn;
     let newTurn;
     switch (card?.face) {
         case "reverse":
             if (playerCount === 2) {
-                newTurn = turn;
+                newTurn = oldTurn;
             }
             else {
                 gameData.reversed = !gameData.reversed;
-                newTurn = gameData.reversed ? turn - 1 : turn + 1;
+                newTurn = gameData.reversed ? oldTurn - 1 : oldTurn + 1;
             }
             break;
         case "skip":
-            newTurn = gameData.reversed ? turn - 2 : turn + 2;
+            newTurn = gameData.reversed ? oldTurn - 2 : oldTurn + 2;
             break;
         default:
-            newTurn = gameData.reversed ? turn - 1 : turn + 1;
+            newTurn = gameData.reversed ? oldTurn - 1 : oldTurn + 1;
     }
     if (newTurn >= playerCount) {
         newTurn -= playerCount;
@@ -24,6 +25,9 @@ export default function findNextTurn(gameData, card) {
     else if (newTurn < 0) {
         newTurn += playerCount;
     }
+    if (activeSessionsMap.size > 0 &&
+        !mapHasValue(activeSessionsMap, gameData.players[newTurn].id))
+        return findNextTurn(gameData, activeSessionsMap, undefined, newTurn);
     return newTurn;
 }
 //# sourceMappingURL=findNextTurn.js.map

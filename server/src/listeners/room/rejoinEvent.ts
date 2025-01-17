@@ -2,13 +2,15 @@ import { Socket } from "socket.io";
 import activeRoomsMap from "../../config/activeRoomsMap.js";
 import mapHasValue from "../../utils/mapHasValue.js";
 import joinRoom from "../../rooms/joinRoom.js";
+import rejoinGame from "../../game/rejoinGame.js";
 
 export default function rejoinEvent(socket: Socket) {
   socket.on("room:rejoin", (session, callback) => {
     const { room: code } = session;
 
     if (activeRoomsMap.has(code)) {
-      const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(code);
+      const { sessionToUsersMap, activeSessionsMap, game } =
+        activeRoomsMap.get(code);
       if (activeSessionsMap.size >= 4) {
         callback({
           success: false,
@@ -31,6 +33,8 @@ export default function rejoinEvent(socket: Socket) {
             name,
           });
           joinRoom(name, code, socket, session.id);
+          if (game.state === "active")
+            setTimeout(() => rejoinGame(code, game.mode), 1000);
         }
       } else {
         callback({ success: false });

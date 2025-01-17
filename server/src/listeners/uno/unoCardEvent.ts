@@ -13,9 +13,11 @@ export default function unoCardEvent(socket: Socket) {
     (session, card: Card | WildCard, newColor?: Colors) => {
       if (session) {
         const code: string = session.room;
+        const room = activeRoomsMap.get(code);
         const {
+          activeSessionsMap,
           game: { mode, state, gameData },
-        } = activeRoomsMap.get(code);
+        } = room;
 
         if (state === "active" && mode === "UNO") {
           const { players } = gameData;
@@ -47,7 +49,7 @@ export default function unoCardEvent(socket: Socket) {
                 }
                 gameData.lastCard = card;
                 player.justDrewCard = false;
-                gameData.turn = findNextTurn(gameData, card);
+                gameData.turn = findNextTurn(gameData, activeSessionsMap, card);
                 if (card.face === "+2" || card.face === "+4") {
                   const victim = players[gameData.turn];
                   victim.cards.push(
@@ -55,7 +57,11 @@ export default function unoCardEvent(socket: Socket) {
                       randomCard(true)
                     )
                   );
-                  gameData.turn = findNextTurn(gameData, card);
+                  gameData.turn = findNextTurn(
+                    gameData,
+                    activeSessionsMap,
+                    card
+                  );
                 }
                 syncClientState(code);
               }

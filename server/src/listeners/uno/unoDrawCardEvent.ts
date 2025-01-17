@@ -10,9 +10,11 @@ export default function unoDrawCardEvent(socket: Socket) {
   socket.on("uno:drawCard", session => {
     if (session) {
       const code: string = session.room;
+      const room = activeRoomsMap.get(code);
       const {
+        activeSessionsMap,
         game: { mode, state, gameData },
-      } = activeRoomsMap.get(code);
+      } = room;
 
       if (state === "active" && mode === "UNO") {
         let player: UnoPlayer;
@@ -26,7 +28,7 @@ export default function unoDrawCardEvent(socket: Socket) {
           player.cards.push(card);
           if (!checkLegalMove(card, gameData.lastCard) || player.justDrewCard) {
             player.justDrewCard = false;
-            gameData.turn = findNextTurn(gameData);
+            gameData.turn = findNextTurn(gameData, activeSessionsMap);
           } else player.justDrewCard = true;
           syncClientState(code);
         }
