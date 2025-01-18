@@ -3,6 +3,7 @@ import { UnoClientState } from "../types";
 import UnoCard from "./UnoCard";
 import checkLegalMove from "../utils/checkLegalMove";
 import { useEffect } from "react";
+import TurnCountdown from "./TurnCountdown";
 
 export default function YourHand({
   unoState,
@@ -30,13 +31,16 @@ export default function YourHand({
 
   return (
     <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-3/4">
-      <p
-        className={`text-center mb-2 text-xl text-gray-700 animate-fade-in ${
-          isTurn && "font-bold text-black"
-        }`}
-      >
-        You
-      </p>
+      <div className="flex gap-4 justify-center">
+        <p
+          className={`text-center mb-2 text-xl text-gray-700 animate-fade-in ${
+            isTurn && "font-bold text-black"
+          }`}
+        >
+          You
+        </p>
+        {isTurn && <TurnCountdown duration={10} />}
+      </div>
       <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-12 lg:mb-16 xl:mb-24 animate-hand">
         {unoState.cards.map((card, index) => (
           <UnoCard
