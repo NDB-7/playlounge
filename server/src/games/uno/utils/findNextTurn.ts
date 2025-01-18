@@ -1,12 +1,22 @@
+import { ActiveRoomType } from "../../../types.js";
 import mapHasValue from "../../../utils/mapHasValue.js";
 import { Card, UnoGameData, WildCard } from "../types.js";
+import syncClientState from "./syncClientState.js";
+
+let timeout: NodeJS.Timeout | undefined;
 
 export default function findNextTurn(
-  gameData: UnoGameData,
-  activeSessionsMap: Map<string, string>,
+  room: ActiveRoomType,
   card?: Card | WildCard,
   turn?: number
 ) {
+  const {
+    game: { gameData },
+    activeSessionsMap,
+  } = room;
+
+  if (!gameData) return;
+
   const playerCount = gameData.players.length;
   const oldTurn = turn || gameData.turn;
   let newTurn: number;
@@ -37,7 +47,15 @@ export default function findNextTurn(
     activeSessionsMap.size > 0 &&
     !mapHasValue(activeSessionsMap, gameData.players[newTurn].id)
   )
-    return findNextTurn(gameData, activeSessionsMap, undefined, newTurn);
+    return findNextTurn(room, undefined, newTurn);
 
-  return newTurn;
+  if (newTurn !== oldTurn) {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      findNextTurn(room);
+      syncClientState(room.data.code);
+    }, 8000);
+  }
+
+  gameData.turn = newTurn;
 }

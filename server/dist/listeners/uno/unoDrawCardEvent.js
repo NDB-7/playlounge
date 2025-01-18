@@ -20,7 +20,7 @@ export default function unoDrawCardEvent(socket) {
                     player.cards.push(card);
                     if (!checkLegalMove(card, gameData.lastCard) || player.justDrewCard) {
                         player.justDrewCard = false;
-                        gameData.turn = findNextTurn(gameData, activeSessionsMap);
+                        findNextTurn(room);
                     }
                     else
                         player.justDrewCard = true;

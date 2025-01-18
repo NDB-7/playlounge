@@ -1,3 +1,4 @@
+import TurnCountdown from "./TurnCountdown";
 import UnoDummyCard from "./UnoDummyCard";
 
 export default function OtherHand({
@@ -28,15 +29,19 @@ export default function OtherHand({
               : "left-[94%] -translate-y-1/2 top-[47%] w-1/2 rotate-[270deg]")
       }`}
     >
-      <p
-        className={`text-center mb-4 text-xl ${
-          online ? "text-gray-700" : "text-gray-500 italic"
-        } transition-all animate-fade-in ${
-          whoseTurn === name && (online ? "font-bold text-black" : "font-bold")
-        }`}
-      >
-        {name}
-      </p>
+      <div className="flex gap-4 justify-center">
+        <p
+          className={`text-center mb-4 text-xl ${
+            online ? "text-gray-700" : "text-gray-500 italic"
+          } transition-all animate-fade-in ${
+            whoseTurn === name &&
+            (online ? "font-bold text-black" : "font-bold")
+          }`}
+        >
+          {name}
+        </p>
+        {whoseTurn === name && <TurnCountdown duration={8} />}
+      </div>
       <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-12 lg:mb-16 xl:mb-24 animate-hand">
         {Array.from({ length: cardCount }).map((_, cardIndex) => (
           <UnoDummyCard

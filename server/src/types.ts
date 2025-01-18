@@ -3,6 +3,7 @@ import { UnoGameData } from "./games/uno/types.js";
 export type ActiveRoomType = {
   data: {
     name: string;
+    code: string;
     createdAt: number;
   };
   sessionToUsersMap: Map<string, User>;

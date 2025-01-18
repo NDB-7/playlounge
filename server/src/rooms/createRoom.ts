@@ -5,6 +5,7 @@ export default function createRoom(code: string, name: string) {
   activeRoomsMap.set(code, {
     data: {
       name,
+      code,
       createdAt: Date.now(),
     },
     sessionToUsersMap: new Map<string, User>(),

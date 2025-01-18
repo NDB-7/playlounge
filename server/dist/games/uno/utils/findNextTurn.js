@@ -1,5 +1,10 @@
 import mapHasValue from "../../../utils/mapHasValue.js";
-export default function findNextTurn(gameData, activeSessionsMap, card, turn) {
+import syncClientState from "./syncClientState.js";
+let timeout;
+export default function findNextTurn(room, card, turn) {
+    const { game: { gameData }, activeSessionsMap, } = room;
+    if (!gameData)
+        return;
     const playerCount = gameData.players.length;
     const oldTurn = turn || gameData.turn;
     let newTurn;
@@ -27,7 +32,15 @@ export default function findNextTurn(gameData, activeSessionsMap, card, turn) {
     }
     if (activeSessionsMap.size > 0 &&
         !mapHasValue(activeSessionsMap, gameData.players[newTurn].id))
-        return findNextTurn(gameData, activeSessionsMap, undefined, newTurn);
-    return newTurn;
+        return findNextTurn(room, undefined, newTurn);
+    if (newTurn !== oldTurn) {
+        if (timeout)
+            clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            findNextTurn(room);
+            syncClientState(room.data.code);
+        }, 8000);
+    }
+    gameData.turn = newTurn;
 }
 //# sourceMappingURL=findNextTurn.js.map

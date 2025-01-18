@@ -37,11 +37,11 @@ export default function unoCardEvent(socket) {
                             }
                             gameData.lastCard = card;
                             player.justDrewCard = false;
-                            gameData.turn = findNextTurn(gameData, activeSessionsMap, card);
+                            findNextTurn(room, card);
                             if (card.face === "+2" || card.face === "+4") {
                                 const victim = players[gameData.turn];
                                 victim.cards.push(...Array.from({ length: card.face === "+2" ? 2 : 4 }, () => randomCard(true)));
-                                gameData.turn = findNextTurn(gameData, activeSessionsMap, card);
+                                findNextTurn(room, card);
                             }
                             syncClientState(code);
                         }

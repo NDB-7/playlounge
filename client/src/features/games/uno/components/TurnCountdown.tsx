@@ -26,7 +26,7 @@ export default function TurnCountdown({ duration }: { duration: number }) {
       <svg
         height={radius * 2}
         width={radius * 2}
-        className="-rotate-90 opacity-90"
+        className="-rotate-90 opacity-85"
       >
         <circle
           stroke="white"
