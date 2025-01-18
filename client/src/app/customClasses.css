@@ -102,6 +102,17 @@
   background: radial-gradient(#41efd5, #00ac95);
 }
 
+.game-bg::after {
+  position: absolute;
+  content: "";
+  background: white;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  animation: fade-out 0.35s ease-out;
+}
+
 .animate-hand {
   animation: animate-hand 0.75s ease-out;
 }
@@ -191,5 +202,11 @@
   0% {
     scale: 0.75;
     opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
   }
 }
