@@ -5,8 +5,8 @@ import { notFound } from "next/navigation";
 import GameLoading from "@/features/info/components/GameLoading";
 import { SessionInUse } from "@/features/info/components/SessionInUse";
 import SetNameDialog from "@/features/room/components/SetNameDialog";
-import InputBox from "@/features/chat/components/InputBox";
-import { Sidebar } from "@/features/chat/components/Sidebar";
+import InputBox from "@/features/sidebar/components/chat/InputBox";
+import { Sidebar } from "@/features/sidebar/components/Sidebar";
 import RoomInfo from "@/features/room/components/RoomInfo";
 import useRoomInfo from "@/features/room/hooks/useRoomInfo";
 import useSession from "@/features/room/hooks/useSession";
@@ -100,6 +100,8 @@ export default function RoomPage({
         onlineUsers={onlineUsers}
         currentUser={currentUser}
         mobileChat={mobileChat}
+        isOwner={owner === currentUser}
+        session={session}
       >
         {session && <InputBox session={session} />}
       </Sidebar>

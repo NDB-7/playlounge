@@ -40,7 +40,7 @@ export default function OtherHand({
         >
           {name}
         </p>
-        {whoseTurn === name && <TurnCountdown duration={8} />}
+        {whoseTurn === name && <TurnCountdown duration={10} />}
       </div>
       <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-12 lg:mb-16 xl:mb-24 animate-hand">
         {Array.from({ length: cardCount }).map((_, cardIndex) => (

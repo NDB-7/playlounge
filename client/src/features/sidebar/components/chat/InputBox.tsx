@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { SessionType } from "../../../types";
-import socket from "../../../lib/socket";
+import { SessionType } from "../../../../types";
+import socket from "../../../../lib/socket";
 import { SendHorizontal } from "lucide-react";
 
 export default function InputBox({ session }: { session: SessionType }) {

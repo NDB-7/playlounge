@@ -8,34 +8,36 @@ export default function syncClientState(code: string) {
     game: { gameData },
     activeSessionsMap,
   } = activeRoomsMap.get(code);
-  const { players, lastCard, turn } = gameData;
+  if (gameData) {
+    const { players, lastCard, turn } = gameData;
 
-  const whoseTurn = players[turn].name;
+    const whoseTurn = players[turn].name;
 
-  players.forEach(player => {
-    let socket: Socket;
+    players.forEach(player => {
+      let socket: Socket;
 
-    activeSessionsMap.forEach((sessionId, socketId) => {
-      if (sessionId === player.id) socket = io.sockets.sockets.get(socketId);
-    });
-
-    if (socket) {
-      const otherPlayers = players.map(otherPlayer => {
-        if (otherPlayer.id !== player.id)
-          return {
-            name: otherPlayer.name,
-            cardCount: otherPlayer.cards.length,
-          };
+      activeSessionsMap.forEach((sessionId, socketId) => {
+        if (sessionId === player.id) socket = io.sockets.sockets.get(socketId);
       });
 
-      const clientState: UnoClientState = {
-        otherPlayers,
-        lastCard,
-        cards: player.cards,
-        whoseTurn,
-      };
+      if (socket) {
+        const otherPlayers = players.map(otherPlayer => {
+          if (otherPlayer.id !== player.id)
+            return {
+              name: otherPlayer.name,
+              cardCount: otherPlayer.cards.length,
+            };
+        });
 
-      socket.emit("uno:updateState", clientState);
-    }
-  });
+        const clientState: UnoClientState = {
+          otherPlayers,
+          lastCard,
+          cards: player.cards,
+          whoseTurn,
+        };
+
+        socket.emit("uno:updateState", clientState);
+      }
+    });
+  }
 }

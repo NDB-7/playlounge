@@ -39,7 +39,7 @@ export default function YourHand({
         >
           You
         </p>
-        {isTurn && <TurnCountdown duration={8} />}
+        {isTurn && <TurnCountdown duration={10} />}
       </div>
       <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-12 lg:mb-16 xl:mb-24 animate-hand">
         {unoState.cards.map((card, index) => (

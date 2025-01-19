@@ -54,7 +54,7 @@ export default function findNextTurn(
     timeout = setTimeout(() => {
       findNextTurn(room);
       syncClientState(room.data.code);
-    }, 8000);
+    }, 10000);
   }
 
   gameData.turn = newTurn;
