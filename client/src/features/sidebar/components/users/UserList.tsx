@@ -6,12 +6,14 @@ import User from "./User";
 
 export default function UserList({
   onlineUsers,
-  isOwner,
+  currentUser,
+  owner,
   session,
   hidden,
 }: {
   onlineUsers: string[];
-  isOwner: boolean;
+  currentUser: string;
+  owner: string;
   session: SessionType | undefined;
   hidden?: boolean;
 }) {
@@ -27,7 +29,8 @@ export default function UserList({
           <User
             key={nameIndex}
             name={name}
-            isOwner={isOwner}
+            currentUser={currentUser}
+            owner={owner}
             session={session}
           />
         );

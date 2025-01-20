@@ -11,6 +11,15 @@ export default function joinRoom(name, code, socket, sessionId) {
     socket.join(code);
     if (role === "owner")
         io.to(code).emit("room:ownerChange", name);
+    else {
+        // Tells the user who the owner is, if they aren't the owner themself
+        let owner = "";
+        sessionToUsersMap.forEach(user => {
+            if (user.role === "owner")
+                owner = user.name;
+        });
+        socket.emit("room:ownerChange", owner);
+    }
     console.log(`${name} joined as ${role} in room ${code}`);
     updateUserListForClients(code);
     const message = {

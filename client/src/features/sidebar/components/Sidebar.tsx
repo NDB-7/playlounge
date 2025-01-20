@@ -9,14 +9,14 @@ export function Sidebar({
   currentUser,
   children,
   mobileChat,
-  isOwner,
+  owner,
   session,
 }: {
   onlineUsers: string[];
   currentUser: string;
   children: React.ReactNode;
   mobileChat: boolean;
-  isOwner: boolean;
+  owner: string;
   session: SessionType | undefined;
 }) {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,8 @@ export function Sidebar({
         />
         <UserList
           onlineUsers={onlineUsers}
-          isOwner={isOwner}
+          currentUser={currentUser}
+          owner={owner}
           session={session}
           hidden={sidebarMode !== "users"}
         />

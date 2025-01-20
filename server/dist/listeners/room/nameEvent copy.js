@@ -1,0 +1,36 @@
+import { z } from "zod";
+import activeRoomsMap from "../../config/activeRoomsMap.js";
+import mapHasValue from "../../utils/mapHasValue.js";
+import joinRoom from "../../rooms/joinRoom.js";
+const nameSchema = z.string().min(1).max(20);
+export default function nameEvent(socket) {
+    const id = socket.id;
+    socket.on("room:setName", (baseName, code, callback) => {
+        const { success, data: name } = nameSchema.safeParse(baseName.trim());
+        const { sessionToUsersMap, activeSessionsMap } = activeRoomsMap.get(code);
+        if (success) {
+            if (activeSessionsMap.size >= 4) {
+                console.log(`User ${id} attempted to join full room ${code}`);
+                callback({
+                    success: false,
+                    message: "This game is full.",
+                });
+            }
+            else if (mapHasValue(sessionToUsersMap, { name, role: "owner" }) ||
+                mapHasValue(sessionToUsersMap, { name, role: "player" }) ||
+                name === "You") {
+                console.log(`User ${id} attempted to set their name to ${name} in room ${code}`);
+                callback({
+                    success: false,
+                    message: "This name has already been used, try another one.",
+                });
+            }
+            else {
+                const sessionId = crypto.randomUUID();
+                callback({ success: true, session: { room: code, id: sessionId } });
+                joinRoom(name, code, socket, sessionId);
+            }
+        }
+    });
+}
+//# sourceMappingURL=nameEvent%20copy.js.map

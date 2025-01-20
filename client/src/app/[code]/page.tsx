@@ -100,7 +100,7 @@ export default function RoomPage({
         onlineUsers={onlineUsers}
         currentUser={currentUser}
         mobileChat={mobileChat}
-        isOwner={owner === currentUser}
+        owner={owner}
         session={session}
       >
         {session && <InputBox session={session} />}

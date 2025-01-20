@@ -1,19 +1,54 @@
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuSeparator,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+} from "@/components/ui/dropdown-menu";
+import socket from "@/lib/socket";
 import { SessionType } from "@/types";
-import { MoreHorizontal } from "lucide-react";
+import { Crown, MoreHorizontal, UserIcon } from "lucide-react";
 
 export default function User({
   name,
-  isOwner,
+  currentUser,
+  owner,
   session,
 }: {
   name: string;
-  isOwner: boolean;
+  currentUser: string;
+  owner: string;
   session: SessionType | undefined;
 }) {
   return (
-    <div className="bg-white border-b-2 w-full text-left h-12 px-4 flex items-center justify-between">
-      <span>{name}</span>
-      {isOwner && <MoreHorizontal aria-label={name} />}
+    <div className="bg-white border-b-2 w-full text-left h-12 px-3 flex items-center justify-between">
+      <div className="flex gap-3">
+        {name === owner ? <Crown /> : <UserIcon />}
+        <span>{name}</span>
+      </div>
+      {owner === currentUser && name !== currentUser && (
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <MoreHorizontal aria-label={name} />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>{name}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="text-destructive">
+              <button
+                className="h-full w-full text-left text-destructive"
+                onClick={() => socket.emit("room:ownerTransfer", session, name)}
+              >
+                Make Owner
+              </button>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-destructive">
+              Kick
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
     </div>
   );
 }
