@@ -1,6 +1,3 @@
-import { RefObject } from "react";
-import { Message } from "../chat/Message";
-import useMessageReceiver from "../../hooks/useMessageReceiver";
 import { SessionType } from "@/types";
 import User from "./User";
 

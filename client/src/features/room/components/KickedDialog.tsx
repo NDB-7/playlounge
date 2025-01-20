@@ -1,5 +1,3 @@
-import { FormEvent, useState } from "react";
-import { SessionType } from "../../../types";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import Link from "next/link";
 
-export default function KickedDialog({}: {}) {
+export default function KickedDialog() {
   return (
     <Dialog open={true}>
       <DialogContent className="sm:max-w-[425px]">
