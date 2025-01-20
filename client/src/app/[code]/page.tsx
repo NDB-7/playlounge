@@ -19,6 +19,8 @@ import GameRankings from "@/features/game/components/GameRankings";
 import { Button } from "@/components/ui/button";
 import socket from "@/lib/socket";
 import { MessageSquareMore } from "lucide-react";
+import useKicked from "@/features/room/hooks/useKicked";
+import KickedDialog from "@/features/room/components/KickedDialog";
 
 export default function RoomPage({
   params,
@@ -38,6 +40,7 @@ export default function RoomPage({
   const onlineUsers = useOnlineUsers();
   const owner = useOwner();
   const gameState = useGameState();
+  const kicked = useKicked();
   const gameComponents: { [key: string]: React.ReactNode | null } = {
     UNO: (
       <UnoGame
@@ -59,6 +62,7 @@ export default function RoomPage({
         room={code}
       />
     );
+  if (kicked) return <KickedDialog />;
 
   return (
     <div className="fixed flex w-full h-full">

@@ -44,7 +44,12 @@ export default function User({
               </button>
             </DropdownMenuItem>
             <DropdownMenuItem className="text-destructive">
-              Kick
+              <button
+                className="h-full w-full text-left text-destructive"
+                onClick={() => socket.emit("room:kickUser", session, name)}
+              >
+                Kick
+              </button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

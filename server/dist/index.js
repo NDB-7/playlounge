@@ -13,6 +13,7 @@ import unoDrawCardEvent from "./listeners/uno/unoDrawCardEvent.js";
 import resetGameEvent from "./listeners/game/resetGameEvent.js";
 import stopGameEvent from "./listeners/game/stopGameEvent.js";
 import ownerEvent from "./listeners/room/ownerEvent.js";
+import kickEvent from "./listeners/room/kickEvent.js";
 const PORT = process.env.PORT || 4444;
 export const app = express();
 const server = http.createServer(app);
@@ -32,6 +33,7 @@ io.on("connection", socket => {
     disconnectEvent(socket);
     nameEvent(socket);
     ownerEvent(socket);
+    kickEvent(socket);
     messageEvent(socket);
     // Game States
     startGameEvent(socket);
