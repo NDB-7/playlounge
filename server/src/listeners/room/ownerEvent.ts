@@ -1,6 +1,8 @@
 import { Socket } from "socket.io";
 import activeRoomsMap from "../../config/activeRoomsMap.js";
 import { io } from "../../index.js";
+import { ServerMessageType } from "../../types.js";
+import sendServerNotification from "../../rooms/sendServerNotification.js";
 
 export default function ownerEvent(socket: Socket) {
   socket.on("room:ownerTransfer", (session, name: string) => {
@@ -16,6 +18,7 @@ export default function ownerEvent(socket: Socket) {
             oldOwner.role = "player";
             newOwner.role = "owner";
             io.to(code).emit("room:ownerChange", name);
+            sendServerNotification(code, `${name} was promoted to owner.`);
           }
         });
       }

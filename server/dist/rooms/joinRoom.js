@@ -1,6 +1,7 @@
 import activeRoomsMap from "../config/activeRoomsMap.js";
 import { io } from "../index.js";
 import updateUserListForClients from "./updateUserListForClients.js";
+import sendServerNotification from "./sendServerNotification.js";
 export default function joinRoom(name, code, socket, sessionId) {
     const { id } = socket;
     const room = activeRoomsMap.get(code);
@@ -22,11 +23,7 @@ export default function joinRoom(name, code, socket, sessionId) {
     }
     console.log(`${name} joined as ${role} in room ${code}`);
     updateUserListForClients(code);
-    const message = {
-        content: `${name} joined the game.`,
-        serverNotification: true,
-    };
-    io.to(code).emit("chat:receiveMessage", message);
+    sendServerNotification(code, `${name} joined the game.`);
     const { state, mode } = room.game;
     socket.emit("game:gameStateChanged", { state, mode });
 }

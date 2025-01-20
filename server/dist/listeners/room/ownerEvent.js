@@ -1,5 +1,6 @@
 import activeRoomsMap from "../../config/activeRoomsMap.js";
 import { io } from "../../index.js";
+import sendServerNotification from "../../rooms/sendServerNotification.js";
 export default function ownerEvent(socket) {
     socket.on("room:ownerTransfer", (session, name) => {
         const { room: code } = session;
@@ -12,6 +13,7 @@ export default function ownerEvent(socket) {
                         oldOwner.role = "player";
                         newOwner.role = "owner";
                         io.to(code).emit("room:ownerChange", name);
+                        sendServerNotification(code, `${name} was promoted to owner.`);
                     }
                 });
             }

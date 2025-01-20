@@ -1,6 +1,7 @@
 import activeRoomsMap from "../../config/activeRoomsMap.js";
 import { io } from "../../index.js";
 import updateUserListForClients from "../../rooms/updateUserListForClients.js";
+import sendServerNotification from "../../rooms/sendServerNotification.js";
 export default function kickEvent(socket) {
     socket.on("room:kickUser", (session, name) => {
         const { room: code } = session;
@@ -19,11 +20,7 @@ export default function kickEvent(socket) {
                                 victimSocket.emit("room:kicked", () => {
                                     victimSocket.disconnect();
                                 });
-                                const message = {
-                                    content: `${name} was kicked from the room.`,
-                                    serverNotification: true,
-                                };
-                                io.to(code).emit("chat:receiveMessage", message);
+                                sendServerNotification(code, `${name} was kicked from the room.`);
                             }
                         });
                     }

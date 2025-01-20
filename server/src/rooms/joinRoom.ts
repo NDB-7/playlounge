@@ -3,6 +3,7 @@ import activeRoomsMap from "../config/activeRoomsMap.js";
 import { io } from "../index.js";
 import { ServerMessageType, User } from "../types.js";
 import updateUserListForClients from "./updateUserListForClients.js";
+import sendServerNotification from "./sendServerNotification.js";
 
 export default function joinRoom(
   name: string,
@@ -32,12 +33,7 @@ export default function joinRoom(
 
   console.log(`${name} joined as ${role} in room ${code}`);
   updateUserListForClients(code);
-
-  const message: ServerMessageType = {
-    content: `${name} joined the game.`,
-    serverNotification: true,
-  };
-  io.to(code).emit("chat:receiveMessage", message);
+  sendServerNotification(code, `${name} joined the game.`);
 
   const { state, mode } = room.game;
   socket.emit("game:gameStateChanged", { state, mode });

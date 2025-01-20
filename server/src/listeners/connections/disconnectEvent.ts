@@ -4,6 +4,7 @@ import { rateLimitMap } from "../../middleware/rateLimit.js";
 import updateUserListForClients from "../../rooms/updateUserListForClients.js";
 import { ServerMessageType } from "../../types.js";
 import { io } from "../../index.js";
+import sendServerNotification from "../../rooms/sendServerNotification.js";
 export default function disconnectEvent(socket: Socket) {
   const id = socket.id;
 
@@ -35,13 +36,10 @@ export default function disconnectEvent(socket: Socket) {
         });
         console.log(`${newOwnerName} is now owner in room ${code}`);
         io.to(code).emit("room:ownerChange", newOwnerName);
+        sendServerNotification(code, `${newOwnerName} was promoted to owner.`);
       }
       updateUserListForClients(code);
-      const message: ServerMessageType = {
-        content: `${name} left the game.`,
-        serverNotification: true,
-      };
-      io.to(code).emit("chat:receiveMessage", message);
+      sendServerNotification(code, `${name} left the game.`);
     } else console.log(`User ${id} disconnected.`);
   });
 }
