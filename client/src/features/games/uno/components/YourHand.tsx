@@ -2,8 +2,9 @@ import { SessionType } from "@/types";
 import { UnoClientState } from "../types";
 import UnoCard from "./UnoCard";
 import checkLegalMove from "../utils/checkLegalMove";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import TurnCountdown from "./TurnCountdown";
+import { playAudio } from "@/utils/playAudio";
 
 export default function YourHand({
   unoState,
@@ -14,6 +15,8 @@ export default function YourHand({
   isTurn: boolean;
   session?: SessionType;
 }) {
+  const yourTurnRef = useRef<HTMLAudioElement>(null);
+
   useEffect(() => {
     let drawHandAudio: HTMLAudioElement;
     if (session) {
@@ -28,6 +31,17 @@ export default function YourHand({
       }
     };
   }, [session]);
+
+  useEffect(() => {
+    if (isTurn) {
+      playAudio(yourTurnRef.current);
+    }
+  }, [yourTurnRef, isTurn]);
+
+  useEffect(() => {
+    let audio = new Audio("/sounds/game/your-turn.mp3");
+    yourTurnRef.current = audio;
+  }, []);
 
   return (
     <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-3/4">
