@@ -7,6 +7,7 @@ import ColorSelectorContext from "../context/ColorSelectorContext";
 export default function UnoCard({
   color,
   face,
+  id,
   session,
   colorSelect,
   illegal,
@@ -14,6 +15,7 @@ export default function UnoCard({
 }: {
   color: string;
   face: CardFace | WildCardFace;
+  id: string;
   session?: SessionType;
   colorSelect?: boolean;
   illegal?: boolean;
@@ -61,11 +63,12 @@ export default function UnoCard({
           {
             color: "none",
             face,
+            id,
           },
           color
         );
         setColorSelector("");
-      } else socket.emit("uno:placeCard", session, { color, face });
+      } else socket.emit("uno:placeCard", session, { color, face, id });
     }
   }
 

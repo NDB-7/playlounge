@@ -1,6 +1,5 @@
 import { Socket } from "socket.io";
 import activeRoomsMap from "../../config/activeRoomsMap.js";
-import gameOptions from "../../config/gameOptions.js";
 import finishGame from "../../game/finishGame.js";
 
 export default function stopGameEvent(socket: Socket) {

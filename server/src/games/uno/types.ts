@@ -16,17 +16,20 @@ export type CardFace =
 export type WildCardFace = "+4" | "none";
 
 export type Card = {
+  id: string;
   color: Colors;
   face: CardFace;
 };
 
 export type WildCard = {
+  id: string;
   color: Colors | "none";
   face: WildCardFace;
 };
 
 export type UnoGameData = {
   players: UnoPlayer[];
+  spectators: string[];
   lastCard: Card | WildCard;
   turn: number;
   reversed: boolean;
@@ -46,5 +49,14 @@ export type UnoClientState = {
   }[];
   lastCard: Card | WildCard;
   cards: (Card | WildCard)[];
+  whoseTurn: string;
+};
+
+export type UnoSpectatorState = {
+  players: {
+    name: string;
+    cardCount: number;
+  }[];
+  lastCard: Card | WildCard;
   whoseTurn: string;
 };

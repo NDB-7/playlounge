@@ -2,7 +2,7 @@ import activeRoomsMap from "../config/activeRoomsMap.js";
 import { io } from "../index.js";
 
 export default function finishGame(code: string, winner: string | null) {
-  const { game } = activeRoomsMap.get(code);
+  const { game, sessionToUsersMap } = activeRoomsMap.get(code);
 
   if (game.state !== "active") return;
 

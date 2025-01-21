@@ -16,11 +16,13 @@ export type CardFace =
 export type WildCardFace = "+4" | "none";
 
 export type Card = {
+  id: string;
   color: Colors;
   face: CardFace;
 };
 
 export type WildCard = {
+  id: string;
   color: Colors | "none";
   face: WildCardFace;
 };

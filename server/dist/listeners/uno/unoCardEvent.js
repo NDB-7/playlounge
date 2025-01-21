@@ -9,7 +9,7 @@ export default function unoCardEvent(socket) {
         if (session) {
             const code = session.room;
             const room = activeRoomsMap.get(code);
-            const { activeSessionsMap, game: { mode, state, gameData }, } = room;
+            const { game: { mode, state, gameData }, } = room;
             if (state === "active" && mode === "UNO") {
                 const { players } = gameData;
                 let player;

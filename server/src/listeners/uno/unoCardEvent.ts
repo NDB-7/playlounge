@@ -15,7 +15,6 @@ export default function unoCardEvent(socket: Socket) {
         const code: string = session.room;
         const room = activeRoomsMap.get(code);
         const {
-          activeSessionsMap,
           game: { mode, state, gameData },
         } = room;
 

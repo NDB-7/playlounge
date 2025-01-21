@@ -16,6 +16,7 @@ export default function initUno(code: string) {
 
   const gameData: UnoGameData = {
     players,
+    spectators: [],
     lastCard: randomCard(false),
     turn: 0,
     reversed: false,

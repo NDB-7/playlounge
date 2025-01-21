@@ -4,6 +4,7 @@ export default function randomCard(allowWildCards) {
     if (isWildCard && allowWildCards) {
         const isPlusFour = Math.floor(Math.random() * 2) < 1;
         const cardToReturn = {
+            id: crypto.randomUUID(),
             color: "none",
             face: isPlusFour ? "+4" : "none",
         };
@@ -33,6 +34,7 @@ export default function randomCard(allowWildCards) {
         else
             cardFace = randomInt;
         const cardToReturn = {
+            id: crypto.randomUUID(),
             color: cardColor,
             face: cardFace,
         };

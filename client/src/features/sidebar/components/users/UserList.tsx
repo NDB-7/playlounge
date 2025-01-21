@@ -24,7 +24,7 @@ export default function UserList({
       {onlineUsers.map((name, nameIndex) => {
         return (
           <User
-            key={nameIndex}
+            key={name}
             name={name}
             currentUser={currentUser}
             owner={owner}

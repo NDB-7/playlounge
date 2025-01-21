@@ -5,7 +5,7 @@ import sendServerNotification from "./sendServerNotification.js";
 export default function joinRoom(name, code, socket, sessionId) {
     const { id } = socket;
     const room = activeRoomsMap.get(code);
-    const { sessionToUsersMap, activeSessionsMap } = room;
+    const { sessionToUsersMap, activeSessionsMap, game } = room;
     const role = activeSessionsMap.size === 0 ? "owner" : "player";
     sessionToUsersMap.set(sessionId, { name, role });
     activeSessionsMap.set(id, sessionId);
@@ -25,6 +25,8 @@ export default function joinRoom(name, code, socket, sessionId) {
     updateUserListForClients(code);
     sendServerNotification(code, `${name} joined the game.`);
     const { state, mode } = room.game;
+    if (game.state === "active")
+        game.gameData.spectators.push(id);
     socket.emit("game:gameStateChanged", { state, mode });
 }
 //# sourceMappingURL=joinRoom.js.map

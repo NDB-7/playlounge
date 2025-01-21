@@ -27,7 +27,7 @@ export default function UnoGame({
 
   useCardAnimation(
     lastCardRef,
-    [unoState && unoState.lastCard.color, unoState && unoState.lastCard.face],
+    [unoState && unoState.lastCard.id],
     unoState && unoState.lastCard.face
   );
 

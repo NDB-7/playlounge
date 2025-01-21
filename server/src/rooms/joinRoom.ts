@@ -13,7 +13,7 @@ export default function joinRoom(
 ) {
   const { id } = socket;
   const room = activeRoomsMap.get(code);
-  const { sessionToUsersMap, activeSessionsMap } = room;
+  const { sessionToUsersMap, activeSessionsMap, game } = room;
 
   const role = activeSessionsMap.size === 0 ? "owner" : "player";
 
@@ -36,5 +36,6 @@ export default function joinRoom(
   sendServerNotification(code, `${name} joined the game.`);
 
   const { state, mode } = room.game;
+  if (game.state === "active") game.gameData.spectators.push(id);
   socket.emit("game:gameStateChanged", { state, mode });
 }
