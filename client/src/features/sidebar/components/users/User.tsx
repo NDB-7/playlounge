@@ -22,7 +22,7 @@ export default function User({
   session: SessionType | undefined;
 }) {
   return (
-    <div className="bg-white border-b-2 w-full text-left h-12 px-3 flex items-center justify-between">
+    <div className="border-b-2 w-full text-left h-12 px-3 flex items-center justify-between bg-background">
       <div className="flex gap-3">
         {name === owner ? <Crown /> : <UserIcon />}
         <span>{name}</span>

@@ -26,11 +26,11 @@ export function Sidebar({
     <aside
       className={`${
         mobileChat ? "absolute right-0 w-72 shadow-xl" : "hidden"
-      } md:w-60 lg:w-72 h-full bg-gray-50 border-r-2 md:block md:relative md:shadow-none border-l-2`}
+      } md:w-60 lg:w-72 h-full bg-background border-r-2 md:block md:relative md:shadow-none border-l-2 bg-white`}
     >
-      <div className="w-full mt-12 h-12 bg-white border-2 border-x-0 absolute flex">
+      <div className="w-full mt-12 h-12 bg-background border-2 border-x-0 absolute flex">
         <button
-          className={`flex-grow border-r-2 flex items-center justify-center cursor-pointer hover:bg-gray-50 ${
+          className={`flex-grow border-r-2 flex items-center justify-center cursor-pointer hover:bg-orange-50 ${
             sidebarMode === "chat" && "shadow-inner"
           }`}
           onClick={() => setSidebarMode("chat")}
@@ -38,7 +38,7 @@ export function Sidebar({
           <MessageSquareMore />
         </button>
         <button
-          className={`flex-grow flex items-center justify-center cursor-pointer hover:bg-gray-50 ${
+          className={`flex-grow flex items-center justify-center cursor-pointer hover:bg-orange-50 ${
             sidebarMode === "users" && "shadow-inner"
           }`}
           onClick={() => setSidebarMode("users")}

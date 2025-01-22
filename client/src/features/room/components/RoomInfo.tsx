@@ -11,7 +11,7 @@ export default function RoomInfo({
   children?: React.ReactNode;
 }) {
   return (
-    <header className="fixed bg-white w-full border-b-2 py-2 px-4 flex items-center justify-between z-10">
+    <header className="fixed bg-background w-full border-b-2 py-2 px-4 flex items-center justify-between z-10">
       <div>
         <h1 className="text-2xl font-bold">
           {roomInfo.success && roomInfo.name}

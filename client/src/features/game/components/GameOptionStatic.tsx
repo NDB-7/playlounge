@@ -8,7 +8,7 @@ export default function GameOptionStatic({
   description: string;
 }) {
   return (
-    <li className="rounded-md border-2 p-4 bg-gray-50">
+    <li className="rounded-xl border-2 border-orange-200 p-4 bg-orange-50">
       <div className="flex items-center gap-5">
         <img
           src={`/gameicons/${fetchGameIcon(name)}`}

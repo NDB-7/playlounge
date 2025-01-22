@@ -40,7 +40,7 @@ export default function UnoDummyCard({
   return (
     <motion.div
       className={`bg-gray-300 uno-card border-white border-4 flex items-center justify-center  transition-all shadow overflow-hidden ${
-        session && "cursor-pointer hover:scale-105"
+        session && isTurn && "cursor-pointer hover:scale-105"
       } ${!isTurn && (online === false ? "brightness-50" : "brightness-75")}`}
       onClick={clickHandler}
       exit={{ opacity: 0, y: -100, transition: { duration: 0.15 } }}
