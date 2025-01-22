@@ -36,3 +36,12 @@ export type UnoClientState = {
   cards: (Card | WildCard)[];
   whoseTurn: string;
 };
+
+export type UnoSpectatorState = {
+  players: {
+    name: string;
+    cardCount: number;
+  }[];
+  lastCard: Card | WildCard;
+  whoseTurn: string;
+};

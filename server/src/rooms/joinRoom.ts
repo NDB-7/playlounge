@@ -36,6 +36,11 @@ export default function joinRoom(
   sendServerNotification(code, `${name} joined the game.`);
 
   const { state, mode } = room.game;
-  if (game.state === "active") game.gameData.spectators.push(id);
+  if (game.state === "active") {
+    const isRejoining = game.gameData.players.some(
+      player => player.id === sessionId
+    );
+    if (!isRejoining) game.gameData.spectators.push(id);
+  }
   socket.emit("game:gameStateChanged", { state, mode });
 }

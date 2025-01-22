@@ -8,8 +8,6 @@ export default function syncClientState(code) {
         players.forEach(player => {
             let socket;
             activeSessionsMap.forEach((sessionId, socketId) => {
-                if (spectators.includes(socketId))
-                    spectators.splice(spectators.indexOf(socketId), 1);
                 if (sessionId === player.id)
                     socket = io.sockets.sockets.get(socketId);
             });
@@ -43,8 +41,10 @@ export default function syncClientState(code) {
                     whoseTurn,
                 };
                 console.log(clientState);
-                socket.emit("uno:updateState", clientState);
+                socket.emit("uno:updateSpectator", clientState);
             }
+            else
+                spectators.splice(spectators.indexOf(spectatorId), 1);
         });
     }
 }
