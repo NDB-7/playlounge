@@ -3,6 +3,7 @@ import { CardFace, WildCardFace } from "../types";
 import { SessionType } from "@/types";
 import { RefObject, useContext } from "react";
 import ColorSelectorContext from "../context/ColorSelectorContext";
+import { motion } from "motion/react";
 
 export default function UnoCard({
   color,
@@ -73,7 +74,7 @@ export default function UnoCard({
   }
 
   return (
-    <div
+    <motion.div
       className={`${
         color === "red"
           ? "bg-red-500"
@@ -89,6 +90,7 @@ export default function UnoCard({
       } ${illegal && "brightness-75"}`}
       onClick={clickHandler}
       ref={!session ? ref : null}
+      exit={{ opacity: 0, y: -100, transition: { duration: 0.15 } }}
     >
       <div className="absolute top-0 left-1 text-white drop-shadow-[0_0_1px_rgba(0,0,0,1)] font-bold text-xs lg:text-sm xl:text-md select-none">
         {faceIcon}
@@ -110,6 +112,6 @@ export default function UnoCard({
       <div className="absolute bottom-0 right-1 text-white drop-shadow-[0_0_1px_rgba(0,0,0,1)] font-bold rotate-180 text-xs lg:text-sm xl:text-md select-none">
         {faceIcon}
       </div>
-    </div>
+    </motion.div>
   );
 }

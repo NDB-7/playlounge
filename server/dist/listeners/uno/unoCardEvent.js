@@ -54,10 +54,18 @@ export default function unoCardEvent(socket) {
 function findPlayerCard(player, card) {
     let cardIndex = -1;
     player.cards.forEach((currentCard, index) => {
-        if (currentCard.face === card.face && currentCard.color === card.color) {
+        if (currentCard.id === card.id) {
             cardIndex = index;
         }
     });
+    if (cardIndex === -1) {
+        // Accounts for wildcards and +4 cards
+        player.cards.forEach((currentCard, index) => {
+            if (currentCard.color === card.color && currentCard.face === card.face) {
+                cardIndex = index;
+            }
+        });
+    }
     return cardIndex;
 }
 function isColor(newColor) {

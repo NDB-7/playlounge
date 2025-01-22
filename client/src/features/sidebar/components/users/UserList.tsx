@@ -21,7 +21,7 @@ export default function UserList({
       aria-live="polite"
       tabIndex={0}
     >
-      {onlineUsers.map((name, nameIndex) => {
+      {onlineUsers.map(name => {
         return (
           <User
             key={name}

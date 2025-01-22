@@ -5,6 +5,7 @@ import checkLegalMove from "../utils/checkLegalMove";
 import { useEffect, useRef } from "react";
 import TurnCountdown from "./TurnCountdown";
 import { playAudio } from "@/utils/playAudio";
+import { AnimatePresence } from "motion/react";
 
 export default function YourHand({
   unoState,
@@ -39,7 +40,7 @@ export default function YourHand({
   }, [yourTurnRef, isTurn]);
 
   useEffect(() => {
-    let audio = new Audio("/sounds/game/your-turn.mp3");
+    const audio = new Audio("/sounds/game/your-turn.mp3");
     yourTurnRef.current = audio;
   }, []);
 
@@ -56,14 +57,16 @@ export default function YourHand({
         {isTurn && <TurnCountdown duration={10} />}
       </div>
       <div className="flex justify-center gap-1 max-w-[100%] flex-wrap mb-12 lg:mb-16 xl:mb-24 animate-hand">
-        {unoState.cards.map(card => (
-          <UnoCard
-            {...card}
-            key={card.id}
-            session={session}
-            illegal={!isTurn || !checkLegalMove(card, unoState.lastCard)}
-          />
-        ))}
+        <AnimatePresence>
+          {unoState.cards.map(card => (
+            <UnoCard
+              {...card}
+              key={card.id}
+              session={session}
+              illegal={!isTurn || !checkLegalMove(card, unoState.lastCard)}
+            />
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );
