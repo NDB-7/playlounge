@@ -24,15 +24,12 @@ export default function Home() {
           >
             <path
               d="M378.346 26.3353C448.43 31.6241 516.29 41.1038 586.18 46.8534C685.734 55.0489 789.409 55.544 888.807 47.0446C985.401 38.805 1085.56 18.7083 1181.01 8.49828C1265.65 -0.559911 1358.06 -4.29004 1440 7.02779V54H-10V40.5941C113.813 21.5492 248.116 16.6181 378.346 26.3353Z"
-              fill="white"
+              fill="#f9fafb"
             />
           </svg>
         </div>
-        <section className="bg-white flex flex-col items-center px-6">
-          <H2 className="mt-12">What makes us unique?</H2>
-          <p className="mt-4 text-gray-700 text-center">
-            We offer the smoothest and safest chatting experience on the web.
-          </p>
+        <section className="bg-gray-50 flex flex-col items-center px-6">
+          <H2 className="mt-12">Join a public room</H2>
           <div className="mt-12 grid xl:grid-cols-3 md:grid-cols-2 gap-12">
             <div className="h-80 w-80 rounded-2xl border-gray-200 border-2 p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-50 hover:border-gray-300">
               <H3>Effortless Sharing</H3>

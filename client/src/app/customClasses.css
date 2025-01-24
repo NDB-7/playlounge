@@ -54,12 +54,12 @@
   content: "";
   width: 0%;
   height: 0.125rem;
-  background-color: #06b6d4;
+  background-color: #16a34a;
   transition: width 0.2s;
 }
 
 .hover-link:hover {
-  color: #0891b2;
+  color: #16a34a;
 }
 
 .hover-link:hover::after {

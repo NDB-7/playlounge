@@ -14,7 +14,7 @@ export function H1({
 }) {
   return (
     <h1
-      className={`${figtree.className} text-center text-4xl md:text-5xl lg:text-6xl ${className}`}
+      className={`${figtree.className} text-center text-4xl md:text-5xl ${className}`}
     >
       {children}
     </h1>

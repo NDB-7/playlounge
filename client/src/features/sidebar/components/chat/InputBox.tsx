@@ -50,7 +50,7 @@ export default function InputBox({ session }: { session: SessionType }) {
           onChange={e => setMessageInput(e.target.value)}
         />
         <button
-          className="bg-orange-500 h-5/6 aspect-square rounded-full mr-1 flex items-center justify-center hover:scale-105 transition-transform"
+          className="bg-green-500 h-5/6 aspect-square rounded-full mr-1 flex items-center justify-center hover:scale-105 transition-transform"
           onClick={handleMessageInput}
         >
           <SendHorizontal className="w-7/12 h-7/12 stroke-white" />
