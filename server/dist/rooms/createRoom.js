@@ -1,11 +1,12 @@
 import activeRoomsMap from "../config/activeRoomsMap.js";
-export default function createRoom(code, name) {
+export default function createRoom(code, name, isPrivate) {
     activeRoomsMap.set(code, {
         data: {
             name,
             code,
             createdAt: Date.now(),
         },
+        isPrivate,
         sessionToUsersMap: new Map(),
         activeSessionsMap: new Map(),
         game: {

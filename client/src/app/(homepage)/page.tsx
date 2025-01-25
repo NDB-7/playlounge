@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { SendHorizontal } from "lucide-react";
+import RoomList from "./_components/RoomList";
 
 export default function Home() {
   return (
@@ -32,23 +33,7 @@ export default function Home() {
           <p className="mt-4 text-gray-700">
             Click on any room that interests you to start playing! 🎮
           </p>
-          <ul className="mt-8 grid xl:grid-cols-3 md:grid-cols-2 gap-8 max-w-6xl">
-            <li
-              className="rounded-2xl bg-white border-orange-200 border-2 p-6 transition-all duration-200 hover:-translate-y-1 shadow-md shadow-orange-50 hover:shadow-lg hover:shadow-green-100 hover:border-orange-300 cursor-pointer flex justify-between items-center gap-6"
-              role="button"
-              aria-label={`Join room ${"roomName"}`}
-              tabIndex={0}
-            >
-              <div className="space-y-1">
-                <H4>Insert a random room name here</H4>
-                <p className="text-gray-700">Game Selector</p>
-                <p>
-                  👤 4/4 <span className="text-gray-500 text-sm">(CODE)</span>
-                </p>
-              </div>
-              <img src="/gameicons/uno-icon.svg" className="h-24" />
-            </li>
-          </ul>
+          <RoomList />
         </section>
         <div className="w-full overflow-hidden">
           <svg

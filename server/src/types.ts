@@ -6,6 +6,7 @@ export type ActiveRoomType = {
     code: string;
     createdAt: number;
   };
+  isPrivate: boolean;
   sessionToUsersMap: Map<string, User>;
   activeSessionsMap: Map<string, string>;
   game: Game;

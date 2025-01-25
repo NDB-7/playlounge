@@ -1,5 +1,6 @@
 const ICONS: { [key: string]: string } = {
   UNO: "uno-icon.svg",
+  "Game Selector": "selector-icon.svg",
 };
 
 export function fetchGameIcon(game: string) {
