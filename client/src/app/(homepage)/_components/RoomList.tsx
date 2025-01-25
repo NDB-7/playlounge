@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { H4 } from "./Headings";
 import { RefreshCw } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import { fetchGameIcon } from "@/utils/fetchGameIcon";
 
@@ -54,8 +53,8 @@ export default function RoomList() {
         </ul>
       ) : (
         <p className="text-center place-self-center mt-8 font-bold">
-          Looks like there's no public rooms at the moment. Go ahead and make
-          your own!
+          Looks like there&apos;s no public rooms at the moment. Go ahead and
+          make your own!
         </p>
       )}
     </>
