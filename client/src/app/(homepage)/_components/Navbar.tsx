@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import MenuToggle from "./MenuToggle";
 
 export default function Navbar() {
   return (
@@ -18,12 +17,11 @@ export default function Navbar() {
               />
             </Link>
           </li>
-          <div className="hidden sm:flex ml-auto items-center gap-8">
+          <div className="flex ml-auto items-center gap-8">
             <li className="hover-link">
               <Link href="#contact">Feedback</Link>
             </li>
           </div>
-          <MenuToggle />
         </ul>
       </nav>
     </header>

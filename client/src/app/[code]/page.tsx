@@ -66,7 +66,7 @@ export default function RoomPage({
 
   return (
     <div className="fixed flex w-full h-full">
-      <title>{`${roomInfo.name} | QuickRoom`}</title>
+      <title>{`${roomInfo.name} | PlayLounge`}</title>
       <div className="blur-overlay" />
       <RoomInfo roomInfo={roomInfo} code={code}>
         {gameState?.state === "active" && owner === currentUser && (

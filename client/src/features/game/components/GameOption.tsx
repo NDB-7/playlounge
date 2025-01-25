@@ -14,8 +14,10 @@ export default function GameOption({
 }) {
   return (
     <li
-      className={`rounded-xl border-2 p-4 bg-orange-100 transition-[border] cursor-pointer ${
-        selected ? "border-orange-400 shadow-md" : "hover:border-orange-300"
+      className={`rounded-xl border-2 p-4 transition-[border] cursor-pointer ${
+        selected
+          ? "border-orange-400 shadow-md bg-orange-100"
+          : "hover:border-orange-300 bg-orange-50"
       }`}
       role="button"
       aria-label={`Select game ${name}`}

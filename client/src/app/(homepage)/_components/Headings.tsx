@@ -46,3 +46,15 @@ export function H3({
     <h2 className={`${figtree.className} text-2xl ${className}`}>{children}</h2>
   );
 }
+
+export function H4({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <h2 className={`${figtree.className} text-xl ${className}`}>{children}</h2>
+  );
+}
