@@ -1,12 +1,8 @@
 import Navbar from "./_components/Navbar";
-import { H2, H4 } from "./_components/Headings";
+import { H2 } from "./_components/Headings";
 import Hero from "./_components/Hero";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { SendHorizontal } from "lucide-react";
 import RoomList from "./_components/RoomList";
+import Feedback from "./_components/Feedback";
 
 export default function Home() {
   return (
@@ -14,7 +10,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <div className="w-full mt-16 overflow-hidden">
+        <div className="w-full mt-12 overflow-hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1440"
@@ -50,44 +46,7 @@ export default function Home() {
           </svg>
         </div>
         <section className="bg-green-600 -mt-12 -z-10 flex flex-col items-center">
-          <div
-            className="-translate-y-24 rounded-2xl border-gray-200 border-2 py-8 px-8 sm:px-12 lg:px-16 xl:px-20 bg-white mx-8"
-            id="contact"
-          >
-            <H2 className="text-center">Feedback</H2>
-            <p className="text-gray-700 mt-4 text-center">
-              We&apos;d love to hear your feedback! Feel free to report any bugs
-              or give suggestions here 😄
-            </p>
-            <form className="mt-8">
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email (optional)</Label>
-                  <Input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="mail@example.com"
-                    maxLength={50}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="feedback">Feedback</Label>
-                  <Textarea
-                    name="feedback"
-                    id="feedback"
-                    placeholder="Type your comments here"
-                    maxLength={500}
-                    required
-                  />
-                </div>
-              </div>
-              <Button type="submit" className="mt-8">
-                <SendHorizontal />
-                Submit feedback
-              </Button>
-            </form>
-          </div>
+          <Feedback />
           <footer className="mb-4 text-white">© 2024 PlayLounge</footer>
         </section>
       </main>
