@@ -1,6 +1,4 @@
-import CheckText from "./CheckText";
-import { H1, H2 } from "./Headings";
-import Image from "next/image";
+import { H1 } from "./Headings";
 import CreateRoom from "./CreateRoom";
 
 export default function Hero() {

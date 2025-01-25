@@ -34,7 +34,8 @@ export default function Feedback() {
       </p>
       {submitted ? (
         <div className="mt-4 text-center">
-          Thanks for submitting your feedback! We'll be sure to review it! 😉
+          Thanks for submitting your feedback! We&apos;ll be sure to review it!
+          😉
         </div>
       ) : (
         <form className="mt-6" onSubmit={submitHandler}>
