@@ -1,6 +1,6 @@
-# QuickRoom
+# PlayLounge
 
-Create a chatroom in seconds with just a 4-digit code. Share it with your friends and start chatting instantly—no login required.
+Play free party games with your friends online, no sign-up required!
 
 - Built with **React** and **Next.js**
 - Written in **TypeScript**

@@ -9,21 +9,22 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "UNO",
-  description: "Play UNO online for free, with up to 4 players!",
-  // icons: [
-  //   { rel: "icon", url: "/meta/favicon-96x96.png" },
-  //   { rel: "icon", url: "/meta/favicon.svg" },
-  //   { rel: "shortcut icon", url: "/meta/favicon.ico" },
-  //   { rel: "apple-touch-icon", url: "/meta/apple-touch-icon.png" },
-  // ],
-  // manifest: "/meta/site.webmanifest",
+  title: "PlayLounge",
+  description:
+    "Play free party games with your friends online, no sign-up required!",
+  icons: [
+    { rel: "icon", url: "/meta/favicon-96x96.png" },
+    { rel: "icon", url: "/meta/favicon.svg" },
+    { rel: "shortcut icon", url: "/meta/favicon.ico" },
+    { rel: "apple-touch-icon", url: "/meta/apple-touch-icon.png" },
+  ],
+  manifest: "/meta/site.webmanifest",
   appleWebApp: {
     capable: true,
-    title: "UNO",
+    title: "PlayLounge",
     statusBarStyle: "black",
   },
-  keywords: "uno, crazy 8, crazy eight, 4 player uno",
+  keywords: "uno, 4 player games, party games, free games, multiplayer",
 };
 
 export default function RootLayout({
