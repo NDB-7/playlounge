@@ -1,6 +1,6 @@
 import { ActiveRoomType } from "../../../types.js";
 import mapHasValue from "../../../utils/mapHasValue.js";
-import { Card, UnoGameData, WildCard } from "../types.js";
+import { Card, WildCard } from "../types.js";
 import syncClientState from "./syncClientState.js";
 
 let timeout: NodeJS.Timeout | undefined;
@@ -8,7 +8,8 @@ let timeout: NodeJS.Timeout | undefined;
 export default function findNextTurn(
   room: ActiveRoomType,
   card?: Card | WildCard,
-  turn?: number
+  turn?: number,
+  checkedPlayers: number = 0
 ) {
   const {
     game: { gameData },
@@ -21,6 +22,7 @@ export default function findNextTurn(
   const oldTurn = turn || gameData.turn;
   let newTurn: number;
 
+  // Find next turn based on last card
   switch (card?.face) {
     case "reverse":
       if (playerCount === 2) {
@@ -37,18 +39,24 @@ export default function findNextTurn(
       newTurn = gameData.reversed ? oldTurn - 1 : oldTurn + 1;
   }
 
+  // Stay within range of player count
   if (newTurn >= playerCount) {
     newTurn -= playerCount;
   } else if (newTurn < 0) {
     newTurn += playerCount;
   }
 
+  // Skip disconnected users
   if (
     activeSessionsMap.size > 0 &&
     !mapHasValue(activeSessionsMap, gameData.players[newTurn].id)
-  )
-    return findNextTurn(room, undefined, newTurn);
+  ) {
+    checkedPlayers++;
+    if (checkedPlayers >= playerCount) return;
+    return findNextTurn(room, undefined, newTurn, checkedPlayers);
+  }
 
+  // Reset timeout if turn is valid
   if (newTurn !== oldTurn) {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => {
