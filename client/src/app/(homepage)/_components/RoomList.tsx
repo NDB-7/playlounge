@@ -82,6 +82,7 @@ function Room({ name, mode, users, code }: PublicRoomType) {
         <img
           src={`/gameicons/${fetchGameIcon(mode) || "selector-icon.svg"}`}
           className="h-24"
+          alt=""
         />
       </li>
     </Link>

@@ -19,7 +19,7 @@ export default function TurnCountdown({ duration }: { duration: number }) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [duration]);
 
   if (timeLeft > -1)
     return (

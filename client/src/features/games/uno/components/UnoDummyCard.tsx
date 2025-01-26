@@ -49,6 +49,7 @@ export default function UnoDummyCard({
         className="w-full h-full border-white rounded select-none"
         src="/textures/uno/card-back.svg"
         draggable={false}
+        alt=""
       />
     </motion.div>
   );
