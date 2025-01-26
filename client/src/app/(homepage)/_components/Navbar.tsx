@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <header>
-      <nav className="absolute top-0 w-full h-16">
+      <nav className="absolute top-0 w-full h-16 header-anim">
         <ul className="max-w-7xl h-full mx-auto px-6 flex items-center">
           <li>
             <Link href="/">

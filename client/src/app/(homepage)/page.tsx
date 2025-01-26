@@ -24,12 +24,14 @@ export default function Home() {
             />
           </svg>
         </div>
-        <section className="bg-gray-50 flex flex-col items-center px-6 pb-48">
-          <H2 className="mt-12">Join a public room</H2>
-          <p className="mt-4 text-gray-700">
-            Click on any room that interests you to start playing! 🎮
-          </p>
-          <RoomList />
+        <section className="bg-gray-50 px-6 pb-48">
+          <div className="flex flex-col items-center room-list-anim">
+            <H2 className="mt-12">Join a public room</H2>
+            <p className="mt-4 text-gray-700">
+              Click on any room that interests you to start playing! 🎮
+            </p>
+            <RoomList />
+          </div>
         </section>
         <div className="w-full overflow-hidden">
           <svg
