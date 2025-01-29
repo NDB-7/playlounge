@@ -21,6 +21,8 @@ import socket from "@/lib/socket";
 import { MessageSquareMore } from "lucide-react";
 import useKicked from "@/features/room/hooks/useKicked";
 import KickedDialog from "@/features/room/components/KickedDialog";
+import { useSessionStore } from "@/lib/store";
+import { useShallow } from "zustand/react/shallow";
 
 export default function RoomPage({
   params,
@@ -33,14 +35,12 @@ export default function RoomPage({
   const [mobileChat, setMobileChat] = useState(false);
 
   const roomInfo = useRoomInfo(code);
-  const { sessionInUse, session, setSession } = useSession(
-    setCurrentUser,
-    code
-  );
+  const sessionInUse = useSession(setCurrentUser, code);
   const onlineUsers = useOnlineUsers();
   const owner = useOwner();
   const gameState = useGameState();
   const kicked = useKicked();
+  const session = useSessionStore(useShallow(state => state.session));
   const gameComponents: { [key: string]: React.ReactNode | null } = {
     UNO: (
       <UnoGame
@@ -55,13 +55,7 @@ export default function RoomPage({
   if (sessionInUse) return <SessionInUse>{sessionInUse}</SessionInUse>;
   if (!roomInfo.success) return notFound();
   if (currentUser === "")
-    return (
-      <SetNameDialog
-        setCurrentUser={setCurrentUser}
-        setSession={setSession}
-        room={code}
-      />
-    );
+    return <SetNameDialog setCurrentUser={setCurrentUser} room={code} />;
   if (kicked) return <KickedDialog />;
 
   return (

@@ -1,5 +1,4 @@
 import { FormEvent, useState } from "react";
-import { SessionType } from "../../../types";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,18 +12,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import socket from "../../../lib/socket";
 import { SetNameResponse } from "../types";
+import { useSessionStore } from "@/lib/store";
 
 export default function SetNameDialog({
   setCurrentUser,
-  setSession,
   room,
 }: {
   setCurrentUser: React.Dispatch<React.SetStateAction<string>>;
-  setSession: React.Dispatch<React.SetStateAction<SessionType | undefined>>;
   room: string;
 }) {
   const [nameInput, setNameInput] = useState("");
   const [nameError, setNameError] = useState("");
+  const setSession = useSessionStore(state => state.setSession);
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();

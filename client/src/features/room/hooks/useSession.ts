@@ -2,13 +2,15 @@ import React, { SetStateAction, useEffect, useState } from "react";
 import { SessionType } from "@/types";
 import socket from "../../../lib/socket";
 import { RejoinResponse } from "../types";
+import { useSessionStore } from "@/lib/store";
+import { useShallow } from "zustand/react/shallow";
 
 export default function useSession(
   setCurrentUser: React.Dispatch<SetStateAction<string>>,
   code: string
 ) {
   const [sessionInUse, setSessionInUse] = useState<string>();
-  const [session, setSession] = useState<SessionType>();
+  const setSession = useSessionStore(state => state.setSession);
 
   useEffect(() => {
     const sessionString = localStorage.getItem("session");
@@ -32,5 +34,5 @@ export default function useSession(
     }
   }, [code, setCurrentUser]);
 
-  return { sessionInUse, session, setSession };
+  return sessionInUse;
 }
