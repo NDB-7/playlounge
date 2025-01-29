@@ -16,13 +16,10 @@ import useOwner from "@/features/room/hooks/useOwner";
 import useGameState from "@/features/game/hooks/useGameState";
 import UnoGame from "@/features/games/uno/components/UnoGame";
 import GameRankings from "@/features/game/components/GameRankings";
-import { Button } from "@/components/ui/button";
-import socket from "@/lib/socket";
 import { MessageSquareMore } from "lucide-react";
 import useKicked from "@/features/room/hooks/useKicked";
 import KickedDialog from "@/features/room/components/KickedDialog";
-import { useSessionStore } from "@/lib/store";
-import { useShallow } from "zustand/react/shallow";
+import StopGame from "@/features/game/components/StopGame";
 
 export default function RoomPage({
   params,
@@ -40,15 +37,8 @@ export default function RoomPage({
   const owner = useOwner();
   const gameState = useGameState();
   const kicked = useKicked();
-  const session = useSessionStore(useShallow(state => state.session));
   const gameComponents: { [key: string]: React.ReactNode | null } = {
-    UNO: (
-      <UnoGame
-        currentUser={currentUser}
-        session={session}
-        onlineUsers={onlineUsers}
-      />
-    ),
+    UNO: <UnoGame currentUser={currentUser} onlineUsers={onlineUsers} />,
   };
 
   if (!roomInfo) return <GameLoading />;
@@ -63,16 +53,7 @@ export default function RoomPage({
       <title>{`${roomInfo.name} | PlayLounge`}</title>
       <div className="blur-overlay" />
       <RoomInfo roomInfo={roomInfo} code={code}>
-        {gameState?.state === "active" && owner === currentUser && (
-          <Button
-            variant="destructive"
-            onClick={() => {
-              socket.emit("game:stopGame", session);
-            }}
-          >
-            Stop Game
-          </Button>
-        )}
+        {gameState?.state === "active" && owner === currentUser && <StopGame />}
         <button
           onClick={() => setMobileChat(!mobileChat)}
           aria-label="Toggle Chat"
@@ -82,14 +63,13 @@ export default function RoomPage({
         </button>
       </RoomInfo>
       <main className="relative h-full flex-grow overflow-hidden pt-12">
-        {session && gameState?.state === "waiting" ? (
-          <GameSelector isOwner={owner === currentUser} session={session} />
+        {gameState?.state === "waiting" ? (
+          <GameSelector isOwner={owner === currentUser} />
         ) : gameState?.state === "active" ? (
           gameState?.mode && gameComponents[gameState.mode]
         ) : (
           <GameRankings
             isOwner={owner === currentUser}
-            session={session}
             currentUser={currentUser}
           />
         )}
@@ -99,9 +79,8 @@ export default function RoomPage({
         currentUser={currentUser}
         mobileChat={mobileChat}
         owner={owner}
-        session={session}
       >
-        {session && <InputBox session={session} />}
+        <InputBox />
       </Sidebar>
     </div>
   );

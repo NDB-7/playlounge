@@ -3,7 +3,6 @@ import { SessionType } from "@/types";
 import socket from "../../../lib/socket";
 import { RejoinResponse } from "../types";
 import { useSessionStore } from "@/lib/store";
-import { useShallow } from "zustand/react/shallow";
 
 export default function useSession(
   setCurrentUser: React.Dispatch<SetStateAction<string>>,

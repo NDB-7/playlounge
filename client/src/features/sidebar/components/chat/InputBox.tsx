@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { SessionType } from "../../../../types";
 import socket from "../../../../lib/socket";
 import { SendHorizontal } from "lucide-react";
+import { useSessionStore } from "@/lib/store";
+import { useShallow } from "zustand/react/shallow";
 
-export default function InputBox({ session }: { session: SessionType }) {
+export default function InputBox() {
   const [messageInput, setMessageInput] = useState("");
   const [rateLimited, setRateLimited] = useState(false);
+  const session = useSessionStore(useShallow(state => state.session));
 
   function handleMessageInput() {
     if (messageInput !== "")

@@ -1,4 +1,3 @@
-import { SessionType } from "@/types";
 import { UnoClientState } from "../types";
 import UnoCard from "./UnoCard";
 import checkLegalMove from "../utils/checkLegalMove";
@@ -10,20 +9,15 @@ import { AnimatePresence } from "motion/react";
 export default function YourHand({
   unoState,
   isTurn,
-  session,
 }: {
   unoState: UnoClientState;
   isTurn: boolean;
-  session?: SessionType;
 }) {
   const yourTurnRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    let drawHandAudio: HTMLAudioElement;
-    if (session) {
-      drawHandAudio = new Audio("/sounds/uno/draw-hand.mp3");
-      drawHandAudio.play();
-    }
+    const drawHandAudio = new Audio("/sounds/uno/draw-hand.mp3");
+    drawHandAudio.play();
 
     return () => {
       if (drawHandAudio) {
@@ -31,7 +25,7 @@ export default function YourHand({
         drawHandAudio.src = "";
       }
     };
-  }, [session]);
+  }, []);
 
   useEffect(() => {
     if (isTurn) {
@@ -62,7 +56,6 @@ export default function YourHand({
             <UnoCard
               {...card}
               key={card.id}
-              session={session}
               illegal={!isTurn || !checkLegalMove(card, unoState.lastCard)}
             />
           ))}

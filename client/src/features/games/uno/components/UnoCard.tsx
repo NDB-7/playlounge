@@ -1,15 +1,15 @@
 import socket from "@/lib/socket";
 import { CardFace, WildCardFace } from "../types";
-import { SessionType } from "@/types";
 import { RefObject, useContext } from "react";
 import ColorSelectorContext from "../context/ColorSelectorContext";
 import { motion } from "motion/react";
+import { useSessionStore } from "@/lib/store";
+import { useShallow } from "zustand/react/shallow";
 
 export default function UnoCard({
   color,
   face,
   id,
-  session,
   colorSelect,
   illegal,
   ref,
@@ -17,12 +17,12 @@ export default function UnoCard({
   color: string;
   face: CardFace | WildCardFace;
   id: string;
-  session?: SessionType;
   colorSelect?: boolean;
   illegal?: boolean;
   ref?: RefObject<HTMLDivElement | null>;
 }) {
   const { setColorSelector } = useContext(ColorSelectorContext);
+  const session = useSessionStore(useShallow(state => state.session));
 
   const faceIcon =
     face === "none"

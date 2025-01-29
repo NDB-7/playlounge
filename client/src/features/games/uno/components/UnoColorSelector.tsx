@@ -1,13 +1,8 @@
 import { useContext } from "react";
 import UnoCard from "./UnoCard";
 import ColorSelectorContext from "../context/ColorSelectorContext";
-import { SessionType } from "@/types";
 
-export default function UnoColorSelector({
-  session,
-}: {
-  session?: SessionType;
-}) {
+export default function UnoColorSelector() {
   const { colorSelector, setColorSelector } = useContext(ColorSelectorContext);
 
   if (colorSelector)
@@ -20,36 +15,12 @@ export default function UnoColorSelector({
           Pick a color
         </p>
         <div className="absolute left-1/2 -translate-x-1/2 pt-28 pb-64 h-full flex flex-col justify-between">
-          <UnoCard
-            face={colorSelector}
-            id=""
-            color="red"
-            session={session}
-            colorSelect
-          />
-          <UnoCard
-            face={colorSelector}
-            id=""
-            color="green"
-            session={session}
-            colorSelect
-          />
+          <UnoCard face={colorSelector} id="" color="red" colorSelect />
+          <UnoCard face={colorSelector} id="" color="green" colorSelect />
         </div>
         <div className="absolute left-1/2 -translate-x-1/2 flex gap-40 -translate-y-1/2 top-1/2 pb-36 px-64">
-          <UnoCard
-            face={colorSelector}
-            id=""
-            color="blue"
-            session={session}
-            colorSelect
-          />
-          <UnoCard
-            face={colorSelector}
-            id=""
-            color="yellow"
-            session={session}
-            colorSelect
-          />
+          <UnoCard face={colorSelector} id="" color="blue" colorSelect />
+          <UnoCard face={colorSelector} id="" color="yellow" colorSelect />
         </div>
       </div>
     );

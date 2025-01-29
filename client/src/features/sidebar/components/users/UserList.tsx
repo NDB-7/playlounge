@@ -1,17 +1,14 @@
-import { SessionType } from "@/types";
 import User from "./User";
 
 export default function UserList({
   onlineUsers,
   currentUser,
   owner,
-  session,
   hidden,
 }: {
   onlineUsers: string[];
   currentUser: string;
   owner: string;
-  session: SessionType | undefined;
   hidden?: boolean;
 }) {
   return (
@@ -28,7 +25,6 @@ export default function UserList({
             name={name}
             currentUser={currentUser}
             owner={owner}
-            session={session}
           />
         );
       })}

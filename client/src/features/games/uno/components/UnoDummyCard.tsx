@@ -1,19 +1,19 @@
 import socket from "@/lib/socket";
-import { SessionType } from "@/types";
 import { playAudio } from "@/utils/playAudio";
 import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
+import { useSessionStore } from "@/lib/store";
+import { useShallow } from "zustand/react/shallow";
 
 export default function UnoDummyCard({
-  session,
   isTurn,
   online,
 }: {
-  session?: SessionType;
   isTurn?: boolean;
   online?: boolean;
 }) {
   const drawCardRef = useRef<HTMLAudioElement>(null);
+  const session = useSessionStore(useShallow(state => state.session));
 
   function clickHandler() {
     if (session && isTurn) {
@@ -23,11 +23,8 @@ export default function UnoDummyCard({
   }
 
   useEffect(() => {
-    let drawCardAudio: HTMLAudioElement;
-    if (session) {
-      drawCardAudio = new Audio("/sounds/uno/draw-card.mp3");
-      drawCardRef.current = drawCardAudio;
-    }
+    const drawCardAudio = new Audio("/sounds/uno/draw-card.mp3");
+    drawCardRef.current = drawCardAudio;
 
     return () => {
       if (drawCardAudio) {
@@ -35,7 +32,7 @@ export default function UnoDummyCard({
         drawCardAudio.src = "";
       }
     };
-  }, [session]);
+  }, []);
 
   return (
     <motion.div

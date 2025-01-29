@@ -7,20 +7,21 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import socket from "@/lib/socket";
-import { SessionType } from "@/types";
+import { useSessionStore } from "@/lib/store";
 import { Crown, MoreHorizontal, UserIcon } from "lucide-react";
+import { useShallow } from "zustand/react/shallow";
 
 export default function User({
   name,
   currentUser,
   owner,
-  session,
 }: {
   name: string;
   currentUser: string;
   owner: string;
-  session: SessionType | undefined;
 }) {
+  const session = useSessionStore(useShallow(state => state.session));
+
   return (
     <div className="border-b-2 w-full text-left h-12 px-3 flex items-center justify-between bg-background">
       <div className="flex gap-3">

@@ -5,18 +5,14 @@ import GameOption from "./GameOption";
 import useGameOptions from "../hooks/useGameOptions";
 import GameOptionStatic from "./GameOptionStatic";
 import socket from "@/lib/socket";
-import { SessionType } from "@/types";
+import { useSessionStore } from "@/lib/store";
+import { useShallow } from "zustand/react/shallow";
 
-export default function GameSelector({
-  isOwner,
-  session,
-}: {
-  isOwner: boolean;
-  session: SessionType;
-}) {
+export default function GameSelector({ isOwner }: { isOwner: boolean }) {
   const [selectedGame, setSelectedGame] = useState("");
   const { gameOptions, fetchGames } = useGameOptions();
   const [errorMessage, setErrorMessage] = useState("");
+  const session = useSessionStore(useShallow(state => state.session));
 
   function startGame() {
     socket.emit("game:startGame", session, selectedGame, (errMsg: string) => {

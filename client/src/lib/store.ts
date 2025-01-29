@@ -12,5 +12,5 @@ export const useSessionStore = create<{
     room: "",
   },
   setSession: ({ id, room }: { id: string; room: string }) =>
-    set(state => ({ session: { id, room } })),
+    set(() => ({ session: { id, room } })),
 }));

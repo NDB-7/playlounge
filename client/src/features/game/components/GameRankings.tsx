@@ -1,18 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { Gamepad2 } from "lucide-react";
 import socket from "@/lib/socket";
-import { SessionType } from "@/types";
 import useGameRankings from "../hooks/useGameRankings";
 import { useReward } from "react-rewards";
 import { useEffect } from "react";
+import { useSessionStore } from "@/lib/store";
+import { useShallow } from "zustand/react/shallow";
 
 export default function GameRankings({
   isOwner,
-  session,
   currentUser,
 }: {
   isOwner: boolean;
-  session?: SessionType;
   currentUser: string;
 }) {
   const { winner, mode } = useGameRankings() || {};
@@ -21,6 +20,7 @@ export default function GameRankings({
     spread: 100,
   });
   const won = winner === currentUser;
+  const session = useSessionStore(useShallow(state => state.session));
 
   useEffect(() => {
     if (won) reward();

@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import MessageList from "./chat/MessageList";
 import { MessageSquareMore, Users2 } from "lucide-react";
-import { SessionType } from "@/types";
 import UserList from "./users/UserList";
 
 export function Sidebar({
@@ -10,14 +9,12 @@ export function Sidebar({
   children,
   mobileChat,
   owner,
-  session,
 }: {
   onlineUsers: string[];
   currentUser: string;
   children: React.ReactNode;
   mobileChat: boolean;
   owner: string;
-  session: SessionType | undefined;
 }) {
   const mainRef = useRef<HTMLDivElement>(null);
   const [sidebarMode, setSidebarMode] = useState<"chat" | "users">("chat");
@@ -60,7 +57,6 @@ export function Sidebar({
           onlineUsers={onlineUsers}
           currentUser={currentUser}
           owner={owner}
-          session={session}
           hidden={sidebarMode !== "users"}
         />
       </div>

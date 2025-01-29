@@ -1,4 +1,3 @@
-import { SessionType } from "@/types";
 import useUnoState from "../hooks/useUnoState";
 import OtherHand from "./OtherHand";
 import UnoCard from "./UnoCard";
@@ -12,11 +11,9 @@ import useCardAnimation from "../hooks/useCardAnimation";
 
 export default function UnoGame({
   currentUser,
-  session,
   onlineUsers,
 }: {
   currentUser: string;
-  session?: SessionType;
   onlineUsers: string[];
 }) {
   const { unoState, spectatorState } = useUnoState();
@@ -37,7 +34,7 @@ export default function UnoGame({
         value={{ colorSelector, setColorSelector }}
       >
         {colorSelector && unoState.whoseTurn === currentUser && (
-          <UnoColorSelector session={session} />
+          <UnoColorSelector />
         )}
         <div
           className={`absolute game-bg w-full h-full pb-12 transition-[filter] 
@@ -47,7 +44,6 @@ export default function UnoGame({
           <YourHand
             unoState={unoState}
             isTurn={currentUser === unoState.whoseTurn}
-            session={session}
           />
           {unoState.otherPlayers.map((player, index) => (
             <OtherHand
@@ -61,10 +57,7 @@ export default function UnoGame({
           ))}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-4 pb-[9rem] scale-in">
             <UnoCard {...unoState.lastCard} ref={lastCardRef} />
-            <UnoDummyCard
-              session={session}
-              isTurn={currentUser === unoState.whoseTurn}
-            />
+            <UnoDummyCard isTurn={currentUser === unoState.whoseTurn} />
             <div className="absolute -z-10 rotate-6 translate-y-1">
               <UnoDummyCard />
             </div>
