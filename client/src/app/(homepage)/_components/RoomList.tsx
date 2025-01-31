@@ -3,9 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { H4 } from "./Headings";
 import { RefreshCw } from "lucide-react";
-import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { fetchGameIcon } from "@/utils/fetchGameIcon";
+import { useQuery } from "@tanstack/react-query";
+
+async function fetchPublicRooms() {
+  const res = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/rooms");
+  const data: PublicRoomType[] = await res.json();
+  return data;
+}
 
 type PublicRoomType = {
   name: string;
@@ -15,39 +21,24 @@ type PublicRoomType = {
 };
 
 export default function RoomList() {
-  const [pending, startTransition] = useTransition();
-  const [error, setError] = useState(false);
-  const [roomList, setRoomList] = useState<PublicRoomType[]>();
-
-  function getPublicRooms() {
-    startTransition(async () => {
-      try {
-        const resString = await fetch(
-          process.env.NEXT_PUBLIC_SERVER_URL + "/rooms"
-        );
-        const resData: PublicRoomType[] = await resString.json();
-        setRoomList(resData);
-      } catch {
-        setError(true);
-      }
-    });
-  }
-
-  useEffect(getPublicRooms, []);
+  const { data, isError, isLoading, refetch } = useQuery({
+    queryKey: ["publicRooms"],
+    queryFn: fetchPublicRooms,
+  });
 
   return (
     <>
-      <Button className="mt-6" onClick={getPublicRooms} disabled={pending}>
-        <RefreshCw className={pending ? "animate-spin" : ""} />
-        <span>{pending ? "Refreshing..." : "Refresh"}</span>
+      <Button className="mt-6" onClick={() => refetch()} disabled={isLoading}>
+        <RefreshCw className={isLoading ? "animate-spin" : ""} />
+        <span>{isLoading ? "Refreshing..." : "Refresh"}</span>
       </Button>
-      {error ? (
+      {isError ? (
         <p className="text-destructive mt-8">
           Error fetching public rooms, please try again.
         </p>
-      ) : roomList && roomList.length > 0 ? (
+      ) : data && data.length > 0 ? (
         <ul className="mt-8 grid xl:grid-cols-3 md:grid-cols-2 gap-8 max-w-6xl">
-          {roomList.map(room => (
+          {data.map(room => (
             <Room {...room} key={room.code} />
           ))}
         </ul>

@@ -31,7 +31,7 @@ export default function useSession(
         }
       });
     }
-  }, [code, setCurrentUser]);
+  }, [code, setCurrentUser, setSession]);
 
   return sessionInUse;
 }

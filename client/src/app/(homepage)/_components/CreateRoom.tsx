@@ -3,45 +3,43 @@
 import { Button } from "@/components/ui/button";
 import { Globe2, LoaderCircle, Lock, Pencil, Rocket } from "lucide-react";
 import Link from "next/link";
-import { FormEvent, useState, useTransition } from "react";
+import { FormEvent, useState } from "react";
 import { H3 } from "./Headings";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+
+async function createRoom(data: { name: string; isPrivate: boolean }) {
+  const { name, isPrivate } = data;
+  const response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/rooms", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, isPrivate }),
+  });
+
+  const { success, code } = await response.json();
+  if (success) return code;
+  else throw new Error("Failed to create room");
+}
 
 export default function CreateRoom() {
   const [nameInput, setNameInput] = useState("");
   const [codeInput, setCodeInput] = useState("");
-  const [code, setCode] = useState();
-  const [isError, setIsError] = useState(false);
-  const [pending, startTransition] = useTransition();
   const [isPrivate, setIsPrivate] = useState(false);
   const router = useRouter();
 
+  const { data, isError, isPending, mutate } = useMutation({
+    mutationFn: createRoom,
+  });
+
   function submitHandler(e: FormEvent) {
     e.preventDefault();
-
-    startTransition(async () => {
-      try {
-        const response = await fetch(
-          process.env.NEXT_PUBLIC_SERVER_URL + "/rooms",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name: nameInput, isPrivate }),
-          }
-        );
-
-        const { success, code } = await response.json();
-        if (success) setCode(code);
-        else setIsError(true);
-      } catch {
-        setIsError(true);
-      }
-    });
+    mutate({ name: nameInput, isPrivate });
   }
-  if (!code)
+
+  if (!data)
     return (
       <div className="home-input w-full flex items-center flex-col">
         <div className="space-y-1 w-[45rem] max-w-full mt-10">
@@ -60,7 +58,7 @@ export default function CreateRoom() {
               <div className="flex gap-1 absolute right-1 top-1 h-8">
                 <Button
                   className="rounded-full h-full bg-green-500 hover:bg-green-400"
-                  disabled={pending}
+                  disabled={isPending}
                   type="button"
                   onClick={() => setIsPrivate(prev => !prev)}
                 >
@@ -76,8 +74,8 @@ export default function CreateRoom() {
                     </>
                   )}
                 </Button>
-                <Button className="rounded-full h-full" disabled={pending}>
-                  {pending ? (
+                <Button className="rounded-full h-full" disabled={isPending}>
+                  {isPending ? (
                     <>
                       <LoaderCircle className="animate-spin" />
                       <span className="hidden sm:inline">Creating...</span>
@@ -136,10 +134,10 @@ export default function CreateRoom() {
     return (
       <p className="mt-10 bg-white border-orange-300 border-2 rounded-md scale-125 py-2 px-6 shadow-lg shadow-orange-100 mx-8">
         <span className="block">Here&apos;s your room!</span>
-        <Link href={`/${code}`} className="underline">
+        <Link href={`/${data}`} className="underline">
           {url.href}
           <wbr />
-          {code}
+          {data}
         </Link>
       </p>
     );
