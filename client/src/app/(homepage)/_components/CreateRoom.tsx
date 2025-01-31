@@ -7,7 +7,7 @@ import { FormEvent, useState } from "react";
 import { H3 } from "./Headings";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 async function createRoom(data: { name: string; isPrivate: boolean }) {
   const { name, isPrivate } = data;
@@ -29,9 +29,13 @@ export default function CreateRoom() {
   const [codeInput, setCodeInput] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { data, isError, isPending, mutate } = useMutation({
     mutationFn: createRoom,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["publicRooms"] });
+    },
   });
 
   function submitHandler(e: FormEvent) {
