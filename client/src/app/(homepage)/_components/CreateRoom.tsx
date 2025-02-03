@@ -53,7 +53,7 @@ export default function CreateRoom() {
               <Input
                 type="text"
                 maxLength={30}
-                placeholder="Enter chatroom name here"
+                placeholder="Enter room name here"
                 className="bg-white rounded-full py-2 px-6 shadow-sm w-full transition-all h-10 md:text-base"
                 value={nameInput}
                 onChange={e => setNameInput(e.target.value)}
