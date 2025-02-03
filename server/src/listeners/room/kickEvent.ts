@@ -2,7 +2,6 @@ import { Socket } from "socket.io";
 import activeRoomsMap from "../../config/activeRoomsMap.js";
 import { io } from "../../index.js";
 import updateUserListForClients from "../../rooms/updateUserListForClients.js";
-import { ServerMessageType } from "../../types.js";
 import sendServerNotification from "../../rooms/sendServerNotification.js";
 
 export default function kickEvent(socket: Socket) {
