@@ -2,7 +2,7 @@
 
 Play real-time multiplayer games with friends, straight from your browser!
 
-
+![Demo](./gifs/playlounge-demo.gif)
 
 Try it out [here](https://playlounge.vercel.app). _(NOTE: After a period of inactivity, the server takes about 60 seconds to start up.)_
 
