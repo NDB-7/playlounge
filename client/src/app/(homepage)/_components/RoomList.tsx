@@ -8,7 +8,7 @@ import { fetchGameIcon } from "@/utils/fetchGameIcon";
 import { useQuery } from "@tanstack/react-query";
 
 async function fetchPublicRooms() {
-  const res = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/rooms");
+  const res = await fetch("/api/rooms");
   const data: PublicRoomType[] = await res.json();
   return data;
 }

@@ -2,7 +2,7 @@ import { GameOptionsResponse } from "../types";
 import { useQuery } from "@tanstack/react-query";
 
 async function fetchGames() {
-  const res = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/games");
+  const res = await fetch("/api/games");
   const data: GameOptionsResponse = await res.json();
   return data;
 }
