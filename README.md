@@ -1,10 +1,8 @@
 # 🎮  PlayLounge - Real-Time Multiplayer Games
 
-Play real-time multiplayer games with friends, straight from your browser!
+Play real-time multiplayer games with friends, straight from your browser! Try it out [here](http://http://44.195.87.11/).
 
 ![Demo](./gifs/playlounge-demo.gif)
-
-Try it out [here](https://playlounge.vercel.app). _(NOTE: After a period of inactivity, the server takes about 60 seconds to start up.)_
 
 ## 🧠 Purpose and Technical Challenges
 
@@ -28,6 +26,12 @@ To handle network errors or refreshes, I implemented a **session token system**.
 
 - **Node.js + Express.js** on the backend for managing game logic and lobbies
 
+- **NGINX** as a reverse proxy to manage incoming requests
+
+- **Docker + Docker Compose** to run the frontend, backend, and NGINX in containers
+
+- **Terraform** to define the infrastructure for hosting the app on AWS EC2
+
 - **Socket.io** for real-time communication and game state updates
 
 ## ⚙️ Quick Start
@@ -42,37 +46,17 @@ cd PlayLounge
 ```
 
 
-2. **Install dependencies:** This project has separate client and server directories.
+2. **Set up environment variable:** Create a .env file in the root directory.
 
 ```
-# Install server dependencies
-cd server
-npm install
-
-# Install client dependencies
-cd ../client
-npm install
-```
-
-
-3. **Set up environment variables:** Create a .env file in the server directory with these keys.
-
-```
-NEXT_PUBLIC_SERVER_URL=http://localhost:3000
 WEBHOOK_URL=<webhook_url_here> # This is the webhook to which feedback is sent
 ```
 
-4. **Run the application:** You’ll need two separate terminals.
+
+3. **Start Docker containers:** Ensure Docker is installed, then run this command.
 
 ```
-# (terminal in /server directory)
-npm start
-
-# (terminal in /client directory)
-npm run dev
+docker compose --env-file .env up -d --build
 ```
 
-5. **Running Tests:** To run  backend unit tests, navigate to  /server and run:
-```
-npm test
-```
+The application will run on port 80.
