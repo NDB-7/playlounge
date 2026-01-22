@@ -1,1 +1,18 @@
+# macOS
 .DS_Store
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfvars
+.terraform.lock.hcl
+
+# Env
+.env
+.env.local
+.env.production
+
+# SSH
+*.pem
+*.key

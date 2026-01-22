@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 async function createRoom(data: { name: string; isPrivate: boolean }) {
   const { name, isPrivate } = data;
-  const response = await fetch(process.env.NEXT_PUBLIC_SERVER_URL + "/rooms", {
+  const response = await fetch("/api/rooms", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

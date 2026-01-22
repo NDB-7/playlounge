@@ -3,9 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 function fetchRoomInfo(code: string) {
   return async () => {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_SERVER_URL + `/rooms/${code}`
-    );
+    const res = await fetch(`/api/rooms/${code}`);
     const data: RoomInfoType = await res.json();
     return data;
   };
